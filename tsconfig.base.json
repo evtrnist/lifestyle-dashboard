@@ -14,7 +14,9 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@lifestyle-dashboard/calendar": ["libs/front/ui/calendar/src/index.ts"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

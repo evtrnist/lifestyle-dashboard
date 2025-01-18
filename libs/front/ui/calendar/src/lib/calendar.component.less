@@ -1,0 +1,30 @@
+@import '@taiga-ui/core/styles/taiga-ui-local.less';
+
+:host {
+  display: block;
+}
+
+.calendar-container {
+  width: 100%;
+  display: inline-block;
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.week-days,
+.days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.week-day {
+  font-weight: bold;
+  margin-bottom: 5px;
+}

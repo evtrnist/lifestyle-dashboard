@@ -46,6 +46,8 @@ module.exports = [
             "**/*.mjs"
         ],
         // Override or add rules here
-        rules: {}
+        rules: {
+            "no-input-rename": "off",
+        }
     },
 ];

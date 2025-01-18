@@ -1,0 +1,20 @@
+<div class="calendar-container">
+    <div class="header">
+      <button (click)="previousMonth()">&#8249;</button>
+      <span>{{ $currentDate() | date : 'MMMM yyyy' }}</span>
+      <button (click)="nextMonth()">&#8250;</button>
+    </div>
+  
+    <div class="week-days">
+      <div *ngFor="let day of weekDays" class="week-day">{{ day }}</div>
+    </div>
+  
+    <div class="days">
+      <lifestyle-day
+        *ngFor="let day of $daysInMonth()"
+        [day]="day"
+        [widgets]="$widgets()"
+        (click)="chooseDay(day)"
+      ></lifestyle-day>
+    </div>
+  </div>

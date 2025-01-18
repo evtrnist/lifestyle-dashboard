@@ -1,0 +1,27 @@
+@let day = $day(); @let bottomRightSlot = $bottomRightSlot();
+
+<div class="day">
+  @if (day) {
+
+  <!-- Верхние слоты -->
+  <div class="slot top-left"></div>
+  <div class="slot top-middle"></div>
+  <div class="slot top-right">
+    <div class="day-number">{{ day.getDate() }}</div>
+  </div>
+
+  <!-- Средние слоты -->
+  <div class="slot middle-left"></div>
+  <div class="slot middle"></div>
+  <div class="slot middle-right"></div>
+
+  <!-- Нижние слоты -->
+  <div class="slot bottom-left"></div>
+  <div class="slot bottom-middle">
+    
+  </div>
+  <div class="slot bottom-right">
+    <ng-container *ngComponentOutlet="bottomRightSlot?.content || null"></ng-container>
+  </div>
+}
+</div>
