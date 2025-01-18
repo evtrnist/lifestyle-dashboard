@@ -24,13 +24,13 @@ module.exports = [
           style: 'kebab-case',
         },
       ],
+      '@angular-eslint/no-input-rename': 'off',
     },
   },
   {
     files: ['**/*.html'],
     // Override or add rules here
     rules: {
-      "no-input-rename": "off",
     },
   },
 ];

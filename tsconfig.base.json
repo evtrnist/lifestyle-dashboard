@@ -15,7 +15,8 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@lifestyle-dashboard/calendar": ["libs/front/ui/calendar/src/index.ts"]
+      "@lifestyle-dashboard/calendar": ["libs/front/ui/calendar/src/index.ts"],
+      "@lifestyle-dashboard/widget": ["libs/shared/widget/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

@@ -10,6 +10,7 @@ import {
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Slot, Widget } from '@lifestyle-dashboard/widget';
 
 @Component({
   selector: 'lifestyle-day',

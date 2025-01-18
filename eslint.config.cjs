@@ -33,7 +33,8 @@ module.exports = [
                         }
                     ]
                 }
-            ]
+            ],
+            '@angular-eslint/no-input-rename': 'off',
         }
     },
     {

@@ -7,6 +7,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DayComponent } from './day/day.component';
+import { Widget } from '@lifestyle-dashboard/widget';
 
 @Component({
   selector: 'lifestyle-calendar',
@@ -17,7 +18,7 @@ import { DayComponent } from './day/day.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent {
-  public readonly $widgets = input.required<any[]>({ alias: 'widgets' }); // Сигнал для виджетов
+  public readonly $widgets = input.required<Widget[]>({ alias: 'widgets' }); // Сигнал для виджетов
   public readonly pediodStatisticsGetRequest = output<{start: number, end: number}>();
 
   protected $currentDate = signal(new Date()); // Сигнал текущей даты

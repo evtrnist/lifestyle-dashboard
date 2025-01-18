@@ -1,0 +1,19 @@
+{
+  "name": "widget",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/shared/widget/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/libs/shared/widget",
+        "main": "libs/shared/widget/src/index.ts",
+        "tsConfig": "libs/shared/widget/tsconfig.lib.json",
+        "assets": ["libs/shared/widget/*.md"]
+      }
+    }
+  }
+}
