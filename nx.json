@@ -63,7 +63,7 @@
     "@nx/angular:application": {
       "e2eTestRunner": "playwright",
       "linter": "eslint",
-      "style": "css",
+      "style": "less",
       "unitTestRunner": "jest"
     },
     "@nx/angular:component": {
