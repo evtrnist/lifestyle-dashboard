@@ -18,10 +18,18 @@
   <!-- Нижние слоты -->
   <div class="slot bottom-left"></div>
   <div class="slot bottom-middle">
-    <lifestyle-timetracker-widget></lifestyle-timetracker-widget>
+    <lifestyle-timetracker-widget
+      [size]="'s'"
+      [health]="31680"
+      [routine]="3780"
+      [selfDevelopment]="21240"
+      [leisure]="29580"
+    ></lifestyle-timetracker-widget>
   </div>
   <div class="slot bottom-right">
-    <ng-container *ngComponentOutlet="bottomRightSlot?.content || null"></ng-container>
+    <ng-container
+      *ngComponentOutlet="bottomRightSlot?.content || null"
+    ></ng-container>
   </div>
-}
+  }
 </div>
