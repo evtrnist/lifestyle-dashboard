@@ -1,0 +1,20 @@
+{
+    "days": [
+        {
+            "id": "2025-01-19",
+            "date": "2025-01-19",
+            "routine": 3780,
+            "health": 31680,
+            "self-development": 21240,
+            "leisure": 29580
+          },
+          {
+            "id": "2025-01-20",
+            "date": "2025-01-20",
+            "routine": 4500,
+            "health": 3600,
+            "self-development": 1800,
+            "leisure": 0
+          }
+    ]
+}

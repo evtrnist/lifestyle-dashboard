@@ -11,11 +11,12 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Slot, Widget } from '@lifestyle-dashboard/widget';
+import { TimetrackerWidgetComponent } from '@lifestyle-dashboard/timetracker-widget';
 
 @Component({
   selector: 'lifestyle-day',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, TimetrackerWidgetComponent],
   templateUrl: './day.component.html',
   styleUrl: './day.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
