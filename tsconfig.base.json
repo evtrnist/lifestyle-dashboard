@@ -23,6 +23,7 @@
       "@lifestyle-dashboard/timetracker-widget": [
         "libs/front/ui/timetracker-widget/src/index.ts"
       ],
+      "@lifestyle-dashboard/day-card": ["libs/front/ui/day-card/src/index.ts"],
       "@lifestyle-dashboard/widget": ["libs/shared/widget/src/index.ts"]
     }
   },
