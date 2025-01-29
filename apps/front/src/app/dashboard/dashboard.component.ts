@@ -1,6 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarComponent } from '@lifestyle-dashboard/calendar';
+import { tuiDialog, TuiDialogService } from '@taiga-ui/core';
+import { DayCardDialogComponent } from '@lifestyle-dashboard/day-card-dialog';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,6 +13,16 @@ import { CalendarComponent } from '@lifestyle-dashboard/calendar';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DashboardComponent {
+  private readonly dialogs = inject(TuiDialogService);
   public readonly widgets = [];
-  
+
+  private readonly dialog = tuiDialog(DayCardDialogComponent, {
+    size: 'page',
+    closeable: true,
+    dismissible: true,
+  });
+
+  public openDayCard(date: Date) {
+    this.dialog(date).subscribe();
+  }
 }

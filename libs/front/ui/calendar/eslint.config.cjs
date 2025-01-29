@@ -25,6 +25,7 @@ module.exports = [
         },
       ],
       '@angular-eslint/no-input-rename': 'off',
+      '@angular-eslint/no-output-rename': 'off',
     },
   },
   {

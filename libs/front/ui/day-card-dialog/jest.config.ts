@@ -1,8 +1,8 @@
 export default {
-  displayName: 'day-card',
+  displayName: 'day-card-dialog',
   preset: '../../../../jest.preset.js',
   setupFilesAfterEnv: ['<rootDir>/src/test-setup.ts'],
-  coverageDirectory: '../../../../coverage/libs/front/ui/day-card',
+  coverageDirectory: '../../../../coverage/libs/front/ui/day-card-dialog',
   transform: {
     '^.+\\.(ts|mjs|js|html)$': [
       'jest-preset-angular',

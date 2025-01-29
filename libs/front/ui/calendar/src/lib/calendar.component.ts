@@ -24,6 +24,8 @@ export class CalendarComponent {
     end: number;
   }>();
 
+  public readonly $dayOpenRequest = output<Date>({alias: 'dayOpenRequest'}); // Сигнал для открытия дня
+
   protected $currentDate = signal(new Date()); // Сигнал текущей даты
   protected $daysInMonth = signal<(Date | null)[]>([]); // Сигнал для дней текущего месяца
   protected weekDays: string[] = [
@@ -93,11 +95,14 @@ export class CalendarComponent {
   }
 
   public openDayCard(date: Date | null) {
+    console.log('openDayCard', date);
     if (!date) {
       return;
     }
 
     console.log(date);
+
+    this.$dayOpenRequest.emit(date);
 
     //const {startOfDay, endOfDay} = getDayRange(date);
 
