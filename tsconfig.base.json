@@ -16,7 +16,6 @@
     "baseUrl": ".",
     "paths": {
       "@lifestyle-dashboard/calendar": ["libs/front/ui/calendar/src/index.ts"],
-      "@lifestyle-dashboard/day-card": ["libs/front/ui/day-card/src/index.ts"],
       "@lifestyle-dashboard/timetracker": [
         "libs/shared/timetracker/src/index.ts"
       ],
