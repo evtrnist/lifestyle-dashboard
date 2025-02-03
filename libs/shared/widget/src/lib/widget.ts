@@ -1,9 +1,7 @@
-import { Type } from '@angular/core';
 import { Slot } from './slot';
+import { WidgetType } from './widget-type';
 
 export interface Widget {
   slot: Slot;
-  content: Type<unknown>;
-  getData?: () => void; 
-  getInfo?: () => void;
+  widgetType: WidgetType;
 }
