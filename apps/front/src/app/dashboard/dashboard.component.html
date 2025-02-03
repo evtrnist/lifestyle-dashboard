@@ -1,1 +1,4 @@
-<lifestyle-calendar [widgets]="widgets"></lifestyle-calendar>
+<lifestyle-calendar
+  [widgets]="widgets"
+  (dayOpenRequest)="openDayCard($event)"
+></lifestyle-calendar>

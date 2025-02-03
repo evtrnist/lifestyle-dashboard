@@ -14,7 +14,7 @@
         *ngFor="let day of $daysInMonth()"
         [day]="day"
         [widgets]="$widgets()"
-        (click)="chooseDay(day)"
+        (click)="openDayCard(day)"
       ></lifestyle-day>
     </div>
   </div>

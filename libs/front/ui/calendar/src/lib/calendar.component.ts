@@ -19,7 +19,12 @@ import { Widget } from '@lifestyle-dashboard/widget';
 })
 export class CalendarComponent {
   public readonly $widgets = input.required<Widget[]>({ alias: 'widgets' }); // Сигнал для виджетов
-  public readonly pediodStatisticsGetRequest = output<{start: number, end: number}>();
+  public readonly pediodStatisticsGetRequest = output<{
+    start: number;
+    end: number;
+  }>();
+
+  public readonly $dayOpenRequest = output<Date>({alias: 'dayOpenRequest'}); // Сигнал для открытия дня
 
   protected $currentDate = signal(new Date()); // Сигнал текущей даты
   protected $daysInMonth = signal<(Date | null)[]>([]); // Сигнал для дней текущего месяца
@@ -44,16 +49,16 @@ export class CalendarComponent {
   public generateCalendar(date: Date) {
     const year = date.getFullYear();
     const month = date.getMonth();
-  
+
     // Определяем количество дней в текущем месяце
     const daysInCurrentMonth = new Date(year, month + 1, 0).getDate();
-  
+
     // Определяем первый день недели для месяца (0 = воскресенье)
     const firstDayOfMonth = new Date(year, month, 1).getDay();
-  
+
     // Пустые ячейки для начала недели
     const emptyCells = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
-  
+
     // Создаём массив дат
     const daysArray = Array(emptyCells)
       .fill(null) // Пустые ячейки в начале
@@ -64,12 +69,11 @@ export class CalendarComponent {
         )
       );
 
-      console.log('daysArray', daysArray);
-  
+    console.log('daysArray', daysArray);
+
     // Устанавливаем массив в переменную
     this.$daysInMonth.set(daysArray);
   }
-  
 
   // Перелистывание месяца вперед
   public nextMonth() {
@@ -78,7 +82,6 @@ export class CalendarComponent {
     this.$currentDate.set(newDate);
     this.generateCalendar(newDate);
     this.updateDateInfo(newDate);
-
   }
 
   // Перелистывание месяца назад
@@ -87,39 +90,60 @@ export class CalendarComponent {
     newDate.setMonth(newDate.getMonth() - 1);
     this.$currentDate.set(newDate);
     this.generateCalendar(newDate);
-    
+
     this.updateDateInfo(newDate);
   }
 
-  public chooseDay(date: Date|null) {
+  public openDayCard(date: Date | null) {
+    console.log('openDayCard', date);
     if (!date) {
       return;
     }
 
     console.log(date);
 
+    this.$dayOpenRequest.emit(date);
+
     //const {startOfDay, endOfDay} = getDayRange(date);
 
-   // this.pediodStatisticsGetRequest.emit({ start: startOfDay, end: endOfDay });
+    // this.pediodStatisticsGetRequest.emit({ start: startOfDay, end: endOfDay });
   }
-    
 
   private updateDateInfo(date: Date) {
-    console.log(date.getMonth(), 123)
-    const [currentMonth, currentYear] = [new Date().getMonth(), new Date().getFullYear()];
+    console.log(date.getMonth(), 123);
+    const [currentMonth, currentYear] = [
+      new Date().getMonth(),
+      new Date().getFullYear(),
+    ];
     const start = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0);
 
     console.log('start', start);
     console.log('currentMonth', currentMonth);
     console.log('currentYear', currentYear);
 
-    if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
-      console.log('===')
-      this.pediodStatisticsGetRequest.emit({ start: start.getTime(), end: Date.now() });
+    if (
+      date.getMonth() === currentMonth &&
+      date.getFullYear() === currentYear
+    ) {
+      console.log('===');
+      this.pediodStatisticsGetRequest.emit({
+        start: start.getTime(),
+        end: Date.now(),
+      });
     } else {
-      console.log('!==')
-      const end = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
-      this.pediodStatisticsGetRequest.emit({ start: start.getTime()/1000, end: end.getTime()/1000 });
+      console.log('!==');
+      const end = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0,
+        23,
+        59,
+        59
+      );
+      this.pediodStatisticsGetRequest.emit({
+        start: start.getTime() / 1000,
+        end: end.getTime() / 1000,
+      });
     }
   }
 }
