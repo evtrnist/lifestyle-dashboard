@@ -1,4 +1,4 @@
-@let day = $day(); @let bottomRightSlot = $bottomRightSlot();
+@let day = $day(); @let bottomRightSlotWidget = $bottomRightSlotWidget();
 
 <div class="day">
   @if (day) {
@@ -28,7 +28,7 @@
   </div>
   <div class="slot bottom-right">
     <ng-container
-      *ngComponentOutlet="bottomRightSlot?.content || null"
+      *ngComponentOutlet="bottomRightSlotWidget"
     ></ng-container>
   </div>
   }
