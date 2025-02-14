@@ -1,1 +1,3 @@
-export type WidgetType = 'timetracker' | 'wakeUpTime' | 'caloriesEaten';
+export enum WidgetType {
+  TimeTracker = 'timetracker',
+}

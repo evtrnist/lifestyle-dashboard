@@ -8,9 +8,10 @@ import {
   Injector,
   inject,
   OnInit,
+  Type,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Slot, Widget } from '@lifestyle-dashboard/widget';
+import { Slot, Widget, WidgetRegistry } from '@lifestyle-dashboard/widget';
 import { TimetrackerWidgetComponent } from '@lifestyle-dashboard/timetracker-widget';
 
 @Component({
@@ -31,17 +32,23 @@ export class DayComponent implements OnInit {
     { read: ViewContainerRef }
   );
 
-  public readonly $bottomRightSlot = computed(() =>
-    this.$widgets().find((widget) => widget.slot === Slot.BottomRight)
-  );
+  public readonly $bottomRightSlotWidget = computed<Type<unknown> | null>(() => {
+    const widgetType = this.$widgets().find(
+      (widget) => widget.slot === Slot.BottomRight
+    )?.widgetType;
+
+    if (!widgetType) {
+      return null;
+    }
+
+    return WidgetRegistry[widgetType];
+  });
 
   private readonly injector = inject(Injector);
 
   ngOnInit(): void {
     this.$widgets().forEach((widget) => {
-      console.log(widget);
-
-      
-    })
+      console.log('widget', widget);
+    });
   }
 }

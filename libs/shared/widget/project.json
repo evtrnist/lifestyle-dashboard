@@ -5,15 +5,15 @@
   "projectType": "library",
   "tags": [],
   "targets": {
-    "build": {
-      "executor": "@nx/js:tsc",
-      "outputs": ["{options.outputPath}"],
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "outputPath": "dist/libs/shared/widget",
-        "main": "libs/shared/widget/src/index.ts",
-        "tsConfig": "libs/shared/widget/tsconfig.lib.json",
-        "assets": ["libs/shared/widget/*.md"]
+        "jestConfig": "libs/front/ui/timetracker-widget/jest.config.ts"
       }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
     }
   }
 }
