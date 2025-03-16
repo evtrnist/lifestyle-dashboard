@@ -16,5 +16,18 @@
             "self-development": 1800,
             "leisure": 0
           }
-    ]
+    ],
+    "config": {
+      "layout": {
+        "top-left": null,
+        "top-middle": null,
+        "top-right": null,
+        "middle-left": null,
+        "middle": null,
+        "middle-right": null,
+        "bottom-left": null,
+        "bottom-middle": "timetracker",
+        "bottom-right": null
+      }
+    }
 }
