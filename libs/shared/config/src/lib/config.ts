@@ -1,5 +1,5 @@
-import { Layout } from "./layout";
+import { Layout } from './layout';
 
 export interface Config {
-  layout: Layout
+  layout: Layout;
 }

@@ -1,13 +1,13 @@
-import { Slot, Widget } from '@lifestyle-dashboard/widget';
+import { Slot, WidgetType } from '@lifestyle-dashboard/widget';
 
 export interface Layout {
-  [Slot.TopLeft]: Widget | null;
-  [Slot.TopMiddle]: Widget | null;
-  [Slot.TopRight]: Widget | null;
-  [Slot.MiddleLeft]: Widget | null;
-  [Slot.Middle]: Widget | null;
-  [Slot.MiddleRight]: Widget | null;
-  [Slot.BottomLeft]: Widget | null;
-  [Slot.BottomMiddle]: Widget | null;
-  [Slot.BottomRight]: Widget | null;
+  [Slot.TopLeft]: WidgetType | null;
+  [Slot.TopMiddle]: WidgetType | null;
+  [Slot.TopRight]: WidgetType | null;
+  [Slot.MiddleLeft]: WidgetType | null;
+  [Slot.Middle]: WidgetType | null;
+  [Slot.MiddleRight]: WidgetType | null;
+  [Slot.BottomLeft]: WidgetType | null;
+  [Slot.BottomMiddle]: WidgetType | null;
+  [Slot.BottomRight]: WidgetType | null;
 }
