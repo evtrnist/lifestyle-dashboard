@@ -4,9 +4,11 @@ import { provideAnimations } from '@angular/platform-browser/animations';
 import { NG_EVENT_PLUGINS } from '@taiga-ui/event-plugins';
 
 import { appRoutes } from './app.routes';
+import { provideHttpClient } from '@angular/common/http';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideHttpClient(),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     provideAnimations(),

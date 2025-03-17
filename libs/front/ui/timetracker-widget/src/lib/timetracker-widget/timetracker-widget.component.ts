@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   computed,
+  inject,
   input,
   signal,
 } from '@angular/core';
@@ -10,6 +11,7 @@ import { TuiRingChart } from '@taiga-ui/addon-charts';
 import { TimetrackerCategory } from '@lifestyle-dashboard/timetracker';
 import { SecondsToHoursPipe } from './seconds-to-hours.pipe';
 import { tuiSum } from '@taiga-ui/cdk';
+import { TIMETRACKER_WIDGET_TOKEN } from './timetracker-widget.token';
 
 const CATEGORY_ORDER: Record<TimetrackerCategory, number> = {
   [TimetrackerCategory.Routine]: 0,
@@ -28,7 +30,8 @@ const SEC_IN_DAY = 86400;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimetrackerWidgetComponent {
-  public readonly $size = input.required<TuiRingChart['size']>({
+  private readonly TIMETRACKER_WIDGET_TOKEN = inject(TIMETRACKER_WIDGET_TOKEN);
+  public readonly $size = input<TuiRingChart['size']>('s', {
     alias: 'size',
   });
 

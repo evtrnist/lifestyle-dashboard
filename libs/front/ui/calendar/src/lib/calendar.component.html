@@ -13,7 +13,7 @@
       <lifestyle-day
         *ngFor="let day of $daysInMonth()"
         [day]="day"
-        [widgets]="$widgets()"
+        [config]="$config()"
         (click)="openDayCard(day)"
       ></lifestyle-day>
     </div>

@@ -7,48 +7,56 @@ import {
   ViewContainerRef,
   Injector,
   inject,
-  OnInit,
   Type,
+  InjectionToken,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Slot, Widget, WidgetRegistry } from '@lifestyle-dashboard/widget';
-import { TimetrackerWidgetComponent } from '@lifestyle-dashboard/timetracker-widget';
+import { Slot, WidgetOptions, WidgetRegistry } from '@lifestyle-dashboard/widget';
+import { Config } from '@lifestyle-dashboard/config';
 
 @Component({
   selector: 'lifestyle-day',
   standalone: true,
-  imports: [CommonModule, TimetrackerWidgetComponent],
+  imports: [CommonModule],
   templateUrl: './day.component.html',
   styleUrl: './day.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DayComponent implements OnInit {
+export class DayComponent {
   public readonly $day = input.required<Date | null>({ alias: 'day' });
 
-  public readonly $widgets = input.required<Widget[]>({ alias: 'widgets' });
+  public readonly $config = input.required<Config | null>({ alias: 'config' }); // Сигнал для конфига
 
   public readonly $bottomRightContainerRef = viewChild(
     'bottomRightContainerRef',
     { read: ViewContainerRef }
   );
 
-  public readonly $bottomRightSlotWidget = computed<Type<unknown> | null>(() => {
-    const widgetType = this.$widgets().find(
-      (widget) => widget.slot === Slot.BottomRight
-    )?.widgetType;
+  public readonly $bottomMiddleSlotWidgetOptions = computed<WidgetOptions | null>(
+    () => {
+      const config = this.$config();
 
-    if (!widgetType) {
-      return null;
+      if (!config) {
+        return null;
+      }
+
+      const widgetType = config.layout[Slot.BottomMiddle];
+
+      return widgetType ? WidgetRegistry[widgetType] : null;
     }
-
-    return WidgetRegistry[widgetType];
-  });
+  );
 
   private readonly injector = inject(Injector);
 
-  ngOnInit(): void {
-    this.$widgets().forEach((widget) => {
-      console.log('widget', widget);
+  public createInjector(token: InjectionToken<unknown>): Injector {
+    return Injector.create({
+      providers: [
+        { 
+          provide: token,
+          useValue: '' 
+        }
+      ],
+      parent: this.injector  
     });
   }
 }

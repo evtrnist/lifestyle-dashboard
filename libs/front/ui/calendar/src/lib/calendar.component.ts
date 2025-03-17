@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   input,
   output,
   signal,
@@ -8,6 +9,7 @@ import {
 import { CommonModule } from '@angular/common';
 import { DayComponent } from './day/day.component';
 import { Widget } from '@lifestyle-dashboard/widget';
+import { Config } from '@lifestyle-dashboard/config';
 
 @Component({
   selector: 'lifestyle-calendar',
@@ -18,7 +20,7 @@ import { Widget } from '@lifestyle-dashboard/widget';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent {
-  public readonly $widgets = input.required<Widget[]>({ alias: 'widgets' }); // Сигнал для виджетов
+  public readonly $config = input.required<Config | null>({alias: 'config'}); // Сигнал для конфига
   public readonly pediodStatisticsGetRequest = output<{
     start: number;
     end: number;

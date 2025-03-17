@@ -1,4 +1,4 @@
-@let day = $day(); @let bottomRightSlotWidget = $bottomRightSlotWidget();
+@let day = $day(); @let bottomMiddleSlotWidgetOptions = $bottomMiddleSlotWidgetOptions();
 
 <div class="day">
   @if (day) {
@@ -18,18 +18,17 @@
   <!-- Нижние слоты -->
   <div class="slot bottom-left"></div>
   <div class="slot bottom-middle">
-    <lifestyle-timetracker-widget
-      [size]="'s'"
-      [health]="31680"
-      [routine]="3780"
-      [selfDevelopment]="21240"
-      [leisure]="29580"
-    ></lifestyle-timetracker-widget>
-  </div>
-  <div class="slot bottom-right">
+    @if (bottomMiddleSlotWidgetOptions) {
+    @let component = bottomMiddleSlotWidgetOptions.component;
+    @let token = bottomMiddleSlotWidgetOptions.token;
+
     <ng-container
-      *ngComponentOutlet="bottomRightSlotWidget"
-    ></ng-container>
+      [ngComponentOutlet]="component"
+      [ngComponentOutletInjector]="createInjector(token)"
+    >
+    </ng-container>
+  }
   </div>
+  <div class="slot bottom-right"></div>
   }
 </div>
