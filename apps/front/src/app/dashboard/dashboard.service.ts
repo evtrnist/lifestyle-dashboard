@@ -1,8 +1,8 @@
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
-import { LifestyleConfigService } from '../lifestyle-config.service';
 import { Subject, switchMap } from 'rxjs';
 import { Config } from '@lifestyle-dashboard/config';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { LifestyleConfigService } from '@lifestyle-dashboard/lifestyle-config-service';
 
 @Injectable()
 export class DashboardService {
