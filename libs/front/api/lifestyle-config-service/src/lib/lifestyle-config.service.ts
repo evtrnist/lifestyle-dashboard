@@ -1,15 +1,33 @@
 import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { Config } from '@lifestyle-dashboard/config';
-import { Observable } from 'rxjs';
+import { tuiTakeUntilDestroyed } from '@taiga-ui/cdk';
+import { Observable, Subject } from 'rxjs';
 
 const URL = 'http://localhost:3000/config';
 
 @Injectable({ providedIn: 'root' })
 export class LifestyleConfigService {
   private readonly httpClient = inject(HttpClient);
+  private readonly destroyRef = inject(DestroyRef);
 
-  public getConfig(): Observable<Config> {
+  public readonly $config = signal<Config | null>(null);
+
+  private readonly updatingSubject$ = new Subject<void>();
+
+  public init(): void {
+    this.updateConfig();
+  }
+
+  public updateConfig(): void {
+    this.getConfig$()
+      .pipe(tuiTakeUntilDestroyed(this.destroyRef))
+      .subscribe((config) => {
+        this.$config.set(config);
+      });
+  }
+
+  private getConfig$(): Observable<Config> {
     return this.httpClient.get<Config>(URL);
   }
 }

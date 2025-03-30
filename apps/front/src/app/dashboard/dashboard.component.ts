@@ -6,7 +6,7 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarComponent } from '@lifestyle-dashboard/calendar';
-import { tuiDialog, TuiDialogService } from '@taiga-ui/core';
+import { tuiDialog } from '@taiga-ui/core';
 import { DayCardDialogComponent } from '@lifestyle-dashboard/day-card-dialog';
 import { DashboardService } from './dashboard.service';
 
@@ -21,7 +21,6 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent implements OnInit {
   private readonly dashboardService = inject(DashboardService);
-  private readonly dialogs = inject(TuiDialogService);
   public readonly widgets = [];
 
   public readonly $config = this.dashboardService.$config;
