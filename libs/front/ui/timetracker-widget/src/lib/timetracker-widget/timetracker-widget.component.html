@@ -1,7 +1,7 @@
 @let value = $chartValue();
 
 @if (value.length) {
-<tui-ring-chart [value]="value" [size]="$size()" [(activeItemIndex)]="index">
+<tui-ring-chart [value]="value" [size]="size" [(activeItemIndex)]="index">
   @if ($shouldBeVisible()) {
   <div class="small-text">
     <span>{{ seconds | secondsToHours }}</span>

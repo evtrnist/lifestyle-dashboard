@@ -1,3 +1,5 @@
+@let shownWidget = $shownWidget();
+
 <tui-tabs [(activeItemIndex)]="activeItemIndex">
   @for (tab of $tabs(); track $index) {
   <button
@@ -10,3 +12,15 @@
   </button>
   }
 </tui-tabs>
+
+
+@if (shownWidget) {
+  @let component = shownWidget.component;
+  @let token = shownWidget.token;
+
+  <ng-container
+    [ngComponentOutlet]="component"
+    [ngComponentOutletInjector]="createInjector(token)"
+  >
+  </ng-container>
+}
