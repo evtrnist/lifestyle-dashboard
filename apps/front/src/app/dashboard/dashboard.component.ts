@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   inject,
+  Injector,
   OnInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -20,6 +21,7 @@ import { DashboardService } from './dashboard.service';
   providers: [DashboardService],
 })
 export class DashboardComponent implements OnInit {
+  private readonly injector = inject(Injector);
   private readonly dashboardService = inject(DashboardService);
   public readonly widgets = [];
 
