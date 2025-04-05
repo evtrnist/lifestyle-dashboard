@@ -2,8 +2,10 @@ import { TuiRingChart } from '@taiga-ui/addon-charts';
 
 export interface TimeTrackerWidgetInput {
   size: TuiRingChart['size'];
-  routine: number;
-  health: number;
-  selfDevelopment: number;
-  leisure: number;
+  timeData: {
+    routine: number;
+    health: number;
+    selfDevelopment: number;
+    leisure: number;  
+  }
 }

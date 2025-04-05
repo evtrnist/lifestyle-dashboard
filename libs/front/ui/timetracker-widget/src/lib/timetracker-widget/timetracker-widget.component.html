@@ -4,7 +4,7 @@
 <tui-ring-chart [value]="value" [size]="size" [(activeItemIndex)]="index">
   @if ($shouldBeVisible()) {
   <div class="small-text">
-    <span>{{ seconds | secondsToHours }}</span>
+    <span>{{ getSeconds() | secondsToHours }}</span>
     <div>{{ label }}</div>
   </div>
   }

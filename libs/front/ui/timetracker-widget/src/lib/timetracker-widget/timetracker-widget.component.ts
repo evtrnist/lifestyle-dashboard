@@ -32,24 +32,14 @@ const SEC_IN_DAY = 86400;
 export class TimetrackerWidgetComponent {
   public widgetData = inject<TimeTrackerWidgetInput>(TIMETRACKER_WIDGET_TOKEN);
 
-  public readonly leisure = this.widgetData.leisure;
-  public readonly routine = this.widgetData.routine;
-  public readonly health = this.widgetData.health;
-  public readonly selfDevelopment = this.widgetData.selfDevelopment
+  public readonly leisure = this.widgetData.timeData.leisure;
+  public readonly routine = this.widgetData.timeData.routine;
+  public readonly health = this.widgetData.timeData.health;
+  public readonly selfDevelopment = this.widgetData.timeData.selfDevelopment;
   public readonly size = this.widgetData.size;
 
   public readonly $value = signal([20, 40, 25, 15]);
-  public readonly $chartValue = computed(() => {
-    // перевести все значения в проценты
-    // отсортировать по CATEGORY_ORDER
-
-    const leisure = (this.leisure / SEC_IN_DAY) * 100;
-    const routine = (this.routine / SEC_IN_DAY) * 100;
-    const health = (this.health / SEC_IN_DAY) * 100;
-    const selfDevelopment = (this.selfDevelopment / SEC_IN_DAY) * 100;
-
-    return [routine, health, selfDevelopment, leisure];
-  });
+  public readonly $chartValue = signal(this.getChartValue());
 
   public readonly $shouldBeVisible = computed(() => {
     const size = this.size;
@@ -66,20 +56,31 @@ export class TimetrackerWidgetComponent {
     TimetrackerCategory.Leisure,
   ];
 
-  protected get seconds(): number {
-    return (
-      (Number.isNaN(this.index)
-        ? null
-        : [
-            this.routine,
-            this.health,
-            this.selfDevelopment,
-            this.leisure,
-          ][this.index]) ?? 0
-    );
-  }
 
   protected get label(): string {
     return (Number.isNaN(this.index) ? null : this.labels[this.index]) ?? '';
+  }
+
+  protected getSeconds(): number {
+    return (
+      (Number.isNaN(this.index)
+        ? null
+        : [this.routine, this.health, this.selfDevelopment, this.leisure][
+            this.index
+          ]) ?? 0
+    );
+
+  }
+
+  private getChartValue(): number[] {
+    // перевести все значения в проценты
+    // отсортировать по CATEGORY_ORDER
+
+    const leisure = (this.leisure / SEC_IN_DAY) * 100;
+    const routine = (this.routine / SEC_IN_DAY) * 100;
+    const health = (this.health / SEC_IN_DAY) * 100;
+    const selfDevelopment = (this.selfDevelopment / SEC_IN_DAY) * 100;
+
+    return [routine, health, selfDevelopment, leisure];
   }
 }
