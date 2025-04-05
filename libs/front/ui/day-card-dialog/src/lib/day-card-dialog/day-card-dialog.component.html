@@ -17,10 +17,27 @@
 @if (shownWidget) {
   @let component = shownWidget.component;
   @let token = shownWidget.token;
+  @let settingsComponent = shownWidget.settingsComponent;
+  @let injector = createInjector(token);
 
   <ng-container
     [ngComponentOutlet]="component"
-    [ngComponentOutletInjector]="createInjector(token)"
+    [ngComponentOutletInjector]="injector"
   >
   </ng-container>
+
+  <ng-container
+    *ngIf="settingsComponent"
+    [ngComponentOutlet]="settingsComponent"
+    [ngComponentOutletInjector]="injector"></ng-container>
 }
+
+
+<button
+size="l"
+tuiButton
+type="button"
+appearance="secondary-grayscale"
+>
+Save
+</button>

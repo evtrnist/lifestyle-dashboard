@@ -8,18 +8,18 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { injectContext } from '@taiga-ui/polymorpheus';
-import { TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
+import { TuiButton, TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
 import { TuiTabs } from '@taiga-ui/kit';
 import { DayCardDialogService } from './day-card-dialog.service';
 import {
   WidgetIconPipe,
   WidgetNamePipe,
 } from '@lifestyle-dashboard/widget-name-pipe';
-import { TIMETRACKER_WIDGET_TOKEN } from '@lifestyle-dashboard/timetracker-widget';
+
 @Component({
   selector: 'lifestyle-day-card-dialog',
   standalone: true,
-  imports: [CommonModule, TuiTabs, TuiIconPipe, WidgetNamePipe, WidgetIconPipe],
+  imports: [CommonModule, TuiTabs, TuiIconPipe, TuiButton, WidgetNamePipe, WidgetIconPipe],
   templateUrl: './day-card-dialog.component.html',
   styleUrl: './day-card-dialog.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,7 +36,7 @@ export class DayCardDialogComponent {
   public readonly $shownWidget = computed(() => {
     const widgetOptions = this.dayCardDialogService.$widgetOptions();
 
-    console.log(widgetOptions);
+    console.log('Widget options:', widgetOptions);
 
     const index = this.activeItemIndex;
 
@@ -44,30 +44,43 @@ export class DayCardDialogComponent {
       return null;
     }
 
-    return widgetOptions[index];
+    return { ...widgetOptions[index] };
   });
 
   protected activeItemIndex = 0;
+
+  private injectorCache?: Injector;
+  private lastToken?: InjectionToken<unknown>;
 
   protected onClick(item: string): void {
     console.log(item);
   }
 
-  protected createInjector(token: InjectionToken<unknown>): Injector {
-    return Injector.create({
+  public createInjector(token: InjectionToken<unknown>): Injector {
+    // Если токен не меняется, возвращаем старый инжектор
+    if (this.lastToken === token && this.injectorCache) {
+      return this.injectorCache;
+    }
+
+    this.lastToken = token;
+    this.injectorCache = Injector.create({
       providers: [
         {
           provide: token,
           useValue: {
             size: 'xl',
-            routine: 3780,
-            health: 31680,
-            selfDevelopment: 21240,
-            leisure: 29580,
+            timeData: {
+              routine: 3780,
+              health: 31680,
+              selfDevelopment: 21240,
+              leisure: 29580,
+            },
           },
         },
       ],
       parent: this.injector,
     });
+
+    return this.injectorCache;
   }
 }

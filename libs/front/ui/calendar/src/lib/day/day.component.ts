@@ -48,13 +48,15 @@ export class DayComponent {
     return Injector.create({
       providers: [
         {
-          provide: TIMETRACKER_WIDGET_TOKEN,
+          provide: token,
           useValue: {
             size: 's',
-            routine: 3780,
-            health: 31680,
-            selfDevelopment: 21240,
-            leisure: 29580,
+            timeData: {
+              routine: 3780,
+              health: 31680,
+              selfDevelopment: 21240,
+              leisure: 29580,
+            }
           },
         },
       ],
