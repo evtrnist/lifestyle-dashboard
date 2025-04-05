@@ -56,7 +56,7 @@ export class DayComponent {
               health: 31680,
               selfDevelopment: 21240,
               leisure: 29580,
-            }
+            },
           },
         },
       ],

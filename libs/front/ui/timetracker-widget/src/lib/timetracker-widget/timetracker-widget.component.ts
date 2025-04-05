@@ -45,7 +45,6 @@ export class TimetrackerWidgetComponent {
     const size = this.size;
     const index = this.$index();
 
-
     return size !== 's' && Boolean(index);
   });
 
@@ -59,9 +58,10 @@ export class TimetrackerWidgetComponent {
     TimetrackerCategory.Leisure,
   ];
 
-
   protected get label(): string {
-    return (Number.isNaN(this.$index()) ? null : this.labels[this.$index()]) ?? '';
+    return (
+      (Number.isNaN(this.$index()) ? null : this.labels[this.$index()]) ?? ''
+    );
   }
 
   protected getSeconds(): number {
@@ -72,7 +72,6 @@ export class TimetrackerWidgetComponent {
             this.$index()
           ]) ?? 0
     );
-
   }
 
   private getChartValue(): number[] {

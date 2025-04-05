@@ -19,7 +19,14 @@ import {
 @Component({
   selector: 'lifestyle-day-card-dialog',
   standalone: true,
-  imports: [CommonModule, TuiTabs, TuiIconPipe, TuiButton, WidgetNamePipe, WidgetIconPipe],
+  imports: [
+    CommonModule,
+    TuiTabs,
+    TuiIconPipe,
+    TuiButton,
+    WidgetNamePipe,
+    WidgetIconPipe,
+  ],
   templateUrl: './day-card-dialog.component.html',
   styleUrl: './day-card-dialog.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,

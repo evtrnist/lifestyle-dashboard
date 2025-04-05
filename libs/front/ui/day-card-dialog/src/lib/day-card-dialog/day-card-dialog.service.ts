@@ -25,8 +25,10 @@ export class DayCardDialogService {
       return [];
     }
 
-    return Object.values(config.layout).map((widgetType: WidgetType) => {
-      return widgetType ? WidgetRegistry[widgetType] : null;
-    }).filter(tuiIsPresent);
+    return Object.values(config.layout)
+      .map((widgetType: WidgetType) => {
+        return widgetType ? WidgetRegistry[widgetType] : null;
+      })
+      .filter(tuiIsPresent);
   });
 }

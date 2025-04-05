@@ -1,5 +1,5 @@
 flowchart LR
-    A[Пользователь в браузере] --> B[Angular Frontend]
+A[Пользователь в браузере] --> B[Angular Frontend]
 
     subgraph Frontend (Nx - Angular)
     B --- BC[CalendarComponent & DayComponent]
@@ -19,5 +19,5 @@ flowchart LR
     D[(DB)]:::db
 
     style D fill:#dde,stroke:#999,stroke-width:1px
-    
+
     classDef db fill:#eee,stroke:#777,stroke-width:1px,color:#333

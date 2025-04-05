@@ -12,9 +12,13 @@ import {
 
 @Component({
   selector: 'lifestyle-timetracker-settings-widget',
-  imports: [CommonModule, ReactiveFormsModule, TuiInputTimeModule,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    TuiInputTimeModule,
     TuiTextfieldControllerModule,
-    TuiUnfinishedValidator,],
+    TuiUnfinishedValidator,
+  ],
   standalone: true,
   templateUrl: './timetracker-settings-widget.component.html',
   styleUrl: './timetracker-settings-widget.component.less',

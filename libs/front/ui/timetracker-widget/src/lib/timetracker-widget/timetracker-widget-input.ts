@@ -6,6 +6,6 @@ export interface TimeTrackerWidgetInput {
     routine: number;
     health: number;
     selfDevelopment: number;
-    leisure: number;  
-  }
+    leisure: number;
+  };
 }
