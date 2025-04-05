@@ -15,6 +15,7 @@
 
 
 @if (shownWidget) {
+  <div class="widget-container">
   @let component = shownWidget.component;
   @let token = shownWidget.token;
   @let settingsComponent = shownWidget.settingsComponent;
@@ -30,14 +31,18 @@
     *ngIf="settingsComponent"
     [ngComponentOutlet]="settingsComponent"
     [ngComponentOutletInjector]="injector"></ng-container>
+  </div>
 }
 
 
+<div class="button-container">
 <button
 size="l"
 tuiButton
 type="button"
+class="button"
 appearance="secondary-grayscale"
 >
 Save
 </button>
+</div>

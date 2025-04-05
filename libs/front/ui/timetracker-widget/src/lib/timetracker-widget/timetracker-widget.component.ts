@@ -43,10 +43,13 @@ export class TimetrackerWidgetComponent {
 
   public readonly $shouldBeVisible = computed(() => {
     const size = this.size;
-    return size !== 's';
+    const index = this.$index();
+
+
+    return size !== 's' && Boolean(index);
   });
 
-  protected index = NaN;
+  protected readonly $index = signal(NaN);
   protected readonly total = tuiSum(...this.$value());
 
   protected readonly labels = [
@@ -58,15 +61,15 @@ export class TimetrackerWidgetComponent {
 
 
   protected get label(): string {
-    return (Number.isNaN(this.index) ? null : this.labels[this.index]) ?? '';
+    return (Number.isNaN(this.$index()) ? null : this.labels[this.$index()]) ?? '';
   }
 
   protected getSeconds(): number {
     return (
-      (Number.isNaN(this.index)
+      (Number.isNaN(this.$index())
         ? null
         : [this.routine, this.health, this.selfDevelopment, this.leisure][
-            this.index
+            this.$index()
           ]) ?? 0
     );
 
