@@ -12,6 +12,6 @@ export class SecondsToHoursPipe implements PipeTransform {
     const minutes = Math.floor((value % 3600) / 60);
 
     console.log(`${hours}:${minutes}`)
-    return `${hours}:${minutes}`;
+    return `${hours < 10 ? '0' : ''}${hours}:${minutes < 10 ? '0' : ''}${minutes}`;
   }
 }
