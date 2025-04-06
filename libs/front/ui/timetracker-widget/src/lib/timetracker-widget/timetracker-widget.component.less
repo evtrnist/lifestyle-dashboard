@@ -1,7 +1,10 @@
 @import '@taiga-ui/core/styles/taiga-ui-local.less';
 
 :host {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
   --tui-chart-categorical-00: #a75dd8;
   --tui-chart-categorical-01: #ffda63;
   --tui-chart-categorical-02: #8dda71;
@@ -9,7 +12,6 @@
   --tui-chart-categorical-04: #b0b0b0;
 }
 
-
 .small-text {
   position: absolute;
   font: var(--tui-font-text-ui-xs);
@@ -17,11 +19,9 @@
   color: var(--tui-text-tertiary);
 }
 
-
 .small-text {
   position: absolute;
   font: var(--tui-font-text-ui-xs);
   font-size: 0.5rem;
   color: var(--tui-text-tertiary);
 }
-

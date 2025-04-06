@@ -1,27 +1,47 @@
+@let shownWidget = $shownWidget();
+
 <tui-tabs [(activeItemIndex)]="activeItemIndex">
+  @for (tab of $tabs(); track $index) {
     <button
-        iconStart="@tui.credit-card"
-        tuiTab
-        type="button"
-        (click)="onClick('Maps')"
+      [iconStart]="tab | widgetIcon | tuiIcon"
+      tuiTab
+      type="button"
+      (click)="onClick(tab)"
     >
-        Maps
+      {{ tab | widgetName }}
     </button>
-    <button
-        disabled
-        iconStart="@tui.phone"
-        tuiTab
-        type="button"
-        (click)="onClick('Calls')"
-    >
-        Calls
-    </button>
-    <button
-        iconStart="@tui.settings"
-        tuiTab
-        type="button"
-        (click)="onClick('Settings')"
-    >
-        Settings
-    </button>
+  }
 </tui-tabs>
+
+@if (shownWidget) {
+  <div class="widget-container">
+    @let component = shownWidget.component;
+    @let token = shownWidget.token;
+    @let settingsComponent = shownWidget.settingsComponent;
+    @let injector = createInjector(token);
+
+    <ng-container
+      [ngComponentOutlet]="component"
+      [ngComponentOutletInjector]="injector"
+    >
+    </ng-container>
+
+    <ng-container
+      *ngIf="settingsComponent"
+      [ngComponentOutlet]="settingsComponent"
+      [ngComponentOutletInjector]="injector"
+    ></ng-container>
+  </div>
+}
+
+<div class="button-container">
+  <button
+    size="l"
+    tuiButton
+    type="button"
+    class="button"
+    appearance="secondary-grayscale"
+  >
+    Save
+  </button>
+</div>

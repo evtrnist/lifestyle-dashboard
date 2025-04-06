@@ -1,0 +1,11 @@
+<form [formGroup]="formGroup" class="form">
+  @for (key of keys; track $index) {
+    @let controlInfo = getControlInfo(key);
+    @let title = controlInfo.title;
+    @let control = controlInfo.control;
+
+    <tui-input-time [formControl]="control">
+      {{ title }}
+    </tui-input-time>
+  }
+</form>

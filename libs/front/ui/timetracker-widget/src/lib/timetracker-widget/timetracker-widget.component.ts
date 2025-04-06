@@ -3,7 +3,6 @@ import {
   Component,
   computed,
   inject,
-  input,
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -12,6 +11,7 @@ import { TimetrackerCategory } from '@lifestyle-dashboard/timetracker';
 import { SecondsToHoursPipe } from './seconds-to-hours.pipe';
 import { tuiSum } from '@taiga-ui/cdk';
 import { TIMETRACKER_WIDGET_TOKEN } from './timetracker-widget.token';
+import { TimeTrackerWidgetInput } from './timetracker-widget-input';
 
 const CATEGORY_ORDER: Record<TimetrackerCategory, number> = {
   [TimetrackerCategory.Routine]: 0,
@@ -30,37 +30,25 @@ const SEC_IN_DAY = 86400;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimetrackerWidgetComponent {
-  private readonly TIMETRACKER_WIDGET_TOKEN = inject(TIMETRACKER_WIDGET_TOKEN);
-  public readonly $size = input<TuiRingChart['size']>('s', {
-    alias: 'size',
-  });
+  public widgetData = inject<TimeTrackerWidgetInput>(TIMETRACKER_WIDGET_TOKEN);
 
-  public readonly $leisure = input.required<number>({ alias: 'leisure' });
-  public readonly $routine = input.required<number>({ alias: 'routine' });
-  public readonly $health = input.required<number>({ alias: 'health' });
-  public readonly $selfDevelopment = input.required<number>({
-    alias: 'selfDevelopment',
-  });
+  public readonly leisure = this.widgetData.timeData.leisure;
+  public readonly routine = this.widgetData.timeData.routine;
+  public readonly health = this.widgetData.timeData.health;
+  public readonly selfDevelopment = this.widgetData.timeData.selfDevelopment;
+  public readonly size = this.widgetData.size;
 
   public readonly $value = signal([20, 40, 25, 15]);
-  public readonly $chartValue = computed(() => {
-    // перевести все значения в проценты
-    // отсортировать по CATEGORY_ORDER
-
-    const leisure = (this.$leisure() / SEC_IN_DAY) * 100;
-    const routine = (this.$routine() / SEC_IN_DAY) * 100;
-    const health = (this.$health() / SEC_IN_DAY) * 100;
-    const selfDevelopment = (this.$selfDevelopment() / SEC_IN_DAY) * 100;
-
-    return [routine, health, selfDevelopment, leisure];
-  });
+  public readonly $chartValue = signal(this.getChartValue());
 
   public readonly $shouldBeVisible = computed(() => {
-    const size = this.$size();
-    return size !== 's';
+    const size = this.size;
+    const index = this.$index();
+
+    return size !== 's' && Boolean(index);
   });
 
-  protected index = NaN;
+  protected readonly $index = signal(NaN);
   protected readonly total = tuiSum(...this.$value());
 
   protected readonly labels = [
@@ -70,20 +58,31 @@ export class TimetrackerWidgetComponent {
     TimetrackerCategory.Leisure,
   ];
 
-  protected get seconds(): number {
+  protected get label(): string {
     return (
-      (Number.isNaN(this.index)
-        ? null
-        : [
-            this.$routine(),
-            this.$health(),
-            this.$selfDevelopment(),
-            this.$leisure(),
-          ][this.index]) ?? 0
+      (Number.isNaN(this.$index()) ? null : this.labels[this.$index()]) ?? ''
     );
   }
 
-  protected get label(): string {
-    return (Number.isNaN(this.index) ? null : this.labels[this.index]) ?? '';
+  protected getSeconds(): number {
+    return (
+      (Number.isNaN(this.$index())
+        ? null
+        : [this.routine, this.health, this.selfDevelopment, this.leisure][
+            this.$index()
+          ]) ?? 0
+    );
+  }
+
+  private getChartValue(): number[] {
+    // перевести все значения в проценты
+    // отсортировать по CATEGORY_ORDER
+
+    const leisure = (this.leisure / SEC_IN_DAY) * 100;
+    const routine = (this.routine / SEC_IN_DAY) * 100;
+    const health = (this.health / SEC_IN_DAY) * 100;
+    const selfDevelopment = (this.selfDevelopment / SEC_IN_DAY) * 100;
+
+    return [routine, health, selfDevelopment, leisure];
   }
 }
