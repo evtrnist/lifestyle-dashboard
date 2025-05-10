@@ -14,7 +14,7 @@
       "options": {
         "outputPath": "dist/apps/front",
         "index": "apps/front/src/index.html",
-        "main": "apps/front/src/main.ts",
+        "browser": "apps/front/src/main.ts",
         "polyfills": [
           "zone.js"
         ],
