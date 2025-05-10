@@ -42,9 +42,15 @@ jobs:
           name: dist
           path: dist
 
+      - name: Connect to Tailscale
+        run: |
+          curl -fsSL https://tailscale.com/install.sh | sh
+          sudo tailscale up --authkey ${{ secrets.TAILSCALE_AUTH_KEY }} --hostname=gh-ci-runner --timeout=30s
+          tailscale status
+
       - name: Login to Raspberry Pi Registry
         run: |
-          echo "${{ secrets.CR_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u ${{ secrets.CR_USER }} --password-stdin
+          echo "${{ secrets.CR_PASSWORD }}" | docker login http://${{ secrets.REGISTRY_URL }} -u ${{ secrets.CR_USER }} --password-stdin
 
       - name: Build and push backend (NestJS)
         run: |
