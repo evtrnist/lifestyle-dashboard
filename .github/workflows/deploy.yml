@@ -57,16 +57,12 @@ jobs:
         run: |
           echo "${{ secrets.CR_PASSWORD }}" | docker login http://${{ secrets.REGISTRY_URL }} -u ${{ secrets.CR_USER }} --password-stdin
 
-      - name: Check dist/apps/api presence
-        run: |
-          ls -la dist/apps/api || (echo "❌ dist/apps/api not found")
-
       - name: Build and push backend (NestJS)
         run: |
-          docker build -t ${{ secrets.REGISTRY_URL }}/lifestyle-api:latest -f Dockerfile.api .
+          docker build --platform linux/arm64 -t ${{ secrets.REGISTRY_URL }}/lifestyle-api:latest -f Dockerfile.api .
           docker push ${{ secrets.REGISTRY_URL }}/lifestyle-api:latest
 
       - name: Build and push frontend (Angular)
         run: |
-          docker build -t ${{ secrets.REGISTRY_URL }}/lifestyle-front:latest -f Dockerfile.front .
+          docker build --platform linux/arm64 -t ${{ secrets.REGISTRY_URL }}/lifestyle-front:latest -f Dockerfile.front .
           docker push ${{ secrets.REGISTRY_URL }}/lifestyle-front:latest
