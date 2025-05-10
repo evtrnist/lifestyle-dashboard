@@ -22,14 +22,11 @@ jobs:
       - name: Build Frontend
         run: npx nx build front --configuration=production
 
-      - name: Check dist contents
-        run: ls -R dist/apps/api
-
       - name: Upload dist folder
         uses: actions/upload-artifact@v4
         with:
           name: dist
-          path: dist
+          path: ./dist/
 
   docker:
     name: Build and Push Docker Images
@@ -59,6 +56,10 @@ jobs:
       - name: Login to Raspberry Pi Registry
         run: |
           echo "${{ secrets.CR_PASSWORD }}" | docker login http://${{ secrets.REGISTRY_URL }} -u ${{ secrets.CR_USER }} --password-stdin
+
+      - name: Check dist/apps/api presence
+        run: |
+          ls -la dist/apps/api || (echo "❌ dist/apps/api not found" && exit 1)
 
       - name: Build and push backend (NestJS)
         run: |
