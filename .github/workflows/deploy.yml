@@ -21,10 +21,6 @@ jobs:
 
       - name: Build Frontend
         run: npx nx build front --configuration=production
-      
-      - name: Check dist contents
-        run: ls -R dist
-
 
       - name: Upload dist folder
         uses: actions/upload-artifact@v4
@@ -63,10 +59,10 @@ jobs:
 
       - name: Build and push backend (NestJS)
         run: |
-          docker build -t ${{ secrets.REGISTRY_URL }}/lifestyle-api:latest -f apps/api/Dockerfile .
+          docker build -t ${{ secrets.REGISTRY_URL }}/lifestyle-api:latest -f Dockerfile.api .
           docker push ${{ secrets.REGISTRY_URL }}/lifestyle-api:latest
 
       - name: Build and push frontend (Angular)
         run: |
-          docker build -t ${{ secrets.REGISTRY_URL }}/lifestyle-front:latest -f apps/front/Dockerfile .
+          docker build -t ${{ secrets.REGISTRY_URL }}/lifestyle-front:latest -f Dockerfile.front .
           docker push ${{ secrets.REGISTRY_URL }}/lifestyle-front:latest
