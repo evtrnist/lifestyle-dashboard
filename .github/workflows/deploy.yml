@@ -1,0 +1,57 @@
+name: Build and Deploy to Raspberry Pi
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Build NX Projects
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build API
+        run: npx nx build api --configuration=production
+
+      - name: Build Frontend
+        run: npx nx build front --configuration=production
+
+      - name: Upload dist folder
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+  docker:
+    name: Build and Push Docker Images
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Download dist from previous job
+        uses: actions/download-artifact@v4
+        with:
+          name: dist
+          path: dist
+
+      - name: Login to Raspberry Pi Registry
+        run: |
+          echo "${{ secrets.CR_PASSWORD }}" | docker login ${{ secrets.REGISTRY_URL }} -u ${{ secrets.CR_USER }} --password-stdin
+
+      - name: Build and push backend (NestJS)
+        run: |
+          docker build -t ${{ secrets.REGISTRY_URL }}/lifestyle-api:latest -f apps/api/Dockerfile .
+          docker push ${{ secrets.REGISTRY_URL }}/lifestyle-api:latest
+
+      - name: Build and push frontend (Angular)
+        run: |
+          docker build -t ${{ secrets.REGISTRY_URL }}/lifestyle-front:latest -f apps/front/Dockerfile .
+          docker push ${{ secrets.REGISTRY_URL }}/lifestyle-front:latest
