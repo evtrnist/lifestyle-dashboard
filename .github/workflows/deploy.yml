@@ -48,6 +48,11 @@ jobs:
           sudo tailscale up --authkey ${{ secrets.TAILSCALE_AUTH_KEY }} --hostname=gh-ci-runner --timeout=30s
           tailscale status
 
+      - name: Allow insecure registry
+        run: |
+          echo '{ "insecure-registries": ["${{ secrets.REGISTRY_URL }}"] }' | sudo tee /etc/docker/daemon.json
+          sudo systemctl restart docker
+
       - name: Login to Raspberry Pi Registry
         run: |
           echo "${{ secrets.CR_PASSWORD }}" | docker login http://${{ secrets.REGISTRY_URL }} -u ${{ secrets.CR_USER }} --password-stdin
