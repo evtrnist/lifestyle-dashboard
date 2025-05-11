@@ -86,3 +86,23 @@ jobs:
           platforms: linux/arm64
           builder: default
           outputs: type=registry,insecure=true
+
+  restart:
+    name: Rollout Kubernetes Deployments
+    needs: docker
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install kubectl
+        run: |
+          sudo apt-get update && sudo apt-get install -y kubectl
+
+      - name: Decode kubeconfig and configure access
+        run: |
+          mkdir -p $HOME/.kube
+          echo "${{ secrets.KUBE_CONFIG_DATA }}" | base64 -d > $HOME/.kube/config
+
+      - name: Restart API deployment
+        run: kubectl rollout restart deployment lifestyle-api
+
+      - name: Restart Frontend deployment
+        run: kubectl rollout restart deployment lifestyle-front
