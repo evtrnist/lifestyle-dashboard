@@ -73,6 +73,7 @@ jobs:
           push: true
           tags: ${{ secrets.REGISTRY_URL }}/lifestyle-api:latest
           platforms: linux/arm64
+          builder: default
           outputs: type=registry,insecure=true
 
       - name: Build and push frontend (Angular)
@@ -83,4 +84,5 @@ jobs:
           push: true
           tags: ${{ secrets.REGISTRY_URL }}/lifestyle-front:latest
           platforms: linux/arm64
+          builder: default
           outputs: type=registry,insecure=true
