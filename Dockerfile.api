@@ -2,8 +2,9 @@ FROM arm64v8/node:22-alpine
 WORKDIR /app
 
 COPY dist/apps/api ./dist
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json prisma ./
 
 RUN npm ci --omit=dev
+RUN npx prisma generate
 
 CMD ["node", "dist/main.js"]
