@@ -1,4 +1,6 @@
 FROM node:22-alpine
 WORKDIR /app
-COPY /dist/apps/api ./
-CMD ["node", "main.js"]
+COPY dist/apps/api ./
+COPY node_modules ./node_modules
+COPY package.json ./
+CMD ["node", "dist/main.js"]
