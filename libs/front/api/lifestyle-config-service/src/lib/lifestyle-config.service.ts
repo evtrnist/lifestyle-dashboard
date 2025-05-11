@@ -4,7 +4,7 @@ import { Config } from '@lifestyle-dashboard/config';
 import { tuiTakeUntilDestroyed } from '@taiga-ui/cdk';
 import { Observable, Subject } from 'rxjs';
 
-const URL = 'http://localhost:3000/config';
+const URL = '/api/config';
 
 @Injectable({ providedIn: 'root' })
 export class LifestyleConfigService {
