@@ -18,7 +18,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '18'
@@ -29,25 +29,35 @@ jobs:
       - name: Build all NX projects
         run: npm run build:all
 
-      - name: Log in to GHCR
+      - name: Set up QEMU for ARM emulation
+        uses: docker/setup-qemu-action@v3
+        with:
+          platforms: linux/arm64
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GHCR_TOKEN }}" \
              | docker login ghcr.io -u "${{ secrets.GHCR_OWNER }}" --password-stdin
 
       - name: Build & push API image
-        run: |
-          docker build \
-            --file Dockerfile.api \
-            --platform linux/arm64 \
-            -t $REGISTRY/$OWNER/lifestyle-api:$IMAGE_TAG .
-          docker push $REGISTRY/$OWNER/lifestyle-api:$IMAGE_TAG
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.api
+          platforms: linux/arm64
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/lifestyle-api:${{ env.IMAGE_TAG }}
 
       - name: Build & push Frontend image
-        run: |
-          docker build \
-            --file Dockerfile.front \
-            --platform linux/arm64 \
-            -t $REGISTRY/$OWNER/lifestyle-front:$IMAGE_TAG .
-          docker push $REGISTRY/$OWNER/lifestyle-front:$IMAGE_TAG
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.front
+          platforms: linux/arm64
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/lifestyle-front:${{ env.IMAGE_TAG }}
 
   deploy:
     name: Deploy to Raspberry Pi (K3s)
@@ -57,18 +67,18 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Setup kubectl
+      - name: Set up kubectl
         uses: azure/setup-kubectl@v3
         with:
           version: 'latest'
 
-      - name: Configure Kubeconfig
+      - name: Configure kubeconfig
         run: |
           echo "${{ secrets.RPI_KUBECONFIG }}" | base64 -d > kubeconfig
-          export KUBECONFIG=./kubeconfig
+          export KUBECONFIG=$(pwd)/kubeconfig
 
-      - name: Deploy manifests
-        run: |
-          # если в ваших манифестах есть переменные $IMAGE_TAG, подставляем:
-          envsubst < k8s/backend-deploy.yaml  | kubectl apply -f -
-          envsubst < k8s/frontend-deploy.yaml | kubectl apply -f -
+      - name: Deploy backend manifest
+        run: envsubst < k8s/backend-deploy.yaml | kubectl apply -f -
+
+      - name: Deploy frontend manifest
+        run: envsubst < k8s/frontend-deploy.yaml | kubectl apply -f -
