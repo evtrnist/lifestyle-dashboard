@@ -78,7 +78,7 @@ jobs:
           export KUBECONFIG=$(pwd)/kubeconfig
 
       - name: Deploy backend manifest
-        run: envsubst < k8s/backend-deploy.yaml | kubectl apply -f -
+        run: envsubst < k8s/lifestyle-api-deployment.yaml | kubectl apply -f -
 
       - name: Deploy frontend manifest
-        run: envsubst < k8s/frontend-deploy.yaml | kubectl apply -f -
+        run: envsubst < k8s/lifestyle-front-deployment.yaml | kubectl apply -f -
