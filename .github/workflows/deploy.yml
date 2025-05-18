@@ -39,7 +39,7 @@ jobs:
 
       - name: Log in to GitHub Container Registry
         run: echo "${{ secrets.GHCR_TOKEN }}" \
-             | docker login ghcr.io -u "${{ secrets.GHCR_OWNER }}" --password-stdin
+          | docker login ghcr.io -u "${{ secrets.GHCR_OWNER }}" --password-stdin
 
       - name: Build & push API image
         uses: docker/build-push-action@v5
@@ -63,9 +63,15 @@ jobs:
     name: Deploy to Raspberry Pi (K3s)
     needs: build-and-push
     runs-on: ubuntu-latest
+    env:
+      KUBECONFIG: ${{ github.workspace }}/kubeconfig
     steps:
-      - name: Checkout code
+      - name: Checkout lifestyle-k8s
         uses: actions/checkout@v3
+        with:
+          repository: your-name/lifestyle-k8s
+          token: ${{ secrets.GHCR_TOKEN }}
+          path: k8s
 
       - name: Set up kubectl
         uses: azure/setup-kubectl@v3
@@ -73,16 +79,7 @@ jobs:
           version: 'latest'
 
       - name: Configure kubeconfig
-        run: |
-          echo "${{ secrets.RPI_KUBECONFIG }}" | base64 -d > kubeconfig
-          export KUBECONFIG=$(pwd)/kubeconfig
-
-      - name: Clone k8s manifests
-        uses: actions/checkout@v3
-        with:
-          repository: evtrnist/lifestyle-k8s
-          token: ${{ secrets.GHCR_TOKEN }}
-          path: k8s
+        run: echo "${{ secrets.RPI_KUBECONFIG }}" | base64 -d > $KUBECONFIG
 
       - name: Deploy backend manifest
         run: envsubst < k8s/base/lifestyle-api/deployment.yaml | kubectl apply -f -
