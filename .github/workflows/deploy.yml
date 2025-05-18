@@ -31,24 +31,25 @@ jobs:
 
       - name: Log in to GHCR
         run: echo "${{ secrets.GHCR_TOKEN }}" \
-             | docker login ghcr.io -u "${{ secrets.GHCR_OWNER }}" --password-stdin
+          | docker login ghcr.io -u "${{ secrets.GHCR_OWNER }}" --password-stdin
 
       - name: Build & push API image
-        run: |
-          docker build \
-            --file Dockerfile.api \
-            --platform linux/arm64 \
-            -t $REGISTRY/$OWNER/lifestyle-api:$IMAGE_TAG .
-          docker push $REGISTRY/$OWNER/lifestyle-api:$IMAGE_TAG
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.api
+          platforms: linux/arm64
+          push: true
+          tags: ghcr.io/${{ secrets.GHCR_OWNER }}/lifestyle-api:${{ env.IMAGE_TAG }}
 
       - name: Build & push Frontend image
-        run: |
-          docker build \
-            --file Dockerfile.front \
-            --platform linux/arm64 \
-            -t $REGISTRY/$OWNER/lifestyle-front:$IMAGE_TAG .
-          docker push $REGISTRY/$OWNER/lifestyle-front:$IMAGE_TAG
-
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: Dockerfile.front
+          platforms: linux/arm64
+          push: true
+          tags: ghcr.io/${{ secrets.GHCR_OWNER }}/lifestyle-front:${{ env.IMAGE_TAG }}
   deploy:
     name: Deploy to Raspberry Pi (K3s)
     needs: build-and-push
