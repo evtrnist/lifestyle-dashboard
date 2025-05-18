@@ -9,7 +9,8 @@
     "start:api": "nx serve api",
     "build:api": "nx build api",
     "test:api": "nx test api",
-    "nx:format:fix": "nx format:write"
+    "nx:format:fix": "nx format:write",
+    "build:all": "nx run-many --target=build --all --parallel"
   },
   "private": true,
   "dependencies": {
