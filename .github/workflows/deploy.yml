@@ -69,7 +69,7 @@ jobs:
       - name: Checkout lifestyle-k8s
         uses: actions/checkout@v3
         with:
-          repository: your-name/lifestyle-k8s
+          repository: evtrnist/lifestyle-k8s
           token: ${{ secrets.GHCR_TOKEN }}
           path: k8s
 
