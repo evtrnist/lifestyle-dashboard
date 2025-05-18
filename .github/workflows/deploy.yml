@@ -77,8 +77,15 @@ jobs:
           echo "${{ secrets.RPI_KUBECONFIG }}" | base64 -d > kubeconfig
           export KUBECONFIG=$(pwd)/kubeconfig
 
+      - name: Clone k8s manifests
+        uses: actions/checkout@v3
+        with:
+          repository: your-username/lifestyle-k8s
+          token: ${{ secrets.GHCR_TOKEN }}
+          path: k8s
+
       - name: Deploy backend manifest
-        run: envsubst < base/lifestyle-api/deployment.yaml | kubectl apply -f -
+        run: envsubst < k8s/base/lifestyle-api/deployment.yaml | kubectl apply -f -
 
       - name: Deploy frontend manifest
-        run: envsubst < base/lifestyle-front/deployment.yaml | kubectl apply -f -
+        run: envsubst < k8s/base/lifestyle-front/deployment.yaml | kubectl apply -f -
