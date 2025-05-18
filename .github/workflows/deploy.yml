@@ -82,7 +82,7 @@ jobs:
         run: echo "${{ secrets.RPI_KUBECONFIG }}" | base64 -d > $KUBECONFIG
 
       - name: Deploy backend manifest
-        run: envsubst < k8s/base/lifestyle-api/deployment.yaml | kubectl apply -f -
+        run: envsubst < k8s/base/lifestyle-api/deployment.yml | kubectl apply -f -
 
       - name: Deploy frontend manifest
-        run: envsubst < k8s/base/lifestyle-front/deployment.yaml | kubectl apply -f -
+        run: envsubst < k8s/base/lifestyle-front/deployment.yml | kubectl apply -f -
