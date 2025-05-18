@@ -80,7 +80,7 @@ jobs:
       - name: Clone k8s manifests
         uses: actions/checkout@v3
         with:
-          repository: your-username/lifestyle-k8s
+          repository: evtrnist/lifestyle-k8s
           token: ${{ secrets.GHCR_TOKEN }}
           path: k8s
 
