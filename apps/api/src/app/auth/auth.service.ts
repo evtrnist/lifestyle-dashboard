@@ -47,7 +47,7 @@ export class AuthService {
   public async getUserProfile(userId: string) {
     return this.prismaService.user.findUnique({
         where: {id: userId},
-        select: { id: true, email: true, createdAt: true, updatedAt: true, widgetConfigs: true, dayData: true}
+        select: { id: true, email: true, createdAt: true, updatedAt: true, widgetConfigs: false, dayData: false}
     })
   }
 
