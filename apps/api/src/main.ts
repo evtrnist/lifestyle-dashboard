@@ -30,14 +30,15 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
+  Logger.log('Swagger UI is available at: http://localhost:' + port + '/docs');
 
   if (process.env.NODE_ENV === 'development') {
     writeFileSync('./openapi.json', JSON.stringify(document, null, 2));
-
-    Logger.log(
-      `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
-    );
   }
+
+  Logger.log(
+    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
+  );
 
   await app.listen(port);
 }
