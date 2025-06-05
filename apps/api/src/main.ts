@@ -29,8 +29,8 @@ async function bootstrap() {
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('docs', app, document);
-  Logger.log('Swagger UI is available at: http://localhost:' + port + '/docs');
+  SwaggerModule.setup(`${globalPrefix}/docs`, app, document);
+  Logger.log('Swagger UI is available at: http://localhost:' + port + `/${globalPrefix}/docs`);
 
   if (process.env.NODE_ENV === 'development') {
     writeFileSync('./openapi.json', JSON.stringify(document, null, 2));
