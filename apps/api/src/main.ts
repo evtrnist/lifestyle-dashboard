@@ -1,8 +1,3 @@
-/**
- * This is not a production server yet!
- * This is only a minimal backend to get started.
- */
-
 import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -12,6 +7,8 @@ import { AppModule } from './app/app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';
+  const port = process.env.PORT || 3000;
+
   app.setGlobalPrefix(globalPrefix);
 
   app.useGlobalPipes(
@@ -28,19 +25,21 @@ async function bootstrap() {
       'API для авторизации, работы с дашбордом и данными пользователей',
     )
     .setVersion('1.0')
-    .addBearerAuth() // <--- для JWT
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('docs', app, document);
 
-  writeFileSync('./openapi.json', JSON.stringify(document, null, 2));
+  if (process.env.NODE_ENV === 'development') {
+    writeFileSync('./openapi.json', JSON.stringify(document, null, 2));
 
-  const port = process.env.PORT || 3000;
+    Logger.log(
+      `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
+    );
+  }
+
   await app.listen(port);
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
-  );
 }
 
 bootstrap();

@@ -3,7 +3,7 @@ import { IsEmail, IsString, MinLength } from 'class-validator';
 
 export class AuthDto {
     @ApiProperty({ example: 'user@example.com' })
-    @IsEmail({}, {message: 'Imvalid email address'})
+    @IsEmail({}, {message: 'Invalid email address'})
     email: string;
 
     @ApiProperty({ example: '12345678' })
