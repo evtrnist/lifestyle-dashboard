@@ -44,3 +44,7 @@ Thumbs.db
 .angular
 
 .env
+
+
+# auto-generated types
+libs/api-types/
