@@ -11,7 +11,7 @@
     "test:api": "nx test api",
     "nx:format:fix": "nx format:write",
     "build:all": "nx run-many --target=build --all --parallel",
-    "gen:api": "npx @openapitools/openapi-generator-cli generate -i openapi.json -g typescript -o libs/api-types --additional-properties=fileNaming=kebab-case"
+    "generate:api-types": "npx @openapitools/openapi-generator-cli generate -i openapi.json -g typescript -o libs/api-types --additional-properties=fileNaming=kebab-case"
   },
   "private": true,
   "dependencies": {
