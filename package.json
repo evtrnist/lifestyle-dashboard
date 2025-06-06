@@ -10,7 +10,8 @@
     "build:api": "nx build api",
     "test:api": "nx test api",
     "nx:format:fix": "nx format:write",
-    "build:all": "nx run-many --target=build --all --parallel"
+    "build:all": "nx run-many --target=build --all --parallel",
+    "generate:api-types": "npx @openapitools/openapi-generator-cli generate -i openapi.json -g typescript -o libs/api-types --additional-properties=fileNaming=kebab-case"
   },
   "private": true,
   "dependencies": {
@@ -71,6 +72,7 @@
     "@nx/web": "20.7.1",
     "@nx/webpack": "20.7.1",
     "@nx/workspace": "20.7.1",
+    "@openapitools/openapi-generator-cli": "^2.20.2",
     "@playwright/test": "^1.36.0",
     "@schematics/angular": "19.2.6",
     "@swc-node/register": "~1.9.1",
