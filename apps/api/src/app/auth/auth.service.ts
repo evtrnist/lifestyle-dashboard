@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
+import { UserProfile } from '@lifestyle-dashboard/user';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +14,7 @@ export class AuthService {
   public async register(email: string, password: string) {
     const hashed = await bcrypt.hash(password, 10);
 
-    const isExistingUser = this.prismaService.user.findUnique({
+    const isExistingUser = await this.prismaService.user.findUnique({
         where: {email}
     })
 
@@ -31,7 +32,7 @@ export class AuthService {
   }
 
   public async login(email: string, password: string) {
-    const user = await this.prismaService.findUnique({ where: { email}});
+    const user = await this.prismaService.user.findUnique({ where: { email}});
 
     if (!user) {
         throw new Error('User not found');
@@ -42,9 +43,11 @@ export class AuthService {
     if (!isPasswordCorrect) {
         throw new Error('Invalid credentials')
     }
+
+    return this.generateToken(user.id, user.email);
   }
 
-  public async getUserProfile(userId: string) {
+  public async getUserProfile(userId: string): Promise<UserProfile> {
     return this.prismaService.user.findUnique({
         where: {id: userId},
         select: { id: true, email: true, createdAt: true, updatedAt: true, widgetConfigs: false, dayData: false}
