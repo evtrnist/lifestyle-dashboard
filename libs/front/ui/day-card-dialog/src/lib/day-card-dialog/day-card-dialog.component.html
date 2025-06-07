@@ -7,7 +7,7 @@
       tuiTab
       type="button"
       (click)="onClick(tab)"
-    >
+      >
       {{ tab | widgetName }}
     </button>
   }
@@ -23,14 +23,15 @@
     <ng-container
       [ngComponentOutlet]="component"
       [ngComponentOutletInjector]="injector"
-    >
+      >
     </ng-container>
 
-    <ng-container
-      *ngIf="settingsComponent"
-      [ngComponentOutlet]="settingsComponent"
-      [ngComponentOutletInjector]="injector"
-    ></ng-container>
+    @if (settingsComponent) {
+      <ng-container
+        [ngComponentOutlet]="settingsComponent"
+        [ngComponentOutletInjector]="injector"
+      ></ng-container>
+    }
   </div>
 }
 
@@ -41,7 +42,7 @@
     type="button"
     class="button"
     appearance="secondary-grayscale"
-  >
+    >
     Save
   </button>
 </div>

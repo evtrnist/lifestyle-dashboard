@@ -5,7 +5,7 @@ import {
   Injector,
   OnInit,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { CalendarComponent } from '@lifestyle-dashboard/calendar';
 import { tuiDialog } from '@taiga-ui/core';
 import { DayCardDialogComponent } from '@lifestyle-dashboard/day-card-dialog';
@@ -13,7 +13,7 @@ import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule, CalendarComponent],
+  imports: [CalendarComponent],
   standalone: true,
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.less',
