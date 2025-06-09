@@ -1,34 +1,34 @@
-import { HttpClient } from '@angular/common/http';
-import { inject, Injectable } from '@angular/core';
+import { DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { State } from './state';
+import { AuthApiService } from './auth-api.service';
 import { AuthDto } from './auth.dto';
-import { Observable } from 'rxjs';
-import { UserProfile } from '@lifestyle-dashboard/user';
+import { catchError, EMPTY } from 'rxjs';
 
-@Injectable({ providedIn: 'root' })
+@Injectable()
 export class AuthService {
-  private readonly httpClient = inject(HttpClient);
+  private readonly api = inject(AuthApiService);
 
-  public login(dto: AuthDto): Observable<void> {
-    return this.httpClient.post<void>('/api/auth/login', dto, {
-      withCredentials: true,
-    });
-  }
+  private readonly destroyRef = inject(DestroyRef);
 
-  public register(dto: AuthDto): Observable<void> {
-    return this.httpClient.post<void>('/api/auth/register', dto, {
-      withCredentials: true,
-    });
-  }
+  public readonly authState = signal<State | null>(null);
 
-  public logout(): Observable<void> {
-    return this.httpClient.post<void>('/api/auth/logout', null, {
-      withCredentials: true,
-    });
-  }
+  public login(dto: AuthDto) {
+    this.authState.set(State.Loading);
 
-  public getMe(): Observable<UserProfile> {
-    return this.httpClient.get<UserProfile>('/api/auth/me', {
-      withCredentials: true,
-    });
+    this.api
+      .login(dto)
+      .pipe(
+        catchError((err) => {
+          console.warn('Login failed', err);
+
+          this.authState.set(State.Error);
+          return EMPTY;
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe(() => {
+        this.authState.set(State.Success);
+      });
   }
 }

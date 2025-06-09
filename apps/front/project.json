@@ -8,16 +8,12 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/front",
         "index": "apps/front/src/index.html",
         "browser": "apps/front/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/front/tsconfig.app.json",
         "assets": [
           {
@@ -68,7 +64,8 @@
           "buildTarget": "front:build:production"
         },
         "development": {
-          "buildTarget": "front:build:development"
+          "buildTarget": "front:build:development",
+          "proxyConfig": "apps/front/proxy.conf.json"
         }
       },
       "defaultConfiguration": "development"
@@ -84,9 +81,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/front/jest.config.ts"
       }

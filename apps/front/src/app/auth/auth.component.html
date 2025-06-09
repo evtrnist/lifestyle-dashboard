@@ -9,7 +9,7 @@
 
 @switch ($formMode()) {
   @case (AuthState.Login) {
-    login
+    <app-login [state]="state()" (userLoggedIn)="login($event)" />
   }
   @case (AuthState.SignUp) {
     sign up

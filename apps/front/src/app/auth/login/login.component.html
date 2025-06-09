@@ -1,0 +1,43 @@
+<form [formGroup]="loginForm" class="form">
+  <p>
+    <tui-input
+      [formControlName]="LoginField.Email"
+      tuiTextfieldSize="l"
+      [tuiTextfieldCleaner]="true"
+    >
+      Type an email
+      <input autocomplete="email" tuiTextfieldLegacy type="email" />
+    </tui-input>
+    <tui-error
+      [formControlName]="LoginField.Email"
+      [error]="[] | tuiFieldError | async"
+    />
+  </p>
+
+  <p>
+    <tui-input
+      [formControlName]="LoginField.Password"
+      tuiTextfieldSize="l"
+      [tuiTextfieldCleaner]="true"
+    >
+      Type a password
+      <input autocomplete="new-password" tuiTextfieldLegacy type="password" />
+    </tui-input>
+    <tui-error
+      [formControlName]="LoginField.Password"
+      [error]="[] | tuiFieldError | async"
+    />
+  </p>
+
+  <button
+  class="button"
+    size="l"
+    tuiButton
+    type="button"
+    [disabled]="loginForm.invalid || shouldShowLoading()"
+    [loading]="shouldShowLoading()"
+    (click)="login()"
+  >
+    Log in
+  </button>
+</form>

@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "start:front": "nx serve front",
+    "start:front": "nx serve front --configuration=development",
     "build:front": "nx build front",
     "test:front": "nx test front",
     "start:api": "nx serve api",
