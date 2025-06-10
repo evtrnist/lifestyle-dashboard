@@ -1,0 +1,20 @@
+<tui-tabs [activeItemIndex]="activeItemIndex()">
+  <button tuiTab type="button" (click)="openForm(AuthState.Login)">
+    Log in
+  </button>
+  <button tuiTab type="button" (click)="openForm(AuthState.SignUp)">
+    Sign up
+  </button>
+</tui-tabs>
+
+@switch ($formMode()) {
+  @case (AuthState.Login) {
+    <app-login [state]="state()" (userLoggedIn)="login($event)" />
+  }
+  @case (AuthState.SignUp) {
+    sign up
+  }
+  @default {
+    <p>Please select a form to continue.</p>
+  }
+}

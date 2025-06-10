@@ -22,18 +22,9 @@ services:
       - postgres
     environment:
       DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
     ports:
       - '${API_PORT}:3000'
-
-  lifestyle-front:
-    build:
-      context: .
-      dockerfile: Dockerfile.front
-    container_name: lifestyle-front
-    depends_on:
-      - lifestyle-api
-    ports:
-      - '${FRONT_PORT}:80'
 
 volumes:
   postgres-data:

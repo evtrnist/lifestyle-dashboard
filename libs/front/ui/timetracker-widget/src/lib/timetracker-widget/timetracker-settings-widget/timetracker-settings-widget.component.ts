@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { TimeTrackerWidgetInput } from '../timetracker-widget-input';
 import { TIMETRACKER_WIDGET_TOKEN } from '../timetracker-widget.token';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -13,12 +13,11 @@ import {
 @Component({
   selector: 'lifestyle-timetracker-settings-widget',
   imports: [
-    CommonModule,
     ReactiveFormsModule,
     TuiInputTimeModule,
     TuiTextfieldControllerModule,
-    TuiUnfinishedValidator,
-  ],
+    TuiUnfinishedValidator
+],
   standalone: true,
   templateUrl: './timetracker-settings-widget.component.html',
   styleUrl: './timetracker-settings-widget.component.less',

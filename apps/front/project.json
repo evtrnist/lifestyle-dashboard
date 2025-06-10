@@ -7,17 +7,13 @@
   "tags": [],
   "targets": {
     "build": {
-      "executor": "@angular-devkit/build-angular:application",
-      "outputs": [
-        "{options.outputPath}"
-      ],
+      "executor": "@angular/build:application",
+      "outputs": ["{options.outputPath}"],
       "options": {
         "outputPath": "dist/apps/front",
         "index": "apps/front/src/index.html",
         "browser": "apps/front/src/main.ts",
-        "polyfills": [
-          "zone.js"
-        ],
+        "polyfills": ["zone.js"],
         "tsConfig": "apps/front/tsconfig.app.json",
         "assets": [
           {
@@ -62,19 +58,20 @@
       "defaultConfiguration": "production"
     },
     "serve": {
-      "executor": "@angular-devkit/build-angular:dev-server",
+      "executor": "@angular/build:dev-server",
       "configurations": {
         "production": {
           "buildTarget": "front:build:production"
         },
         "development": {
-          "buildTarget": "front:build:development"
+          "buildTarget": "front:build:development",
+          "proxyConfig": "apps/front/proxy.conf.json"
         }
       },
       "defaultConfiguration": "development"
     },
     "extract-i18n": {
-      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "executor": "@angular/build:extract-i18n",
       "options": {
         "buildTarget": "front:build"
       }
@@ -84,9 +81,7 @@
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": [
-        "{workspaceRoot}/coverage/{projectRoot}"
-      ],
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
         "jestConfig": "apps/front/jest.config.ts"
       }

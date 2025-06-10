@@ -3,6 +3,7 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { writeFileSync } from 'fs';
 import { AppModule } from './app/app.module';
+import cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,6 +20,8 @@ async function bootstrap() {
     }),
   );
 
+  app.use(cookieParser());
+
   const config = new DocumentBuilder()
     .setTitle('LifeDashboard API')
     .setDescription(
@@ -30,7 +33,11 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(`${globalPrefix}/docs`, app, document);
-  Logger.log('Swagger UI is available at: http://localhost:' + port + `/${globalPrefix}/docs`);
+  Logger.log(
+    'Swagger UI is available at: http://localhost:' +
+      port +
+      `/${globalPrefix}/docs`,
+  );
 
   if (process.env.NODE_ENV === 'development') {
     writeFileSync('./openapi.json', JSON.stringify(document, null, 2));

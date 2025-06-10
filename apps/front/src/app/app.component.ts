@@ -9,6 +9,4 @@ import { TuiRoot } from '@taiga-ui/core';
   templateUrl: './app.component.html',
   styleUrl: './app.component.less',
 })
-export class AppComponent {
-  title = 'front';
-}
+export class AppComponent {}

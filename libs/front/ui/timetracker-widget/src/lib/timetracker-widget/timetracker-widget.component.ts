@@ -5,7 +5,7 @@ import {
   inject,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { TuiRingChart } from '@taiga-ui/addon-charts';
 import { TimetrackerCategory } from '@lifestyle-dashboard/timetracker';
 import { SecondsToHoursPipe } from './seconds-to-hours.pipe';
@@ -23,7 +23,7 @@ const CATEGORY_ORDER: Record<TimetrackerCategory, number> = {
 const SEC_IN_DAY = 86400;
 @Component({
   selector: 'lifestyle-timetracker-widget',
-  imports: [CommonModule, TuiRingChart, SecondsToHoursPipe],
+  imports: [TuiRingChart, SecondsToHoursPipe],
   standalone: true,
   templateUrl: './timetracker-widget.component.html',
   styleUrl: './timetracker-widget.component.less',
