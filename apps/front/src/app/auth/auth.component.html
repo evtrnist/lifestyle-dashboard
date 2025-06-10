@@ -12,7 +12,7 @@
     <app-login [state]="state()" (userLoggedIn)="login($event)" />
   }
   @case (AuthState.SignUp) {
-    sign up
+    <app-sign-up [state]="state()" (userSignedUp)="signUp($event)" />
   }
   @default {
     <p>Please select a form to continue.</p>

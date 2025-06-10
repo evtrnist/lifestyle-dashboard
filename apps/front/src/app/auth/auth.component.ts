@@ -9,6 +9,7 @@ import { TuiTabs } from '@taiga-ui/kit';
 import { LoginComponent } from './login/login.component';
 import { AuthService } from './auth.service';
 import { AuthDto } from './auth.dto';
+import { SignUpComponent } from './sign-up/sign-up.component';
 
 enum AuthState {
   Login = 'login',
@@ -21,7 +22,7 @@ enum AuthState {
   styleUrls: ['./auth.component.less'],
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [ReactiveFormsModule, TuiTabs, LoginComponent],
+  imports: [ReactiveFormsModule, TuiTabs, LoginComponent, SignUpComponent],
   providers: [AuthService],
 })
 export class AuthComponent {
@@ -43,4 +44,9 @@ export class AuthComponent {
   protected login(dto: AuthDto) {
     this.authService.login(dto);
   }
+
+  protected signUp(dto: AuthDto) {
+    this.authService.signUp(dto);
+}
+
 }
