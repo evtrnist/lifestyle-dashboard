@@ -14,6 +14,7 @@ import { JwtAuthGuard } from './jwt-auth.guard';
 import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import { CsrfAuthGuard } from './csrf-auth.guard';
+import crypto from 'crypto';
 
 const ACCESS_TOKEN = 'access_token';
 const XSRF_TOKEN = 'XSRF-TOKEN';
