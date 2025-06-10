@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   input,
+  OnInit,
   output,
 } from '@angular/core';
 import { State } from '../state';
@@ -13,6 +14,7 @@ import {
   FormGroup,
   ReactiveFormsModule,
   ValidationErrors,
+  ValidatorFn,
 } from '@angular/forms';
 import {
   emailValidator,
@@ -25,14 +27,17 @@ import { TuiButton, TuiError, TuiHint, TuiTextfield } from '@taiga-ui/core';
 import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
 
-function passwordMatchValidator(
-  group: AbstractControl,
-): ValidationErrors | null {
-  const password = group.get(SignUpField.Password)?.value;
-  const repeat = group.get(SignUpField.RepeatPassword)?.value;
+function repeatPasswordValidatorFactory(form: FormGroup): ValidatorFn {
+  return (control: AbstractControl): ValidationErrors | null => {
+    const password = form.get(SignUpField.Password)?.value;
+    const repeat = control.value;
 
-  return password === repeat ? null : { passwordMismatch: true };
+    return password === repeat
+      ? null
+      : { passwordMismatch: 'Passwords do not match' };
+  };
 }
+
 
 enum SignUpField {
   Email = 'email',
@@ -59,7 +64,7 @@ enum SignUpField {
     TuiButtonLoading,
   ],
 })
-export class SignUpComponent {
+export class SignUpComponent implements OnInit {
   public readonly state = input.required<State | null>();
 
   public readonly userSignedUp = output<AuthDto>();
@@ -70,23 +75,26 @@ export class SignUpComponent {
 
   protected readonly SignUpField = SignUpField;
 
-  protected readonly signUpForm = new FormGroup(
-    {
-      [SignUpField.Email]: new FormControl('', {
-        nonNullable: true,
-        validators: [requiredValidator, emailValidator],
-      }),
-      [SignUpField.Password]: new FormControl('', {
-        nonNullable: true,
-        validators: [requiredValidator, passwordLengthValidator],
-      }),
-      [SignUpField.RepeatPassword]: new FormControl('', {
-        nonNullable: true,
-        validators: [requiredValidator],
-      }),
-    },
-    { validators: [passwordMatchValidator] },
-  );
+  protected readonly signUpForm = new FormGroup({
+    [SignUpField.Email]: new FormControl('', {
+      nonNullable: true,
+      validators: [requiredValidator, emailValidator],
+    }),
+    [SignUpField.Password]: new FormControl('', {
+      nonNullable: true,
+      validators: [requiredValidator, passwordLengthValidator],
+    }),
+    [SignUpField.RepeatPassword]: new FormControl('', {
+      nonNullable: true,
+      validators: [requiredValidator],
+    }),
+  });
+
+  ngOnInit(): void {
+    this.signUpForm
+      .get(SignUpField.RepeatPassword)
+      ?.addValidators(repeatPasswordValidatorFactory(this.signUpForm));
+  }
 
   public signUp(): void {
     tuiMarkControlAsTouchedAndValidate(this.signUpForm);
