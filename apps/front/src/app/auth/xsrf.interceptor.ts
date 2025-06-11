@@ -1,4 +1,3 @@
-
 import { DOCUMENT } from '@angular/common';
 import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
@@ -10,7 +9,7 @@ export const xsrfInterceptor: HttpInterceptorFn = (req, next) => {
   if (token) {
     req = req.clone({
       setHeaders: {
-        'X-XSRF-TOKEN': token,
+        'X-CSRF-TOKEN': token,
       },
       withCredentials: true,
     });
@@ -19,8 +18,10 @@ export const xsrfInterceptor: HttpInterceptorFn = (req, next) => {
 };
 
 function getCookie(name: string, document: Document): string | null {
-  return document.cookie
-    .split('; ')
-    .map((cookie) => cookie.split('='))
-    .find(([key]) => key === name)?.[1] ?? null;
+  return (
+    document.cookie
+      .split('; ')
+      .map((cookie) => cookie.split('='))
+      .find(([key]) => key === name)?.[1] ?? null
+  );
 }
