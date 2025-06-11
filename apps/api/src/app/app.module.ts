@@ -9,7 +9,7 @@ import { AuthModule } from './auth/auth.module';
 @Module({
   imports: [PrismaModule,
     AuthModule, 
-    //WidgetConfigModule, 
+    WidgetConfigModule, 
     DayDataModule],
   controllers: [AppController],
   providers: [AppService],
