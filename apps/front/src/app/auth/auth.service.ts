@@ -4,12 +4,15 @@ import { State } from './state';
 import { AuthApiService } from './auth-api.service';
 import { AuthDto } from './auth.dto';
 import { catchError, EMPTY } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Injectable()
 export class AuthService {
   private readonly api = inject(AuthApiService);
 
   private readonly destroyRef = inject(DestroyRef);
+
+  private readonly router = inject(Router);
 
   public readonly authState = signal<State | null>(null);
 
@@ -29,6 +32,33 @@ export class AuthService {
       )
       .subscribe(() => {
         this.authState.set(State.Success);
+
+        this.navigateToDashboard();
       });
+  }
+
+  public signUp(dto: AuthDto) {
+    this.authState.set(State.Loading);
+
+    this.api
+      .register(dto)
+      .pipe(
+        catchError((err) => {
+          console.warn('Sign up failed', err);
+
+          this.authState.set(State.Error);
+          return EMPTY;
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe(() => {
+        this.authState.set(State.Success);
+
+        this.navigateToDashboard();
+      });
+  }
+
+  private navigateToDashboard() {
+    this.router.navigate(['/', 'dashboard']);
   }
 }

@@ -1,0 +1,58 @@
+<form [formGroup]="signUpForm" class="form">
+  <p>
+    <tui-input
+      [formControlName]="SignUpField.Email"
+      tuiTextfieldSize="l"
+      [tuiTextfieldCleaner]="true"
+    >
+      Type an email
+      <input autocomplete="email" tuiTextfieldLegacy type="email" />
+    </tui-input>
+    <tui-error
+      [formControlName]="SignUpField.Email"
+      [error]="[] | tuiFieldError | async"
+    />
+  </p>
+
+  <p>
+    <tui-input
+      [formControlName]="SignUpField.Password"
+      tuiTextfieldSize="l"
+      [tuiTextfieldCleaner]="true"
+    >
+      Type a password
+      <input autocomplete="new-password" tuiTextfieldLegacy type="password" />
+    </tui-input>
+    <tui-error
+      [formControlName]="SignUpField.Password"
+      [error]="[] | tuiFieldError | async"
+    />
+  </p>
+
+  <p>
+    <tui-input
+      [formControlName]="SignUpField.RepeatPassword"
+      tuiTextfieldSize="l"
+      [tuiTextfieldCleaner]="true"
+    >
+      Repeat password
+      <input autocomplete="new-password" tuiTextfieldLegacy type="password" />
+    </tui-input>
+    <tui-error
+      [formControlName]="SignUpField.RepeatPassword"
+      [error]="[] | tuiFieldError | async"
+    />
+  </p>
+
+  <button
+    class="button"
+    size="l"
+    tuiButton
+    type="button"
+    [disabled]="signUpForm.invalid || shouldShowLoading()"
+    [loading]="shouldShowLoading()"
+    (click)="signUp()"
+  >
+    Sign up
+  </button>
+</form>
