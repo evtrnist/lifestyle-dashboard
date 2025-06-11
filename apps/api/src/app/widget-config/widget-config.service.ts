@@ -7,6 +7,42 @@ import { Config } from '@lifestyle-dashboard/config';
 export class WidgetConfigService {
   constructor(private readonly prismaService: PrismaService) {}
 
+  public async getAllByUser(userId: string): Promise<Config[]> {
+    return this.prismaService.widgetConfig.findMany({
+      where: { userId },
+    });
+  }
+
+  public async create(userId: string, config: Config): Promise<Config> {
+    return this.prismaService.widgetConfig.create({
+      data: {
+        userId,
+        config,
+      },
+    });
+  }
+
+  public async update(
+    id: string,
+    userId: string,
+    config: Config,
+  ): Promise<Config> {
+    return this.prismaService.widgetConfig.updateMany({
+      where: {
+        id,
+        userId,
+      },
+      data: { config },
+    });
+  }
+
+  public async delete(id: string, userId: string): Promise<void> {
+    return this.prismaService.widgetCOnfig.deleteMany({
+      id,
+      userId,
+    });
+  }
+
   public async getWidgetConfig(userId: string): Promise<Config> {
     const config = await this.prismaService.widgetConfig.findFirst({
       where: {
@@ -31,25 +67,5 @@ export class WidgetConfigService {
         'bottom-right': null,
       },
     };
-  }
-
-  public async updateWidgetConfigForUser(userId: string, widgetConfig: Config): Promise<Config> {
-    const existing = await this.prismaService.widgetConfig.findFirst({
-      where: { userId },
-    });
-
-    if (existing) {
-      return this.prismaService.widgetConfig.update({
-        where: { id: existing.id },
-        data: { config: widgetConfig },
-      });
-    } else {
-      return this.prismaService.widgetConfig.create({
-        data: {
-          userId,
-          config: widgetConfig,
-        },
-      });
-    }
   }
 }

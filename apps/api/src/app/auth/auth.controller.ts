@@ -19,7 +19,7 @@ import crypto from 'crypto';
 const ACCESS_TOKEN = 'access_token';
 const XSRF_TOKEN = 'XSRF-TOKEN';
 
-export interface RequestWithUser extends Request {
+export interface RequestWithUser extends Request { // TO DO make global
   user: {
     sub: string;
     email: string;
