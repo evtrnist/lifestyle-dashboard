@@ -37,7 +37,7 @@ export class WidgetConfigService {
   }
 
   public async delete(id: string, userId: string): Promise<void> {
-    return this.prismaService.widgetCOnfig.deleteMany({
+    return this.prismaService.widgetConfig.deleteMany({
       id,
       userId,
     });
