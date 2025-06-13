@@ -17,6 +17,15 @@ export const appRoutes: Route[] = [
         (component) => component.SettingsComponent,
       ),
     canActivate: [authGuard],
+    children: [
+      {
+        path: 'widget-layout',
+        loadComponent: () =>
+          import(
+            './settings/widget-layout-settings/widget-layout-settings.component'
+          ).then((component) => component.WidgetLayoutSettingsComponent),
+      },
+    ],
   },
   {
     path: 'auth',

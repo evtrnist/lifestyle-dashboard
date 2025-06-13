@@ -1,8 +1,11 @@
-<section class="content">
-  <nav tuiTabs vertical="left" class="left">
-    <button tuiTab type="button"></button>
-    <button tuiTab type="button"></button>
-    <button tuiTab type="button">
-    </button>
-  </nav>
-</section>
+<tui-tabs size="m" vertical="left" class="tabs">
+  @for (item of SETTING_URLS; track $index) {
+    <a routerLinkActive="active" tuiTab [routerLink]="item.url">
+      {{ item.name }}
+    </a>
+  }
+</tui-tabs>
+
+<div class="container">
+  <router-outlet />
+</div>
