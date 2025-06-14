@@ -7,8 +7,8 @@ import {
   Injector,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { injectContext } from '@taiga-ui/polymorpheus';
 import { TuiButton, TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
+	import {injectContext} from '@taiga-ui/polymorpheus';
 import { TuiTabs } from '@taiga-ui/kit';
 import { DayCardDialogService } from './day-card-dialog.service';
 import {

@@ -19,6 +19,11 @@ export const appRoutes: Route[] = [
     canActivate: [authGuard],
     children: [
       {
+        path: '',
+        redirectTo: 'widget-layout',
+        pathMatch: 'full',
+      },
+      {
         path: 'widget-layout',
         loadComponent: () =>
           import(

@@ -11,5 +11,6 @@ export const WidgetRegistry: Record<WidgetType, WidgetOptions> = {
     component: TimetrackerWidgetComponent,
     settingsComponent: TimetrackerSettingsWidgetComponent,
     token: TIMETRACKER_WIDGET_TOKEN,
+    label: 'Time Tracker',
   },
 };
