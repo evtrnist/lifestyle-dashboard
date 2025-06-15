@@ -36,6 +36,7 @@
     "@taiga-ui/event-plugins": "^4.6.0",
     "@taiga-ui/icons": "4.40.0",
     "@taiga-ui/kit": "4.40.0",
+    "@taiga-ui/layout": "^4.40.0",
     "@taiga-ui/legacy": "4.40.0",
     "@taiga-ui/polymorpheus": "^4.9.0",
     "axios": "^1.6.0",

@@ -1,15 +1,44 @@
-Settings
+<header tuiHeader="h4">
+  <hgroup tuiTitle>
+    <h1>Widget Layout Settings</h1>
+    <p tuiSubtitle>
+      Configure the layout of your widgets on the dashboard. You can select
+      which widgets to display and their order.
+    </p>
+  </hgroup>
+</header>
 
-<label tuiLabel>
-    Top
-<tui-textfield tuiChevron>
-  <input
-    tuiSelect
-    [(ngModel)]="value"
-  />
+<div class="container">
+  @for (item of SLOTS_MAP | keyvalue; track item.key) {
+    @let title = item.value.title;
 
-  <tui-data-list-wrapper
-    *tuiTextfieldDropdown
-    [items]="items"
-  />
-</tui-textfield></label>
+    <div class="slot">
+    <label tuiLabel>
+      {{ title }}
+      <tui-textfield tuiChevron [stringify]="stringify">
+        <input tuiSelect [ngModel]="item.value.value" />
+
+        <tui-data-list-wrapper
+          *tuiTextfieldDropdown
+          new
+          [items]="widgets"
+          [itemContent]="configContentRef"
+          (itemClick)="selectWidget($event, item.value)"
+        /> </tui-textfield
+    ></label>
+    </div>
+  }
+</div>
+
+<button
+    size="l"
+    tuiButton
+    type="button"
+    (click)="save()"
+>
+    Save settings
+</button>
+
+<ng-template #configContentRef let-config>
+  {{ config.label }}
+</ng-template>

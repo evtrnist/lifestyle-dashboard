@@ -5,9 +5,26 @@ import {
   WidgetRegistry,
   WidgetType,
 } from '@lifestyle-dashboard/widget';
-import { TuiLabel, TuiSelect, TuiTextfield, TuiTextfieldDirective, TuiTextfieldDropdownDirective } from '@taiga-ui/core';
-import { TuiChevron, TuiDataListWrapper, tuiItemsHandlersProvider } from '@taiga-ui/kit';
-import { TuiSelectComponent, TuiSelectDirective, TuiSelectModule } from '@taiga-ui/legacy';
+import {
+  TuiButton,
+  TuiLabel,
+  TuiTextfield,
+  TuiTextfieldDirective,
+  TuiTextfieldDropdownDirective,
+  TuiTitle,
+} from '@taiga-ui/core';
+import {
+  TuiChevron,
+  TuiDataListWrapper,
+  tuiItemsHandlersProvider,
+  TuiSelect,
+} from '@taiga-ui/kit';
+import {
+  WIDGET_LAYOUT_SLOT_MAP,
+  WidgetLayoutSlot,
+} from './widget-layout-slots';
+import { KeyValuePipe } from '@angular/common';
+import { TuiHeader } from '@taiga-ui/layout';
 @Component({
   selector: 'app-widget-layout-settings',
   templateUrl: './widget-layout-settings.component.html',
@@ -15,14 +32,18 @@ import { TuiSelectComponent, TuiSelectDirective, TuiSelectModule } from '@taiga-
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
+    KeyValuePipe,
     FormsModule,
     TuiTextfield,
     TuiDataListWrapper,
     TuiChevron,
     TuiLabel,
-    TuiSelectModule,
+    TuiSelect,
     TuiTextfieldDirective,
-    TuiTextfieldDropdownDirective
+    TuiTextfieldDropdownDirective,
+    TuiButton,
+    TuiHeader,
+    TuiTitle,
   ],
   providers: [
     tuiItemsHandlersProvider({
@@ -37,7 +58,17 @@ export class WidgetLayoutSettingsComponent {
 
   value = '';
 
-  items = Object.values(WidgetRegistry);
+  protected readonly widgets = Object.values(WidgetRegistry);
+
+  protected readonly SLOTS_MAP = WIDGET_LAYOUT_SLOT_MAP;
 
   protected readonly stringify = (widget: WidgetOptions) => widget.label;
+
+  public save() {
+    console.log(this.SLOTS_MAP);
+  }
+
+  public selectWidget({ key }: WidgetOptions, slot: WidgetLayoutSlot) {
+    slot.value = key;
+  }
 }
