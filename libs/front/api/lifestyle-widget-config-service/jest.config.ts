@@ -1,5 +1,5 @@
 export default {
-  displayName: 'lifestyle-config-service',
+  displayName: 'lifestyle-widget-config-service',
   preset: '../../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
@@ -7,5 +7,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory:
-    '../../../../coverage/libs/front/api/lifestyle-config-service',
+    '../../../../coverage/libs/front/api/lifestyle-widget-config-service',
 };
