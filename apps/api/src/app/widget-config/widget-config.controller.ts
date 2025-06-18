@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Post,
   Put,
   Req,
@@ -23,7 +22,7 @@ export class WidgetConfigController {
   public async getAll(@Req() req: RequestWithUser) {
     const userId = req.user['sub'];
 
-    return this.widgetConfigService.getAllByUser(userId);
+    return this.widgetConfigService.getByUser(userId);
   }
 
   @Post()
@@ -35,19 +34,18 @@ export class WidgetConfigController {
 
   @Put(':id')
   public async update(
-    @Param('id') id: string,
     @Req() req: RequestWithUser,
     @Body() config: Config,
   ) {
     const userId = req.user['sub'];
 
-    return this.widgetConfigService.update(id, userId, config);
+    return this.widgetConfigService.updateByUser(userId, config);
   }
 
   @Delete(':id')
-  public async delete(@Req() req: RequestWithUser, @Param('id') id: string) {
+  public async delete(@Req() req: RequestWithUser) {
     const userId = req.user['sub'];
 
-    return this.widgetConfigService.delete(id, userId);
+    return this.widgetConfigService.deleteByUser(userId);
   }
 }

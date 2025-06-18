@@ -7,7 +7,7 @@ import { Observable, Subject } from 'rxjs';
 const URL = '/api/widget-config';
 
 @Injectable({ providedIn: 'root' })
-export class LifestyleConfigService {
+export class LifestyleWidgetConfigService {
   private readonly httpClient = inject(HttpClient);
   private readonly destroyRef = inject(DestroyRef);
 

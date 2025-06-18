@@ -7,8 +7,8 @@ import { Config } from '@lifestyle-dashboard/config';
 export class WidgetConfigService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  public async getAllByUser(userId: string): Promise<Config[]> {
-    return this.prismaService.widgetConfig.findMany({
+  public async getByUser(userId: string): Promise<Config | null> {
+    return this.prismaService.widgetConfig.findUnique({
       where: { userId },
     });
   }
@@ -22,29 +22,21 @@ export class WidgetConfigService {
     });
   }
 
-  public async update(
-    id: string,
-    userId: string,
-    config: Config,
-  ): Promise<Config> {
-    return this.prismaService.widgetConfig.updateMany({
-      where: {
-        id,
-        userId,
-      },
+  public async updateByUser(userId: string, config: Config) {
+    return this.prismaService.widgetConfig.update({
+      where: { userId },
       data: { config },
     });
   }
 
-  public async delete(id: string, userId: string): Promise<void> {
-    return this.prismaService.widgetConfig.deleteMany({
-      id,
-      userId,
+  public async deleteByUser(userId: string) {
+    return this.prismaService.widgetConfig.delete({
+      where: { userId },
     });
   }
 
   public async getWidgetConfig(userId: string): Promise<Config> {
-    const config = await this.prismaService.widgetConfig.findFirst({
+    const config = await this.prismaService.widgetConfig.findUnique({
       where: {
         userId,
       },
