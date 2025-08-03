@@ -1,4 +1,4 @@
-import { Config } from "@lifestyle-dashboard/config"
+import { Config } from "@lifestyle-dashboard/config";
 
 export interface WidgetConfigResponse {
     config: Config,
