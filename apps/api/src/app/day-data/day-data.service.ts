@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { WidgetType } from '@lifestyle-dashboard/widget';
-import { Prisma } from '@prisma/client';
+import { InputJsonValue } from '@prisma/client/runtime/library';
 
 @Injectable()
 export class DayDataService {
@@ -32,7 +32,7 @@ export class DayDataService {
     userId: string,
     widgetType: string,
     date: Date,
-    widgetData: unknown,
+    widgetData: InputJsonValue,
   ) {
     const existing = await this.prismaService.dayData.findFirst({
       where: { userId, widgetType, date },
@@ -41,12 +41,12 @@ export class DayDataService {
     if (existing) {
       return this.prismaService.dayData.update({
         where: { id: existing.id },
-        data: { data: widgetData as unknown as Prisma.InputJsonValue },
+        data: { data: widgetData },
       });
     }
 
     return this.prismaService.dayData.create({
-      data: { userId, widgetType, date, data: widgetData as unknown as Prisma.InputJsonValue },
+      data: { userId, widgetType, date, data: widgetData },
     });
   }
 }
