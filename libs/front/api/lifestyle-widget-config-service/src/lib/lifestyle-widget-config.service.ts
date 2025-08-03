@@ -67,7 +67,8 @@ export class LifestyleWidgetConfigService {
           this.$state.set(State.Error);
           return EMPTY;
         }),
-        takeUntilDestroyed(this.destroyRef))
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe(({ config }) => {
         this.$config.set(config as Config);
         this.$state.set(State.Success);
