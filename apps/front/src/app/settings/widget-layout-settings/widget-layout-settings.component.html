@@ -9,21 +9,22 @@
 </header>
 
 <div class="container">
-  @for (item of SLOTS_MAP | keyvalue; track item.key) {
+  @for (item of $currentWidgetLayoutSettings() | keyvalue; track item.key) {
     @let title = item.value.title;
 
     <div class="slot">
     <label tuiLabel>
       {{ title }}
-      <tui-textfield tuiChevron [stringify]="stringify">
-        <input tuiSelect [ngModel]="item.value.value" />
+
+      <tui-textfield tuiChevron>
+        <input tuiSelect [ngModel]="item.value.label" />
 
         <tui-data-list-wrapper
           *tuiTextfieldDropdown
           new
           [items]="widgets"
           [itemContent]="configContentRef"
-          (itemClick)="selectWidget($event, item.value)"
+          (itemClick)="selectWidget($event, item.key)"
         /> </tui-textfield
     ></label>
     </div>

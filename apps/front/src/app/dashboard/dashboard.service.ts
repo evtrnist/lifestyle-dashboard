@@ -7,7 +7,4 @@ export class DashboardService {
 
   public readonly $config = this.lifestyleConfigService.$config;
 
-  public init() {
-    this.lifestyleConfigService.init();
-  }
 }

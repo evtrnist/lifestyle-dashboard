@@ -2,62 +2,40 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 import { Config } from '@lifestyle-dashboard/config';
+import { Prisma, WidgetConfig } from '@prisma/client';
 
 @Injectable()
 export class WidgetConfigService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  public async getByUser(userId: string): Promise<Config | null> {
-    return this.prismaService.widgetConfig.findUnique({
+  public async getByUser(userId: string): Promise<WidgetConfig | null> {
+    const res = await this.prismaService.widgetConfig.findUnique({
       where: { userId },
     });
+
+    console.log('WidgetConfigService.getByUser', res);
+    return res;
   }
 
-  public async create(userId: string, config: Config): Promise<Config> {
+  public async create(userId: string, config: Config): Promise<WidgetConfig> {
     return this.prismaService.widgetConfig.create({
       data: {
         userId,
-        config,
+        config: config as unknown as Prisma.InputJsonValue,
       },
     });
   }
 
-  public async updateByUser(userId: string, config: Config) {
+  public async updateByUser(userId: string, config: Config): Promise<WidgetConfig> {
     return this.prismaService.widgetConfig.update({
       where: { userId },
-      data: { config },
+      data: { config: config as unknown as Prisma.InputJsonValue, },
     });
   }
 
-  public async deleteByUser(userId: string) {
+  public async deleteByUser(userId: string): Promise<WidgetConfig> {
     return this.prismaService.widgetConfig.delete({
       where: { userId },
     });
-  }
-
-  public async getWidgetConfig(userId: string): Promise<Config> {
-    const config = await this.prismaService.widgetConfig.findUnique({
-      where: {
-        userId,
-      },
-    });
-
-    if (config) {
-      return config.config;
-    }
-    // Default
-    return {
-      layout: {
-        'top-left': null,
-        'top-middle': null,
-        'top-right': null,
-        'middle-left': null,
-        middle: null,
-        'middle-right': null,
-        'bottom-left': null,
-        'bottom-middle': null,
-        'bottom-right': null,
-      },
-    };
   }
 }

@@ -1,6 +1,13 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
+  Slot,
   WidgetOptions,
   WidgetRegistry,
   WidgetType,
@@ -13,18 +20,15 @@ import {
   TuiTextfieldDropdownDirective,
   TuiTitle,
 } from '@taiga-ui/core';
-import {
-  TuiChevron,
-  TuiDataListWrapper,
-  tuiItemsHandlersProvider,
-  TuiSelect,
-} from '@taiga-ui/kit';
+import { TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
 import {
   WIDGET_LAYOUT_SLOT_MAP,
   WidgetLayoutSlot,
 } from './widget-layout-slots';
 import { KeyValuePipe } from '@angular/common';
 import { TuiHeader } from '@taiga-ui/layout';
+import { WidgetLayoutSettingsService } from './widget-layout-settings.service';
+import { Layout } from '@lifestyle-dashboard/config';
 @Component({
   selector: 'app-widget-layout-settings',
   templateUrl: './widget-layout-settings.component.html',
@@ -45,30 +49,62 @@ import { TuiHeader } from '@taiga-ui/layout';
     TuiHeader,
     TuiTitle,
   ],
-  providers: [
-    tuiItemsHandlersProvider({
-      stringify: (widget: WidgetOptions) => widget.label,
-      identityMatcher: (a: WidgetOptions, b: WidgetOptions) =>
-        a.label === b.label,
-    }),
-  ],
 })
 export class WidgetLayoutSettingsComponent {
-  protected readonly widgetType = WidgetType;
+  private readonly widgetLayoutSettingsService = inject(
+    WidgetLayoutSettingsService,
+  );
 
-  value = '';
+  private readonly $config = this.widgetLayoutSettingsService.$config;
+
+  protected readonly widgetType = WidgetType;
 
   protected readonly widgets = Object.values(WidgetRegistry);
 
-  protected readonly SLOTS_MAP = WIDGET_LAYOUT_SLOT_MAP;
+  protected readonly $slotsMap = signal(WIDGET_LAYOUT_SLOT_MAP);
 
-  protected readonly stringify = (widget: WidgetOptions) => widget.label;
+  public readonly $currentWidgetLayoutSettings = computed<
+    Record<Slot, WidgetLayoutSlot>
+  >(() => {
+    const slotsMap = this.$slotsMap();
+    const config = this.$config();
+
+    if (!config) {
+      return slotsMap;
+    }
+
+    Object.entries(config?.layout).forEach(([slot, widget]) => {
+      if (slotsMap[slot as Slot] && widget) {
+        slotsMap[slot as Slot].value = widget;
+        slotsMap[slot as Slot].label =
+          WidgetRegistry[widget as WidgetType].label;
+      }
+    });
+
+    return slotsMap;
+  });
+
 
   public save() {
-    console.log(this.SLOTS_MAP);
+    const layout: Layout = Object.entries(this.$slotsMap()).reduce(
+      (acc, [slot, widget]) => ({
+        ...acc,
+        [slot]: widget.value as WidgetType,
+      }),
+      {},
+    ) as Layout;
+
+    this.widgetLayoutSettingsService.saveWidgetLayoutSettings(layout);
   }
 
-  public selectWidget({ key }: WidgetOptions, slot: WidgetLayoutSlot) {
-    slot.value = key;
+  public selectWidget({ key }: WidgetOptions, slot: string) {
+    this.$slotsMap.update((slots) => {
+      const currentSlot = slots[slot as Slot];
+      if (currentSlot) {
+        currentSlot.value = key;
+        currentSlot.label = WidgetRegistry[key].label;
+      }
+      return { ...slots };
+    });
   }
 }

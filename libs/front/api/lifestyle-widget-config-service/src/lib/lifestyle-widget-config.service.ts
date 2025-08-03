@@ -2,7 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { Config } from '@lifestyle-dashboard/config';
 import { tuiTakeUntilDestroyed } from '@taiga-ui/cdk';
-import { Observable, Subject } from 'rxjs';
+import { map, Observable } from 'rxjs';
+import { WidgetConfigResponse } from './widget-config-response';
 
 const URL = '/api/widget-config';
 
@@ -13,13 +14,11 @@ export class LifestyleWidgetConfigService {
 
   public readonly $config = signal<Config | null>(null);
 
-  private readonly updatingSubject$ = new Subject<void>();
-
   public init(): void {
-    this.updateConfig();
+    this.getConfig();
   }
 
-  public updateConfig(): void {
+  public getConfig(): void {
     this.getConfig$()
       .pipe(tuiTakeUntilDestroyed(this.destroyRef))
       .subscribe((config) => {
@@ -27,7 +26,27 @@ export class LifestyleWidgetConfigService {
       });
   }
 
+  public updateConfig(config: Partial<Config>): void {
+    this.httpClient
+      .put<WidgetConfigResponse>(URL, config)
+      .pipe(tuiTakeUntilDestroyed(this.destroyRef))
+      .subscribe((data) => {
+        this.$config.set(data.config as Config);
+      });
+  }
+
+  public createConfig(newConfig: Partial<Config>): void {
+    this.httpClient
+      .post<WidgetConfigResponse>(URL, newConfig)
+      .pipe(tuiTakeUntilDestroyed(this.destroyRef))
+      .subscribe(({ config }) => {
+        this.$config.set(config as Config);
+      });
+  }
+
   private getConfig$(): Observable<Config> {
-    return this.httpClient.get<Config>(URL);
+    return this.httpClient.get<WidgetConfigResponse>(URL).pipe(
+      map((response) => response.config)
+    );
   }
 }
