@@ -84,7 +84,6 @@ export class WidgetLayoutSettingsComponent {
     return slotsMap;
   });
 
-
   public save() {
     const layout: Layout = Object.entries(this.$slotsMap()).reduce(
       (acc, [slot, widget]) => ({

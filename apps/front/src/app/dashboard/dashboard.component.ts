@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { CalendarComponent } from '@lifestyle-dashboard/calendar';
 import { tuiDialog } from '@taiga-ui/core';
@@ -30,7 +25,6 @@ export class DashboardComponent {
     closeable: true,
     dismissible: true,
   });
-
 
   public openDayCard(date: Date) {
     this.dialog(date).subscribe();

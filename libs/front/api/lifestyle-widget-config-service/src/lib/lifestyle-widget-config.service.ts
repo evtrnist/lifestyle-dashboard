@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { Config } from '@lifestyle-dashboard/config';
 import { tuiTakeUntilDestroyed } from '@taiga-ui/cdk';
-import { map, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { WidgetConfigResponse } from './widget-config-response';
 
 const URL = '/api/widget-config';
@@ -13,6 +13,7 @@ export class LifestyleWidgetConfigService {
   private readonly destroyRef = inject(DestroyRef);
 
   public readonly $config = signal<Config | null>(null);
+  private readonly $configId = signal<string | null>(null);
 
   public init(): void {
     this.getConfig();
@@ -21,14 +22,22 @@ export class LifestyleWidgetConfigService {
   public getConfig(): void {
     this.getConfig$()
       .pipe(tuiTakeUntilDestroyed(this.destroyRef))
-      .subscribe((config) => {
+      .subscribe(({id, config}) => {
         this.$config.set(config);
+        this.$configId.set(id);
       });
   }
 
   public updateConfig(config: Partial<Config>): void {
+    const id = this.$configId();
+
+    if (!id) {
+      console.warn('No config ID found. Cannot update config.');
+      return;
+    }
+
     this.httpClient
-      .put<WidgetConfigResponse>(URL, config)
+      .put<WidgetConfigResponse>(`${URL}/${id}`, config)
       .pipe(tuiTakeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         this.$config.set(data.config as Config);
@@ -44,9 +53,24 @@ export class LifestyleWidgetConfigService {
       });
   }
 
-  private getConfig$(): Observable<Config> {
-    return this.httpClient.get<WidgetConfigResponse>(URL).pipe(
-      map((response) => response.config)
-    );
+  public deleteConfig(): void {
+    const id = this.$configId();
+
+    if (!id) {
+      console.warn('No config ID found. Cannot delete config.');
+      return;
+    }
+
+    this.httpClient
+      .delete<WidgetConfigResponse>(`${URL}/${id}`)
+      .pipe(tuiTakeUntilDestroyed(this.destroyRef))
+      .subscribe(() => {
+        this.$config.set(null);
+        this.$configId.set(null);
+      });
+  }
+
+  private getConfig$(): Observable<WidgetConfigResponse> {
+    return this.httpClient.get<WidgetConfigResponse>(URL);
   }
 }
