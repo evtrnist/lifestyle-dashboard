@@ -8,15 +8,28 @@ import { UserProfile } from '@lifestyle-dashboard/user';
 export class AuthApiService {
   private readonly httpClient = inject(HttpClient);
 
-
   public login(dto: AuthDto): Observable<void> {
-    return this.httpClient.post<void>('/api/auth/login', dto, {
+    const body = new URLSearchParams();
+    body.set('email', dto.email);
+    body.set('password', dto.password);
+
+    return this.httpClient.post<void>('/api/auth/login', body.toString(), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       withCredentials: true,
     });
   }
 
   public register(dto: AuthDto): Observable<void> {
-    return this.httpClient.post<void>('/api/auth/register', dto, {
+    const body = new URLSearchParams();
+    body.set('email', dto.email);
+    body.set('password', dto.password);
+
+    return this.httpClient.post<void>('/api/auth/register', body.toString(), {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       withCredentials: true,
     });
   }

@@ -19,7 +19,8 @@ import crypto from 'crypto';
 const ACCESS_TOKEN = 'access_token';
 const XSRF_TOKEN = 'XSRF-TOKEN';
 
-export interface RequestWithUser extends Request { // TO DO make global
+export interface RequestWithUser extends Request {
+  // TO DO make global
   user: {
     sub: string;
     email: string;
@@ -32,9 +33,9 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('register')
-  @ApiBody({ type: AuthDto })
   public async register(
-    @Body() { email, password }: AuthDto,
+    @Body('email') email: string,
+    @Body('password') password: string,
     @Res({ passthrough: true }) res: Response,
   ) {
     const { access_token } = await this.authService.register(email, password);
@@ -46,15 +47,13 @@ export class AuthController {
 
   @HttpCode(200)
   @Post('login')
-  @ApiBody({ type: AuthDto })
   public async login(
-    @Body() { email, password }: AuthDto,
+    @Body('email') email: string,
+    @Body('password') password: string,
     @Res({ passthrough: true }) res: Response,
   ) {
     const { access_token } = await this.authService.login(email, password);
-
     this.setAuthCookies(res, access_token);
-
     return { ok: true };
   }
 
