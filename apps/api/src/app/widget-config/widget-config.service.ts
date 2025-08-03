@@ -13,7 +13,6 @@ export class WidgetConfigService {
       where: { userId },
     });
 
-    console.log('WidgetConfigService.getByUser', res);
     return res;
   }
 

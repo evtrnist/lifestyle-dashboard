@@ -13,7 +13,7 @@ export class LifestyleWidgetConfigService {
   private readonly destroyRef = inject(DestroyRef);
 
   public readonly $config = signal<Config | null>(null);
-  private readonly $configId = signal<string | null>(null);
+  private readonly $userId = signal<string | null>(null);
 
   public init(): void {
     this.getConfig();
@@ -22,22 +22,22 @@ export class LifestyleWidgetConfigService {
   public getConfig(): void {
     this.getConfig$()
       .pipe(tuiTakeUntilDestroyed(this.destroyRef))
-      .subscribe(({id, config}) => {
+      .subscribe(({ userId, config }) => {
         this.$config.set(config);
-        this.$configId.set(id);
+        this.$userId.set(userId);
       });
   }
 
   public updateConfig(config: Partial<Config>): void {
-    const id = this.$configId();
+    const userId = this.$userId();
 
-    if (!id) {
-      console.warn('No config ID found. Cannot update config.');
+    if (!userId) {
+      console.warn('No user ID found. Cannot update config.');
       return;
     }
 
     this.httpClient
-      .put<WidgetConfigResponse>(`${URL}/${id}`, config)
+      .put<WidgetConfigResponse>(`${URL}/${userId}`, config)
       .pipe(tuiTakeUntilDestroyed(this.destroyRef))
       .subscribe((data) => {
         this.$config.set(data.config as Config);
@@ -54,19 +54,19 @@ export class LifestyleWidgetConfigService {
   }
 
   public deleteConfig(): void {
-    const id = this.$configId();
+    const userId = this.$userId();
 
-    if (!id) {
-      console.warn('No config ID found. Cannot delete config.');
+    if (!userId) {
+      console.warn('No user ID found. Cannot delete config.');
       return;
     }
 
     this.httpClient
-      .delete<WidgetConfigResponse>(`${URL}/${id}`)
+      .delete<WidgetConfigResponse>(`${URL}/${userId}`)
       .pipe(tuiTakeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.$config.set(null);
-        this.$configId.set(null);
+        this.$userId.set(null);
       });
   }
 
