@@ -1,11 +1,11 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { LifestyleConfigService } from '@lifestyle-dashboard/lifestyle-config-service';
 import { WidgetRegistry, WidgetType } from '@lifestyle-dashboard/widget';
 import { tuiIsPresent } from '@taiga-ui/cdk';
+import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-widget-config-service';
 
 @Injectable()
 export class DayCardDialogService {
-  private readonly configService = inject(LifestyleConfigService);
+  private readonly configService = inject(LifestyleWidgetConfigService);
 
   public readonly $config = this.configService.$config;
 

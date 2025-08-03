@@ -1,7 +1,7 @@
 {
-  "name": "lifestyle-config-service",
+  "name": "lifestyle-widget-config-service",
   "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "libs/front/api/lifestyle-config-service/src",
+  "sourceRoot": "libs/front/api/lifestyle-widget-config-service/src",
   "projectType": "library",
   "tags": [],
   "targets": {

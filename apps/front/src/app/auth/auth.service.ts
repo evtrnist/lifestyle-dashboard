@@ -1,10 +1,10 @@
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { State } from './state';
 import { AuthApiService } from './auth-api.service';
 import { AuthDto } from './auth.dto';
 import { catchError, EMPTY } from 'rxjs';
 import { Router } from '@angular/router';
+import { State } from '@lifestyle-dashboard/state';
 
 @Injectable()
 export class AuthService {

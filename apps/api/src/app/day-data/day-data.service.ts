@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { WidgetType } from '@lifestyle-dashboard/widget';
+import { Prisma } from '@prisma/client';
 
 @Injectable()
 export class DayDataService {
@@ -40,12 +41,12 @@ export class DayDataService {
     if (existing) {
       return this.prismaService.dayData.update({
         where: { id: existing.id },
-        data: { data: widgetData },
+        data: { data: widgetData as unknown as Prisma.InputJsonValue },
       });
     }
 
     return this.prismaService.dayData.create({
-      data: { userId, widgetType, date, data: widgetData },
+      data: { userId, widgetType, date, data: widgetData as unknown as Prisma.InputJsonValue },
     });
   }
 }

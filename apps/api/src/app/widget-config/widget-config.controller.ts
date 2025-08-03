@@ -3,7 +3,6 @@ import {
   Controller,
   Delete,
   Get,
-  Param,
   Post,
   Put,
   Req,
@@ -13,6 +12,7 @@ import { WidgetConfigService } from './widget-config.service';
 import { Config } from '@lifestyle-dashboard/config';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RequestWithUser } from '../auth/auth.controller';
+import { WidgetConfig } from '@prisma/client';
 
 @UseGuards(JwtAuthGuard)
 @Controller('widget-config')
@@ -20,10 +20,12 @@ export class WidgetConfigController {
   constructor(private readonly widgetConfigService: WidgetConfigService) {}
 
   @Get()
-  public async getAll(@Req() req: RequestWithUser) {
+  public async getUserConfig(
+    @Req() req: RequestWithUser,
+  ): Promise<WidgetConfig | null> {
     const userId = req.user['sub'];
 
-    return this.widgetConfigService.getAllByUser(userId);
+    return this.widgetConfigService.getByUser(userId);
   }
 
   @Post()
@@ -34,20 +36,16 @@ export class WidgetConfigController {
   }
 
   @Put(':id')
-  public async update(
-    @Param('id') id: string,
-    @Req() req: RequestWithUser,
-    @Body() config: Config,
-  ) {
+  public async update(@Req() req: RequestWithUser, @Body() config: Config) {
     const userId = req.user['sub'];
 
-    return this.widgetConfigService.update(id, userId, config);
+    return this.widgetConfigService.updateByUser(userId, config);
   }
 
   @Delete(':id')
-  public async delete(@Req() req: RequestWithUser, @Param('id') id: string) {
+  public async delete(@Req() req: RequestWithUser) {
     const userId = req.user['sub'];
 
-    return this.widgetConfigService.delete(id, userId);
+    return this.widgetConfigService.deleteByUser(userId);
   }
 }

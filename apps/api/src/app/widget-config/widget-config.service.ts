@@ -2,70 +2,39 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 
 import { Config } from '@lifestyle-dashboard/config';
+import { Prisma, WidgetConfig } from '@prisma/client';
 
 @Injectable()
 export class WidgetConfigService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  public async getAllByUser(userId: string): Promise<Config[]> {
-    return this.prismaService.widgetConfig.findMany({
+  public async getByUser(userId: string): Promise<WidgetConfig | null> {
+    const res = await this.prismaService.widgetConfig.findUnique({
       where: { userId },
     });
+
+    return res;
   }
 
-  public async create(userId: string, config: Config): Promise<Config> {
+  public async create(userId: string, config: Config): Promise<WidgetConfig> {
     return this.prismaService.widgetConfig.create({
       data: {
         userId,
-        config,
+        config: config as unknown as Prisma.InputJsonValue,
       },
     });
   }
 
-  public async update(
-    id: string,
-    userId: string,
-    config: Config,
-  ): Promise<Config> {
-    return this.prismaService.widgetConfig.updateMany({
-      where: {
-        id,
-        userId,
-      },
-      data: { config },
+  public async updateByUser(userId: string, config: Config): Promise<WidgetConfig> {
+    return this.prismaService.widgetConfig.update({
+      where: { userId },
+      data: { config: config as unknown as Prisma.InputJsonValue },
     });
   }
 
-  public async delete(id: string, userId: string): Promise<void> {
-    return this.prismaService.widgetConfig.deleteMany({
-      id,
-      userId,
+  public async deleteByUser(userId: string): Promise<WidgetConfig> {
+    return this.prismaService.widgetConfig.delete({
+      where: { userId },
     });
-  }
-
-  public async getWidgetConfig(userId: string): Promise<Config> {
-    const config = await this.prismaService.widgetConfig.findFirst({
-      where: {
-        userId,
-      },
-    });
-
-    if (config) {
-      return config.config;
-    }
-    // Default
-    return {
-      layout: {
-        'top-left': null,
-        'top-middle': null,
-        'top-right': null,
-        'middle-left': null,
-        middle: null,
-        'middle-right': null,
-        'bottom-left': null,
-        'bottom-middle': null,
-        'bottom-right': null,
-      },
-    };
   }
 }

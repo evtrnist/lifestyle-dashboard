@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-
 import { TimeTrackerWidgetInput } from '../timetracker-widget-input';
 import { TIMETRACKER_WIDGET_TOKEN } from '../timetracker-widget.token';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -7,7 +6,6 @@ import { TuiTime } from '@taiga-ui/cdk';
 import {
   TuiInputTimeModule,
   TuiTextfieldControllerModule,
-  TuiUnfinishedValidator,
 } from '@taiga-ui/legacy';
 
 @Component({
@@ -16,8 +14,7 @@ import {
     ReactiveFormsModule,
     TuiInputTimeModule,
     TuiTextfieldControllerModule,
-    TuiUnfinishedValidator
-],
+  ],
   standalone: true,
   templateUrl: './timetracker-settings-widget.component.html',
   styleUrl: './timetracker-settings-widget.component.less',

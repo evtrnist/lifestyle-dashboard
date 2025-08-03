@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  Injector,
-  OnInit,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { CalendarComponent } from '@lifestyle-dashboard/calendar';
 import { tuiDialog } from '@taiga-ui/core';
@@ -20,8 +14,7 @@ import { DashboardService } from './dashboard.service';
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [DashboardService],
 })
-export class DashboardComponent implements OnInit {
-  private readonly injector = inject(Injector);
+export class DashboardComponent {
   private readonly dashboardService = inject(DashboardService);
   public readonly widgets = [];
 
@@ -32,10 +25,6 @@ export class DashboardComponent implements OnInit {
     closeable: true,
     dismissible: true,
   });
-
-  ngOnInit() {
-    this.dashboardService.init();
-  }
 
   public openDayCard(date: Date) {
     this.dialog(date).subscribe();
