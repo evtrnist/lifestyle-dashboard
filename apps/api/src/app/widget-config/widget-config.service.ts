@@ -28,7 +28,7 @@ export class WidgetConfigService {
   public async updateByUser(userId: string, config: Config): Promise<WidgetConfig> {
     return this.prismaService.widgetConfig.update({
       where: { userId },
-      data: { config: config as unknown as Prisma.InputJsonValue, },
+      data: { config: config as unknown as Prisma.InputJsonValue },
     });
   }
 
