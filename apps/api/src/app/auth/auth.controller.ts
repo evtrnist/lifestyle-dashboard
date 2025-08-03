@@ -9,9 +9,8 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { AuthDto } from './dto/auth';
 import { JwtAuthGuard } from './jwt-auth.guard';
-import { ApiBearerAuth, ApiBody, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Response, Request } from 'express';
 import { CsrfAuthGuard } from './csrf-auth.guard';
 import crypto from 'crypto';
