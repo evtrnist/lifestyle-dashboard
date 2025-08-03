@@ -25,6 +25,9 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
+      
+      - name: Generate Prisma client
+        run: npx prisma generate
 
       - name: Build all NX projects
         run: npm run build:all
