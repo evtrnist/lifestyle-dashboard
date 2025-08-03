@@ -9,10 +9,10 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { WidgetConfigService } from './widget-config.service';
-import { Config } from '@lifestyle-dashboard/config';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { RequestWithUser } from '../auth/auth.controller';
 import { WidgetConfig } from '@prisma/client';
+import { InputJsonValue } from '@prisma/client/runtime/library';
 
 @UseGuards(JwtAuthGuard)
 @Controller('widget-config')
@@ -29,14 +29,14 @@ export class WidgetConfigController {
   }
 
   @Post()
-  public async create(@Req() req: RequestWithUser, @Body() config: Config) {
+  public async create(@Req() req: RequestWithUser, @Body() config: InputJsonValue) {
     const userId = req.user['sub'];
 
     return this.widgetConfigService.create(userId, config);
   }
 
   @Put(':id')
-  public async update(@Req() req: RequestWithUser, @Body() config: Config) {
+  public async update(@Req() req: RequestWithUser, @Body() config: InputJsonValue) {
     const userId = req.user['sub'];
 
     return this.widgetConfigService.updateByUser(userId, config);
