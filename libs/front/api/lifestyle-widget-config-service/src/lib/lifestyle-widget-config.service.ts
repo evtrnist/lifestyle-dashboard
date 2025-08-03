@@ -1,9 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { Config } from '@lifestyle-dashboard/config';
-import { tuiTakeUntilDestroyed } from '@taiga-ui/cdk';
-import { Observable } from 'rxjs';
+import { catchError, EMPTY, Observable } from 'rxjs';
 import { WidgetConfigResponse } from './widget-config-response';
+import { State } from '@lifestyle-dashboard/state';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 const URL = '/api/widget-config';
 
@@ -13,6 +14,7 @@ export class LifestyleWidgetConfigService {
   private readonly destroyRef = inject(DestroyRef);
 
   public readonly $config = signal<Config | null>(null);
+  public readonly $state = signal<State | null>(null);
   private readonly $userId = signal<string | null>(null);
 
   public init(): void {
@@ -21,7 +23,7 @@ export class LifestyleWidgetConfigService {
 
   public getConfig(): void {
     this.getConfig$()
-      .pipe(tuiTakeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(({ userId, config }) => {
         this.$config.set(config);
         this.$userId.set(userId);
@@ -36,20 +38,39 @@ export class LifestyleWidgetConfigService {
       return;
     }
 
+    this.$state.set(State.Loading);
+
     this.httpClient
       .put<WidgetConfigResponse>(`${URL}/${userId}`, config)
-      .pipe(tuiTakeUntilDestroyed(this.destroyRef))
+      .pipe(
+        catchError((err) => {
+          console.warn('Update config failed', err);
+          this.$state.set(State.Error);
+          return EMPTY;
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
       .subscribe((data) => {
         this.$config.set(data.config as Config);
+        this.$state.set(State.Success);
       });
   }
 
   public createConfig(newConfig: Partial<Config>): void {
+    this.$state.set(State.Loading);
+
     this.httpClient
       .post<WidgetConfigResponse>(URL, newConfig)
-      .pipe(tuiTakeUntilDestroyed(this.destroyRef))
+      .pipe(
+        catchError((err) => {
+          console.warn('Create config failed', err);
+          this.$state.set(State.Error);
+          return EMPTY;
+        }),
+        takeUntilDestroyed(this.destroyRef))
       .subscribe(({ config }) => {
         this.$config.set(config as Config);
+        this.$state.set(State.Success);
       });
   }
 
@@ -63,7 +84,7 @@ export class LifestyleWidgetConfigService {
 
     this.httpClient
       .delete<WidgetConfigResponse>(`${URL}/${userId}`)
-      .pipe(tuiTakeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(() => {
         this.$config.set(null);
         this.$userId.set(null);

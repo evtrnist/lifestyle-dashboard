@@ -6,7 +6,6 @@ import {
   OnInit,
   output,
 } from '@angular/core';
-import { State } from '../state';
 import { AuthDto } from '../auth.dto';
 import {
   AbstractControl,
@@ -26,6 +25,7 @@ import { AsyncPipe } from '@angular/common';
 import { TuiButton, TuiError, TuiHint, TuiTextfield } from '@taiga-ui/core';
 import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
 import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
+import { State } from '@lifestyle-dashboard/state';
 
 function repeatPasswordValidatorFactory(form: FormGroup): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {

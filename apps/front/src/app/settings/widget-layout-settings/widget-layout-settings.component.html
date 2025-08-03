@@ -13,31 +13,32 @@
     @let title = item.value.title;
 
     <div class="slot">
-    <label tuiLabel>
-      {{ title }}
+      <label tuiLabel>
+        {{ title }}
 
-      <tui-textfield tuiChevron>
-        <input tuiSelect [ngModel]="item.value.label" />
+        <tui-textfield tuiChevron>
+          <input tuiSelect [ngModel]="item.value.label" />
 
-        <tui-data-list-wrapper
-          *tuiTextfieldDropdown
-          new
-          [items]="widgets"
-          [itemContent]="configContentRef"
-          (itemClick)="selectWidget($event, item.key)"
-        /> </tui-textfield
-    ></label>
+          <tui-data-list-wrapper
+            *tuiTextfieldDropdown
+            new
+            [items]="widgets"
+            [itemContent]="configContentRef"
+            (itemClick)="selectWidget($event, item.key)"
+          /> </tui-textfield
+      ></label>
     </div>
   }
 </div>
 
 <button
-    size="l"
-    tuiButton
-    type="button"
-    (click)="save()"
+  size="l"
+  tuiButton
+  type="button"
+  (click)="save()"
+  [loading]="$shouldShowLoading()"
 >
-    Save settings
+  Save settings
 </button>
 
 <ng-template #configContentRef let-config>

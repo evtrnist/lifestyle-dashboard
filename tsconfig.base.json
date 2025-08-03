@@ -21,12 +21,13 @@
       "@lifestyle-dashboard/day-card-dialog": [
         "libs/front/ui/day-card-dialog/src/index.ts"
       ],
-      "@lifestyle-dashboard/lifestyle-widget-config-service": [
-        "libs/front/api/lifestyle-widget-config-service/src/index.ts"
-      ],
       "@lifestyle-dashboard/lifestyle-data-service": [
         "libs/front/api/lifestyle-data-service/src/index.ts"
       ],
+      "@lifestyle-dashboard/lifestyle-widget-config-service": [
+        "libs/front/api/lifestyle-widget-config-service/src/index.ts"
+      ],
+      "@lifestyle-dashboard/state": ["libs/shared/state/src/index.ts"],
       "@lifestyle-dashboard/timetracker": [
         "libs/shared/timetracker/src/index.ts"
       ],

@@ -20,7 +20,12 @@ import {
   TuiTextfieldDropdownDirective,
   TuiTitle,
 } from '@taiga-ui/core';
-import { TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
+import {
+  TuiButtonLoading,
+  TuiChevron,
+  TuiDataListWrapper,
+  TuiSelect,
+} from '@taiga-ui/kit';
 import {
   WIDGET_LAYOUT_SLOT_MAP,
   WidgetLayoutSlot,
@@ -29,6 +34,7 @@ import { KeyValuePipe } from '@angular/common';
 import { TuiHeader } from '@taiga-ui/layout';
 import { WidgetLayoutSettingsService } from './widget-layout-settings.service';
 import { Layout } from '@lifestyle-dashboard/config';
+import { State } from '@lifestyle-dashboard/state';
 @Component({
   selector: 'app-widget-layout-settings',
   templateUrl: './widget-layout-settings.component.html',
@@ -48,6 +54,7 @@ import { Layout } from '@lifestyle-dashboard/config';
     TuiButton,
     TuiHeader,
     TuiTitle,
+    TuiButtonLoading,
   ],
 })
 export class WidgetLayoutSettingsComponent {
@@ -62,6 +69,12 @@ export class WidgetLayoutSettingsComponent {
   protected readonly widgets = Object.values(WidgetRegistry);
 
   protected readonly $slotsMap = signal(WIDGET_LAYOUT_SLOT_MAP);
+
+  protected readonly $shouldShowLoading = computed(() => {
+    const state = this.widgetLayoutSettingsService.$widgetConfigState();
+
+    return state === State.Loading;
+  });
 
   public readonly $currentWidgetLayoutSettings = computed<
     Record<Slot, WidgetLayoutSlot>

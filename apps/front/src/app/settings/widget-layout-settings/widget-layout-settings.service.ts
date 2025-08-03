@@ -10,6 +10,8 @@ export class WidgetLayoutSettingsService {
 
   public readonly $config = this.lifestyleWidgetConfigService.$config;
 
+  public readonly $widgetConfigState = this.lifestyleWidgetConfigService.$state;
+
   public saveWidgetLayoutSettings(layout: Layout): void {
     const config = this.$config();
 

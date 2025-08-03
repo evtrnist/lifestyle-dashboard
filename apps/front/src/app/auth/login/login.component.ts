@@ -16,9 +16,9 @@ import {
 import { TuiButton, TuiError, TuiHint, TuiTextfield } from '@taiga-ui/core';
 import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
-import { State } from '../state';
 import { AuthDto } from '../auth.dto';
 import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
+import { State } from '@lifestyle-dashboard/state';
 
 const PASSWORD_MIN_LENGTH = 7;
 
