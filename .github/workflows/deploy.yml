@@ -2,13 +2,12 @@ name: Build & Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
 
 env:
   REGISTRY: ghcr.io
   OWNER: ${{ secrets.GHCR_OWNER }}
-  IMAGE_TAG: ${{ github.sha }}
+  TAG: sha-${{ github.sha }}
 
 jobs:
   build-and-push:
@@ -16,16 +15,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: 18
 
       - name: Install dependencies
         run: npm ci
-      
+
       - name: Generate Prisma client
         run: npx prisma generate --schema=apps/api/prisma/schema.prisma
 
@@ -41,26 +40,25 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GHCR_TOKEN }}" \
-          | docker login ghcr.io -u "${{ secrets.GHCR_OWNER }}" --password-stdin
+        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_OWNER }}" --password-stdin
 
-      - name: Build & push API image
+      - name: Build & push API image (arm64)
         uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile.api
           platforms: linux/arm64
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/lifestyle-api:${{ env.IMAGE_TAG }}
+          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/lifestyle-api:${{ env.TAG }}
 
-      - name: Build & push Frontend image
+      - name: Build & push Frontend image (arm64)
         uses: docker/build-push-action@v5
         with:
           context: .
           file: Dockerfile.front
           platforms: linux/arm64
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/lifestyle-front:${{ env.IMAGE_TAG }}
+          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/lifestyle-front:${{ env.TAG }}
 
   deploy:
     name: Deploy to Raspberry Pi (K3s)
@@ -68,29 +66,43 @@ jobs:
     runs-on: ubuntu-latest
     env:
       KUBECONFIG: ${{ github.workspace }}/kubeconfig
+      TAG: sha-${{ github.sha }}
+      API_IMAGE: ghcr.io/${{ secrets.GHCR_OWNER }}/lifestyle-api
+      FRONT_IMAGE: ghcr.io/${{ secrets.GHCR_OWNER }}/lifestyle-front
     steps:
-      - name: Checkout lifestyle-k8s
-        uses: actions/checkout@v3
+      - name: Checkout k8s repo (manifests)
+        uses: actions/checkout@v4
         with:
           repository: evtrnist/lifestyle-k8s
-          token: ${{ secrets.GHCR_TOKEN }}
+          token: ${{ secrets.K8S_REPO_TOKEN }}
           path: k8s
 
-      - name: Set up kubectl
+      - name: Fail if ${...} placeholders exist in k8s YAML
+        run: '! grep -R "\${" -n k8s || (echo "Remove placeholders like \${OWNER} from k8s repo" && exit 1)'
+
+      - name: Setup kubectl
         uses: azure/setup-kubectl@v3
         with:
-          version: 'latest'
+          version: latest
+
+      - name: Setup kustomize
+        uses: imranismail/setup-kustomize@v2
 
       - name: Configure kubeconfig
-        run: echo "${{ secrets.RPI_KUBECONFIG }}" | base64 -d > $KUBECONFIG
+        run: echo "${{ secrets.RPI_KUBECONFIG }}" | base64 -d > "$KUBECONFIG"
 
-      - name: Connect to Tailscale
+      - name: Connect to Tailscale (for cluster access via tailnet)
         run: |
           curl -fsSL https://tailscale.com/install.sh | sh
-          sudo tailscale up --authkey ${{ secrets.TAILSCALE_CI_KEY }} --hostname=ci-runner
+          sudo tailscale up --authkey ${{ secrets.TAILSCALE_CI_KEY }} --hostname=ci-runner-${{ github.run_id }}
 
-      - name: Deploy backend manifest
-        run: envsubst < k8s/base/lifestyle-api/deployment.yml | kubectl apply -f -
-
-      - name: Deploy frontend manifest
-        run: envsubst < k8s/base/lifestyle-front/deployment.yml | kubectl apply -f -
+      - name: Set images and apply with kustomize
+        working-directory: k8s/base
+        run: |
+          # создаём временную копию, чтобы не менять репозиторий
+          cp -R . ../tmp && cd ../tmp
+          kustomize edit set image ${API_IMAGE}=${API_IMAGE}:${TAG}
+          kustomize edit set image ${FRONT_IMAGE}=${FRONT_IMAGE}:${TAG}
+          kubectl apply -k .
+          kubectl rollout status deploy/lifestyle-api --timeout=180s
+          kubectl rollout status deploy/lifestyle-front --timeout=180s
