@@ -4,9 +4,13 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read
+  packages: write
+
 env:
   REGISTRY: ghcr.io
-  OWNER: ${{ secrets.GHCR_OWNER }}
+  OWNER: ${{ github.repository_owner }}
   TAG: sha-${{ github.sha }}
 
 jobs:
@@ -40,7 +44,11 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Log in to GitHub Container Registry
-        run: echo "${{ secrets.GHCR_TOKEN }}" | docker login ghcr.io -u "${{ secrets.GHCR_OWNER }}" --password-stdin
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build & push API image (arm64)
         uses: docker/build-push-action@v5
@@ -67,15 +75,17 @@ jobs:
     env:
       KUBECONFIG: ${{ github.workspace }}/kubeconfig
       TAG: sha-${{ github.sha }}
-      API_IMAGE: ghcr.io/${{ secrets.GHCR_OWNER }}/lifestyle-api
-      FRONT_IMAGE: ghcr.io/${{ secrets.GHCR_OWNER }}/lifestyle-front
+      API_IMAGE: ghcr.io/${{ github.repository_owner }}/lifestyle-api
+      FRONT_IMAGE: ghcr.io/${{ github.repository_owner }}/lifestyle-front
     steps:
       - name: Checkout k8s repo (manifests)
         uses: actions/checkout@v4
         with:
-          repository: evtrnist/lifestyle-k8s
+          repository: evtrnist/lifestyle-k8s 
           token: ${{ secrets.K8S_REPO_TOKEN }}
           path: k8s
+          fetch-depth: 1
+          persist-credentials: false
 
       - name: Fail if ${...} placeholders exist in k8s YAML
         run: '! grep -R "\${" -n k8s || (echo "Remove placeholders like \${OWNER} from k8s repo" && exit 1)'
@@ -99,7 +109,6 @@ jobs:
       - name: Set images and apply with kustomize
         working-directory: k8s/base
         run: |
-          # создаём временную копию, чтобы не менять репозиторий
           cp -R . ../tmp && cd ../tmp
           kustomize edit set image ${API_IMAGE}=${API_IMAGE}:${TAG}
           kustomize edit set image ${FRONT_IMAGE}=${FRONT_IMAGE}:${TAG}
