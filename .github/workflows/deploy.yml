@@ -5,11 +5,6 @@ on:
     branches:
       - main
 
-env:
-  REGISTRY: ghcr.io
-  OWNER: ${{ secrets.GHCR_OWNER }}
-  IMAGE_TAG: ${{ github.sha }}
-
 jobs:
   build-and-push:
     name: Build & Push Docker Images
@@ -51,7 +46,7 @@ jobs:
           file: Dockerfile.api
           platforms: linux/arm64
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/lifestyle-api:${{ env.IMAGE_TAG }}
+          tags: ghcr.io/${{ secrets.GHCR_OWNER }}/lifestyle-api:${{ github.sha }}
 
       - name: Build & push Frontend image
         uses: docker/build-push-action@v5
@@ -60,7 +55,7 @@ jobs:
           file: Dockerfile.front
           platforms: linux/arm64
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.OWNER }}/lifestyle-front:${{ env.IMAGE_TAG }}
+          tags: ghcr.io${{ secrets.GHCR_OWNER }}/lifestyle-front:${{ github.sha }}
 
   deploy:
     name: Deploy to Raspberry Pi (K3s)
