@@ -9,9 +9,9 @@ import { FormsModule } from '@angular/forms';
 import {
   Slot,
   WidgetOptions,
-  WidgetRegistry,
   WidgetType,
-} from '@lifestyle-dashboard/widget';
+} from '@lifestyle-dashboard/widget-contracts';
+import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import {
   TuiButton,
   TuiLabel,

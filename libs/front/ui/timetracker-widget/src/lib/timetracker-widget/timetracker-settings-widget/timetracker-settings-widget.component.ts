@@ -7,6 +7,7 @@ import {
   TuiInputTimeModule,
   TuiTextfieldControllerModule,
 } from '@taiga-ui/legacy';
+import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
 
 @Component({
   selector: 'lifestyle-timetracker-settings-widget',
@@ -20,19 +21,19 @@ import {
   styleUrl: './timetracker-settings-widget.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TimetrackerSettingsWidgetComponent {
+export class TimetrackerSettingsWidgetComponent implements WidgetSettingsComponent {
   public widgetData = inject<TimeTrackerWidgetInput>(TIMETRACKER_WIDGET_TOKEN);
 
   public readonly keys = Object.keys(this.widgetData.timeData) as Array<
     keyof TimeTrackerWidgetInput['timeData']
   >;
 
-  public readonly formGroup = this.buildFormGroup(this.keys);
+  public readonly form = this.buildFormGroup(this.keys);
 
   public getControlInfo(key: keyof TimeTrackerWidgetInput['timeData']) {
     return {
       title: key,
-      control: this.formGroup.get(key) as unknown as FormControl,
+      control: this.form.get(key) as unknown as FormControl,
     };
   }
 

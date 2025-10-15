@@ -5,6 +5,7 @@ import {
   inject,
   InjectionToken,
   Injector,
+  Type,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TuiButton, TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
@@ -61,6 +62,15 @@ export class DayCardDialogComponent {
 
   protected onClick(item: string): void {
     console.log(item);
+  }
+
+  protected save(settingsComponent?: Type<unknown>): void {
+    if (!settingsComponent) {
+      return;
+    }
+    console.log('Save settings for', settingsComponent);
+
+    
   }
 
   public createInjector(token: InjectionToken<unknown>): Injector {

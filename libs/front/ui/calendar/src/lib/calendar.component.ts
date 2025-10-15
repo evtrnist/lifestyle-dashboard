@@ -1,14 +1,12 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   input,
   output,
   signal,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DayComponent } from './day/day.component';
-import { Widget } from '@lifestyle-dashboard/widget';
 import { Config } from '@lifestyle-dashboard/config';
 
 @Component({

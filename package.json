@@ -1,5 +1,5 @@
 {
-  "name": "@lifestyle-dashboard/source",
+  "name": "lifestyle-dashboard",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {

@@ -11,8 +11,8 @@ import { CommonModule } from '@angular/common';
 import {
   Slot,
   WidgetOptions,
-  WidgetRegistry,
-} from '@lifestyle-dashboard/widget';
+} from '@lifestyle-dashboard/widget-contracts';
+import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import { Config } from '@lifestyle-dashboard/config';
 import { TIMETRACKER_WIDGET_TOKEN } from '@lifestyle-dashboard/timetracker-widget';
 

@@ -39,4 +39,9 @@ export const appRoutes: Route[] = [
         (component) => component.AuthComponent,
       ),
   },
+  {
+    path: '',
+    pathMatch: 'full',
+    redirectTo: 'dashboard',
+  },
 ];

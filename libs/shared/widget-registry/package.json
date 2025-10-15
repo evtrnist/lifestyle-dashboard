@@ -1,5 +1,5 @@
 {
-  "name": "@lifestyle-dashboard/widget",
+  "name": "@lifestyle-dashboard/widget-registry",
   "version": "0.0.1",
   "dependencies": {
     "tslib": "^2.3.0"

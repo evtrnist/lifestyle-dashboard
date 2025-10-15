@@ -1,7 +1,8 @@
 import { computed, inject, Injectable } from '@angular/core';
-import { WidgetRegistry, WidgetType } from '@lifestyle-dashboard/widget';
 import { tuiIsPresent } from '@taiga-ui/cdk';
 import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-widget-config-service';
+import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
+import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 
 @Injectable()
 export class DayCardDialogService {
@@ -31,4 +32,8 @@ export class DayCardDialogService {
       })
       .filter(tuiIsPresent);
   });
+
+  public save(): void {
+    //
+  }
 }

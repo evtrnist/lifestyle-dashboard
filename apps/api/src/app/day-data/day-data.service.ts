@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
-import { WidgetType } from '@lifestyle-dashboard/widget';
+import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { InputJsonValue } from '@prisma/client/runtime/library';
 
 @Injectable()

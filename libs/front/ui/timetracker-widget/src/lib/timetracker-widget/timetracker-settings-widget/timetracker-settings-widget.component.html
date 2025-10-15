@@ -1,4 +1,4 @@
-<form [formGroup]="formGroup" class="form">
+<form [formGroup]="form" class="form">
   @for (key of keys; track $index) {
     @let controlInfo = getControlInfo(key);
     @let title = controlInfo.title;

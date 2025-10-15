@@ -1,4 +1,4 @@
-import { WidgetType } from '@lifestyle-dashboard/widget';
+import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 
 export const WIDGET_NAME_REGISTRY: Record<
   WidgetType,
