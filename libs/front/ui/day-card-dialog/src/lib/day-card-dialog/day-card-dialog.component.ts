@@ -5,7 +5,10 @@ import {
   inject,
   InjectionToken,
   Injector,
+  signal,
   Type,
+  viewChild,
+  ViewContainerRef,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TuiButton, TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
@@ -16,6 +19,12 @@ import {
   WidgetIconPipe,
   WidgetNamePipe,
 } from '@lifestyle-dashboard/widget-name-pipe';
+import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
+import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
+
+function isWidgetSettingsComponent(x: unknown): x is WidgetSettingsComponent {
+  return typeof x === 'object' && x !== null && 'form' in x;
+}
 
 @Component({
   selector: 'lifestyle-day-card-dialog',
@@ -27,6 +36,7 @@ import {
     TuiButton,
     WidgetNamePipe,
     WidgetIconPipe,
+    DynamicHostComponent,
   ],
   templateUrl: './day-card-dialog.component.html',
   styleUrl: './day-card-dialog.component.less',
@@ -38,6 +48,10 @@ export class DayCardDialogComponent {
   private readonly injector = inject(Injector);
 
   public readonly context = injectContext<TuiDialogContext<Date, Date>>();
+
+  protected readonly settingsContainerRef = viewChild('settingsContainerRef', {
+    read: ViewContainerRef,
+  });
 
   public readonly $tabs = this.dayCardDialogService.$tabs;
 
@@ -57,6 +71,10 @@ export class DayCardDialogComponent {
 
   protected activeItemIndex = 0;
 
+  private readonly settingsInstance = signal<WidgetSettingsComponent | null>(
+    null,
+  );
+
   private injectorCache?: Injector;
   private lastToken?: InjectionToken<unknown>;
 
@@ -64,13 +82,20 @@ export class DayCardDialogComponent {
     console.log(item);
   }
 
-  protected save(settingsComponent?: Type<unknown>): void {
-    if (!settingsComponent) {
+  protected save(): void {
+    const form = this.settingsInstance()?.form;
+    if (!form || form.invalid) {
       return;
     }
-    console.log('Save settings for', settingsComponent);
+    console.log('Save settings for', form.value);
+  }
 
-    
+  protected onSettingsInit(instance: unknown) {
+    if (isWidgetSettingsComponent(instance)) {
+      this.settingsInstance.set(instance);
+    } else {
+      console.warn('Got incompatible instance:', instance);
+    }
   }
 
   public createInjector(token: InjectionToken<unknown>): Injector {

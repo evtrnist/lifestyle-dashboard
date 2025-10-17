@@ -21,8 +21,8 @@
       "@lifestyle-dashboard/day-card-dialog": [
         "libs/front/ui/day-card-dialog/src/index.ts"
       ],
-      "@lifestyle-dashboard/lifestyle-data-service": [
-        "libs/front/api/lifestyle-data-service/src/index.ts"
+      "@lifestyle-dashboard/lifestyle-widget-data-service": [
+        "libs/front/api/lifestyle-widget-data-service/src/index.ts"
       ],
       "@lifestyle-dashboard/lifestyle-widget-config-service": [
         "libs/front/api/lifestyle-widget-config-service/src/index.ts"
@@ -43,7 +43,8 @@
       ],
       "@lifestyle-dashboard/widget-registry": [
         "libs/shared/widget-registry/src/index.ts"
-      ]
+      ],
+      "@lifestyle-dashboard/dynamic-host": ["libs/front/ui/dynamic-host/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

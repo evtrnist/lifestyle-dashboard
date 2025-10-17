@@ -1,5 +1,5 @@
 export default {
-  displayName: 'lifestyle-data-service',
+  displayName: 'lifestyle-widget-data-service',
   preset: '../../../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
@@ -7,5 +7,5 @@ export default {
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
   coverageDirectory:
-    '../../../../coverage/libs/front/api/lifestyle-data-service',
+    '../../../../coverage/libs/front/api/lifestyle-widget-data-service',
 };

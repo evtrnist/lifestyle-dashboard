@@ -4,8 +4,10 @@
     @let title = controlInfo.title;
     @let control = controlInfo.control;
 
-    <tui-input-time [formControl]="control">
-      {{ title }}
-    </tui-input-time>
+    <tui-textfield>
+      <label for="time" tuiLabel>{{ title }}</label>
+
+      <input id="time" tuiInputTime [formControl]="control" />
+    </tui-textfield>
   }
 </form>

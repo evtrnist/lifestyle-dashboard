@@ -2,26 +2,22 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TimeTrackerWidgetInput } from '../timetracker-widget-input';
 import { TIMETRACKER_WIDGET_TOKEN } from '../timetracker-widget.token';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TuiTime } from '@taiga-ui/cdk';
-import {
-  TuiInputTimeModule,
-  TuiTextfieldControllerModule,
-} from '@taiga-ui/legacy';
+import { TuiLabel, TuiTextfield } from '@taiga-ui/core';
+import { TuiInputTime } from '@taiga-ui/kit';
 import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
+import { TuiTime } from '@taiga-ui/cdk';
 
 @Component({
   selector: 'lifestyle-timetracker-settings-widget',
-  imports: [
-    ReactiveFormsModule,
-    TuiInputTimeModule,
-    TuiTextfieldControllerModule,
-  ],
+  imports: [ReactiveFormsModule, TuiTextfield, TuiInputTime, TuiLabel],
   standalone: true,
   templateUrl: './timetracker-settings-widget.component.html',
   styleUrl: './timetracker-settings-widget.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TimetrackerSettingsWidgetComponent implements WidgetSettingsComponent {
+export class TimetrackerSettingsWidgetComponent
+  implements WidgetSettingsComponent
+{
   public widgetData = inject<TimeTrackerWidgetInput>(TIMETRACKER_WIDGET_TOKEN);
 
   public readonly keys = Object.keys(this.widgetData.timeData) as Array<

@@ -53,8 +53,9 @@ export class TimetrackerWidgetComponent {
 
   protected readonly labels = [
     TimetrackerCategory.Routine,
-    TimetrackerCategory.Health,
     TimetrackerCategory.SelfDevelopment,
+
+    TimetrackerCategory.Health,
     TimetrackerCategory.Leisure,
   ];
 

@@ -7,7 +7,7 @@
       tuiTab
       type="button"
       (click)="onClick(tab)"
-      >
+    >
       {{ tab | widgetName }}
     </button>
   }
@@ -20,17 +20,17 @@
     @let settingsComponent = shownWidget.settingsComponent;
     @let injector = createInjector(token);
 
-    <ng-container
-      [ngComponentOutlet]="component"
-      [ngComponentOutletInjector]="injector"
-      >
-    </ng-container>
+    <lib-dynamic-host
+      [component]="component"
+      [injector]="injector"
+    ></lib-dynamic-host>
 
     @if (settingsComponent) {
-      <ng-container
-        [ngComponentOutlet]="settingsComponent"
-        [ngComponentOutletInjector]="injector"
-      ></ng-container>
+      <lib-dynamic-host
+        [component]="settingsComponent"
+        [injector]="injector"
+        (init)="onSettingsInit($event)"
+      ></lib-dynamic-host>
     }
   </div>
 }
@@ -41,9 +41,9 @@
     tuiButton
     type="button"
     class="button"
-    appearance="secondary-grayscale"
-    (click)="save(shownWidget?.settingsComponent)"
-    >
+    appearance="secondary"
+    (click)="save()"
+  >
     Save
   </button>
 </div>
