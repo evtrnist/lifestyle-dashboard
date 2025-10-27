@@ -9,15 +9,19 @@
 </header>
 
 <div class="container">
-  @for (item of $currentWidgetLayoutSettings() | keyvalue; track item.key) {
+  @for (item of $slotsMap() | keyvalue: keepOrder; track item.key) {
     @let title = item.value.title;
 
     <div class="slot">
       <label tuiLabel>
         {{ title }}
 
-        <tui-textfield tuiChevron>
-          <input tuiSelect [ngModel]="item.value.label" />
+        <tui-textfield tuiChevron [stringify]="stringify" [tuiTextfieldCleaner]="true">
+          <input
+            tuiSelect
+            [ngModel]="item.value"
+            (ngModelChange)="selectWidget($event, item.key)"
+          />
 
           <tui-data-list-wrapper
             *tuiTextfieldDropdown

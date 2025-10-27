@@ -1,34 +1,112 @@
-@let day = $day(); @let bottomMiddleSlotWidgetOptions = $bottomMiddleSlotWidgetOptions();
+@let day = $day();
+@let slotWidgetMap = $slotWidgetMap();
+@let topLeftWidget = slotWidgetMap[Slot.TopLeft];
+@let topMiddleWidget = slotWidgetMap[Slot.TopMiddle];
+@let topRightWidget = slotWidgetMap[Slot.TopRight];
+@let middleLeftWidget = slotWidgetMap[Slot.MiddleLeft];
+@let middleWidget = slotWidgetMap[Slot.Middle];
+@let middleRightWidget = slotWidgetMap[Slot.MiddleRight];
+@let bottomLeftWidget = slotWidgetMap[Slot.BottomLeft];
+@let bottomMiddleWidget = slotWidgetMap[Slot.BottomMiddle];
+@let bottomRightWidget = slotWidgetMap[Slot.BottomRight];
 
 <div class="day">
   @if (day) {
+    <!-- Верхние слоты -->
+    <div class="slot top-left">
+      @if (topLeftWidget) {
+        @let component = topLeftWidget.component;
+        @let token = topLeftWidget.token;
 
-  <!-- Верхние слоты -->
-  <div class="slot top-left"></div>
-  <div class="slot top-middle"></div>
-  <div class="slot top-right">
-    <div class="day-number">{{ day.getDate() }}</div>
-  </div>
+        <lib-dynamic-host
+          [component]="component"
+          [injector]="createInjector(token)"
+        ></lib-dynamic-host>
+      }
+    </div>
+    <div class="slot top-middle">
+      @if (topMiddleWidget) {
+        @let component = topMiddleWidget.component;
+        @let token = topMiddleWidget.token;
 
-  <!-- Средние слоты -->
-  <div class="slot middle-left"></div>
-  <div class="slot middle"></div>
-  <div class="slot middle-right"></div>
+        <lib-dynamic-host
+          [component]="component"
+          [injector]="createInjector(token)"
+        ></lib-dynamic-host>
+      }
+    </div>
+    <div class="slot top-right">
+      <div class="day-number">{{ day.getDate() }}</div>
+    </div>
 
-  <!-- Нижние слоты -->
-  <div class="slot bottom-left"></div>
-  <div class="slot bottom-middle">
-    @if (bottomMiddleSlotWidgetOptions) {
-    @let component = bottomMiddleSlotWidgetOptions.component;
-    @let token = bottomMiddleSlotWidgetOptions.token;
+    <!-- Средние слоты -->
+    <div class="slot middle-left">
+      @if (middleLeftWidget) {
+        @let component = middleLeftWidget.component;
+        @let token = middleLeftWidget.token;
 
-    <ng-container
-      [ngComponentOutlet]="component"
-      [ngComponentOutletInjector]="createInjector(token)"
-    >
-    </ng-container>
-  }
-  </div>
-  <div class="slot bottom-right"></div>
+        <lib-dynamic-host
+          [component]="component"
+          [injector]="createInjector(token)"
+        ></lib-dynamic-host>
+      }
+    </div>
+    <div class="slot middle">
+      @if (middleWidget) {
+        @let component = middleWidget.component;
+        @let token = middleWidget.token;
+
+        <lib-dynamic-host
+          [component]="component"
+          [injector]="createInjector(token)"
+        ></lib-dynamic-host>
+      }
+    </div>
+    <div class="slot middle-right">
+      @if (middleRightWidget) {
+        @let component = middleRightWidget.component;
+        @let token = middleRightWidget.token;
+
+        <lib-dynamic-host
+          [component]="component"
+          [injector]="createInjector(token)"
+        ></lib-dynamic-host>
+      }
+    </div>
+
+    <!-- Нижние слоты -->
+    <div class="slot bottom-left">
+      @if (bottomLeftWidget) {
+        @let component = bottomLeftWidget.component;
+        @let token = bottomLeftWidget.token;
+
+        <lib-dynamic-host
+          [component]="component"
+          [injector]="createInjector(token)"
+        ></lib-dynamic-host>
+      }
+    </div>
+    <div class="slot bottom-middle">
+      @if (bottomMiddleWidget) {
+        @let component = bottomMiddleWidget.component;
+        @let token = bottomMiddleWidget.token;
+
+        <lib-dynamic-host
+          [component]="component"
+          [injector]="createInjector(token)"
+        ></lib-dynamic-host>
+      }
+    </div>
+    <div class="slot bottom-right">
+      @if (bottomRightWidget) {
+        @let component = bottomRightWidget.component;
+        @let token = bottomRightWidget.token;
+
+        <lib-dynamic-host
+          [component]="component"
+          [injector]="createInjector(token)"
+        ></lib-dynamic-host>
+      }
+    </div>
   }
 </div>

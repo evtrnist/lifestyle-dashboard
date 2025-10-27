@@ -6,20 +6,19 @@ import {
   Injector,
   inject,
   InjectionToken,
+  Type,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {
-  Slot,
-  WidgetOptions,
-} from '@lifestyle-dashboard/widget-contracts';
+import { Slot, WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import { Config } from '@lifestyle-dashboard/config';
 import { TIMETRACKER_WIDGET_TOKEN } from '@lifestyle-dashboard/timetracker-widget';
+import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
 
 @Component({
   selector: 'lifestyle-day',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, DynamicHostComponent],
   templateUrl: './day.component.html',
   styleUrl: './day.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,20 +28,34 @@ export class DayComponent {
 
   public readonly $config = input.required<Config | null>({ alias: 'config' });
 
-  public readonly $bottomMiddleSlotWidgetOptions =
-    computed<WidgetOptions | null>(() => {
-      const config = this.$config();
+  public readonly $slotWidgetMap = computed<Record<Slot, WidgetOptions | null>>(() => {
+    const config = this.$config();
+    const map: Record<Slot, WidgetOptions | null> = {
+      [Slot.TopLeft]: null,
+      [Slot.TopMiddle]: null,
+      [Slot.TopRight]: null,
+      [Slot.MiddleLeft]: null,
+      [Slot.Middle]: null,
+      [Slot.MiddleRight]: null,
 
-      if (!config) {
-        return null;
-      }
+      [Slot.BottomLeft]: null,
+      [Slot.BottomMiddle]: null,
+      [Slot.BottomRight]: null,
+    };
 
-      const widgetType = config.layout[Slot.BottomMiddle];
+    if (config) {
+      (Object.keys(config.layout) as Slot[]).forEach((slot) => {
+        const widgetType = config.layout[slot];
+        map[slot] = widgetType ? WidgetRegistry[widgetType] : null;
+      });
+    }
 
-      return widgetType ? WidgetRegistry[widgetType] : null;
-    });
+    return map;
+  });
 
   private readonly injector = inject(Injector);
+
+  protected readonly Slot = Slot;
 
   public createInjector(token: InjectionToken<unknown>): Injector {
     return Injector.create({
