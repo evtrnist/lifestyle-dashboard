@@ -2,12 +2,7 @@
 
 <tui-tabs [(activeItemIndex)]="activeItemIndex">
   @for (tab of $tabs(); track $index) {
-    <button
-      [iconStart]="tab | widgetIcon | tuiIcon"
-      tuiTab
-      type="button"
-      (click)="onClick(tab)"
-    >
+    <button [iconStart]="tab | widgetIcon | tuiIcon" tuiTab type="button" (click)="onClick(tab)">
       {{ tab | widgetName }}
     </button>
   }
@@ -20,10 +15,7 @@
     @let settingsComponent = shownWidget.settingsComponent;
     @let injector = createInjector(token);
 
-    <lib-dynamic-host
-      [component]="component"
-      [injector]="injector"
-    ></lib-dynamic-host>
+    <lib-dynamic-host [component]="component" [injector]="injector"></lib-dynamic-host>
 
     @if (settingsComponent) {
       <lib-dynamic-host
@@ -33,17 +25,17 @@
       ></lib-dynamic-host>
     }
   </div>
-}
 
-<div class="button-container">
-  <button
-    size="l"
-    tuiButton
-    type="button"
-    class="button"
-    appearance="secondary"
-    (click)="save()"
-  >
-    Save
-  </button>
-</div>
+  <div class="button-container">
+    <button
+      size="l"
+      tuiButton
+      type="button"
+      class="button"
+      appearance="secondary"
+      (click)="save(shownWidget.key)"
+    >
+      Save
+    </button>
+  </div>
+}

@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  Post,
-  Req,
-  Res,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { JwtAuthGuard } from './jwt-auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
@@ -21,7 +12,7 @@ const XSRF_TOKEN = 'XSRF-TOKEN';
 export interface RequestWithUser extends Request {
   // TO DO make global
   user: {
-    sub: string;
+    id: string;
     email: string;
   };
 }
@@ -60,7 +51,8 @@ export class AuthController {
   @Get('me')
   @ApiBearerAuth()
   getMe(@Req() req: RequestWithUser) {
-    return this.authService.getUserProfile(req.user['sub']);
+    console.log('Getting profile for user:', req.user);
+    return this.authService.getUserProfile(req);
   }
 
   @Post('logout')

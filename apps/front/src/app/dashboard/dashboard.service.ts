@@ -6,5 +6,4 @@ export class DashboardService {
   private readonly lifestyleConfigService = inject(LifestyleWidgetConfigService);
 
   public readonly $config = this.lifestyleConfigService.$config;
-
 }

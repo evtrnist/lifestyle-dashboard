@@ -1,16 +1,6 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import {
-  Slot,
-  WidgetOptions,
-  WidgetType,
-} from '@lifestyle-dashboard/widget-contracts';
+import { Slot, WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import {
   TuiButton,
@@ -20,16 +10,8 @@ import {
   TuiTextfieldDropdownDirective,
   TuiTitle,
 } from '@taiga-ui/core';
-import {
-  TuiButtonLoading,
-  TuiChevron,
-  TuiDataListWrapper,
-  TuiSelect,
-} from '@taiga-ui/kit';
-import {
-  WIDGET_LAYOUT_SLOT_MAP,
-  WidgetLayoutSlot,
-} from './widget-layout-slots';
+import { TuiButtonLoading, TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
+import { WIDGET_LAYOUT_SLOT_MAP, WidgetLayoutSlot } from './widget-layout-slots';
 import { KeyValuePipe } from '@angular/common';
 import { TuiHeader } from '@taiga-ui/layout';
 import { WidgetLayoutSettingsService } from './widget-layout-settings.service';
@@ -58,9 +40,7 @@ import { State } from '@lifestyle-dashboard/state';
   ],
 })
 export class WidgetLayoutSettingsComponent {
-  private readonly widgetLayoutSettingsService = inject(
-    WidgetLayoutSettingsService,
-  );
+  private readonly widgetLayoutSettingsService = inject(WidgetLayoutSettingsService);
 
   private readonly $config = this.widgetLayoutSettingsService.$config;
 
@@ -76,9 +56,7 @@ export class WidgetLayoutSettingsComponent {
     return state === State.Loading;
   });
 
-  public readonly $currentWidgetLayoutSettings = computed<
-    Record<Slot, WidgetLayoutSlot>
-  >(() => {
+  public readonly $currentWidgetLayoutSettings = computed<Record<Slot, WidgetLayoutSlot>>(() => {
     const slotsMap = this.$slotsMap();
     const config = this.$config();
 
@@ -89,8 +67,7 @@ export class WidgetLayoutSettingsComponent {
     Object.entries(config?.layout).forEach(([slot, widget]) => {
       if (slotsMap[slot as Slot] && widget) {
         slotsMap[slot as Slot].value = widget;
-        slotsMap[slot as Slot].label =
-          WidgetRegistry[widget as WidgetType].label;
+        slotsMap[slot as Slot].label = WidgetRegistry[widget as WidgetType].label;
       }
     });
 

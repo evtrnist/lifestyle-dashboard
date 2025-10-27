@@ -19,7 +19,7 @@ import {
   WidgetIconPipe,
   WidgetNamePipe,
 } from '@lifestyle-dashboard/widget-name-pipe';
-import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
+import { WidgetSettingsComponent, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
 
 function isWidgetSettingsComponent(x: unknown): x is WidgetSettingsComponent {
@@ -82,12 +82,16 @@ export class DayCardDialogComponent {
     console.log(item);
   }
 
-  protected save(): void {
+  protected save(widgetType: WidgetType): void {
     const form = this.settingsInstance()?.form;
+
     if (!form || form.invalid) {
       return;
     }
+
     console.log('Save settings for', form.value);
+
+    this.dayCardDialogService.save(this.context.data, widgetType, form.value);
   }
 
   protected onSettingsInit(instance: unknown) {

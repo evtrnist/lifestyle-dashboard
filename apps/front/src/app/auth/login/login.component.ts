@@ -1,11 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -36,9 +30,7 @@ export function requiredValidator(field: AbstractControl): Validators | null {
       };
 }
 
-export function passwordLengthValidator(
-  field: AbstractControl,
-): Validators | null {
+export function passwordLengthValidator(field: AbstractControl): Validators | null {
   return field.value && field.value.length >= PASSWORD_MIN_LENGTH
     ? null
     : {
@@ -79,9 +71,7 @@ export class LoginComponent {
 
   public readonly userLoggedIn = output<AuthDto>();
 
-  protected readonly shouldShowLoading = computed(
-    () => this.state() === State.Loading,
-  );
+  protected readonly shouldShowLoading = computed(() => this.state() === State.Loading);
 
   protected readonly LoginField = LoginField;
 

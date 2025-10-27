@@ -8,10 +8,7 @@
       Type an email
       <input autocomplete="email" tuiTextfieldLegacy type="email" />
     </tui-input>
-    <tui-error
-      [formControlName]="LoginField.Email"
-      [error]="[] | tuiFieldError | async"
-    />
+    <tui-error [formControlName]="LoginField.Email" [error]="[] | tuiFieldError | async" />
   </p>
 
   <p>
@@ -23,14 +20,11 @@
       Type a password
       <input autocomplete="new-password" tuiTextfieldLegacy type="password" />
     </tui-input>
-    <tui-error
-      [formControlName]="LoginField.Password"
-      [error]="[] | tuiFieldError | async"
-    />
+    <tui-error [formControlName]="LoginField.Password" [error]="[] | tuiFieldError | async" />
   </p>
 
   <button
-  class="button"
+    class="button"
     size="l"
     tuiButton
     type="button"

@@ -24,28 +24,20 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('LifeDashboard API')
-    .setDescription(
-      'API для авторизации, работы с дашбордом и данными пользователей',
-    )
+    .setDescription('API для авторизации, работы с дашбордом и данными пользователей')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup(`${globalPrefix}/docs`, app, document);
-  Logger.log(
-    'Swagger UI is available at: http://localhost:' +
-      port +
-      `/${globalPrefix}/docs`,
-  );
+  Logger.log('Swagger UI is available at: http://localhost:' + port + `/${globalPrefix}/docs`);
 
   if (process.env.NODE_ENV === 'development') {
     writeFileSync('./openapi.json', JSON.stringify(document, null, 2));
   }
 
-  Logger.log(
-    `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`,
-  );
+  Logger.log(`🚀 Application is running on: http://localhost:${port}/${globalPrefix}`);
 
   await app.listen(port);
 }

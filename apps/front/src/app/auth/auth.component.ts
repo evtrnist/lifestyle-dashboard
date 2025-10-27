@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TuiTabs } from '@taiga-ui/kit';
 import { LoginComponent } from './login/login.component';
@@ -47,6 +42,5 @@ export class AuthComponent {
 
   protected signUp(dto: AuthDto) {
     this.authService.signUp(dto);
-}
-
+  }
 }

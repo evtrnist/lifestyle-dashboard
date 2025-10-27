@@ -16,5 +16,5 @@ export const SETTING_URLS: SettingUrlItem[] = [
   {
     url: SettingUrl.PROFILE,
     name: 'Profile',
-  }
+  },
 ];

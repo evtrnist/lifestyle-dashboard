@@ -11,7 +11,8 @@
     "test:api": "nx test api",
     "nx:format:fix": "nx format:write",
     "build:all": "nx run-many --target=build --all --parallel",
-    "generate:api-types": "npx @openapitools/openapi-generator-cli generate -i openapi.json -g typescript -o libs/api-types --additional-properties=fileNaming=kebab-case"
+    "generate:api-types": "npx @openapitools/openapi-generator-cli generate -i openapi.json -g typescript -o libs/api-types --additional-properties=fileNaming=kebab-case",
+    "prettier:fix": "npx prettier --write \"apps/**/*.{ts,html,less}\""
   },
   "private": true,
   "dependencies": {
@@ -95,6 +96,7 @@
     "jest-environment-jsdom": "^29.7.0",
     "jest-environment-node": "^29.7.0",
     "jest-preset-angular": "14.6.0",
+    "jsonc-eslint-parser": "^2.1.0",
     "nx": "21.2.0",
     "prettier": "^3.3.3",
     "ts-jest": "^29.1.0",

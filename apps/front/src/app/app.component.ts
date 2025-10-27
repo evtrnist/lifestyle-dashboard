@@ -11,9 +11,7 @@ import { TuiRoot } from '@taiga-ui/core';
   styleUrl: './app.component.less',
 })
 export class AppComponent implements OnInit {
-  private readonly lifestyleConfigService = inject(
-    LifestyleWidgetConfigService,
-  );
+  private readonly lifestyleConfigService = inject(LifestyleWidgetConfigService);
 
   ngOnInit() {
     this.lifestyleConfigService.init();

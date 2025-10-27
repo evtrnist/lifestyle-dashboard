@@ -18,33 +18,22 @@
       "@lifestyle-dashboard/calendar": ["libs/front/ui/calendar/src/index.ts"],
       "@lifestyle-dashboard/config": ["libs/shared/config/src/index.ts"],
       "@lifestyle-dashboard/day-card": ["libs/front/ui/day-card/src/index.ts"],
-      "@lifestyle-dashboard/day-card-dialog": [
-        "libs/front/ui/day-card-dialog/src/index.ts"
+      "@lifestyle-dashboard/day-card-dialog": ["libs/front/ui/day-card-dialog/src/index.ts"],
+      "@lifestyle-dashboard/dynamic-host": ["libs/front/ui/dynamic-host/src/index.ts"],
+      "@lifestyle-dashboard/lifestyle-widget-config-service": [
+        "libs/front/api/lifestyle-widget-config-service/src/index.ts"
       ],
       "@lifestyle-dashboard/lifestyle-widget-data-service": [
         "libs/front/api/lifestyle-widget-data-service/src/index.ts"
       ],
-      "@lifestyle-dashboard/lifestyle-widget-config-service": [
-        "libs/front/api/lifestyle-widget-config-service/src/index.ts"
-      ],
       "@lifestyle-dashboard/state": ["libs/shared/state/src/index.ts"],
-      "@lifestyle-dashboard/timetracker": [
-        "libs/shared/timetracker/src/index.ts"
-      ],
-      "@lifestyle-dashboard/timetracker-widget": [
-        "libs/front/ui/timetracker-widget/src/index.ts"
-      ],
+      "@lifestyle-dashboard/timetracker": ["libs/shared/timetracker/src/index.ts"],
+      "@lifestyle-dashboard/timetracker-widget": ["libs/front/ui/timetracker-widget/src/index.ts"],
       "@lifestyle-dashboard/user": ["libs/shared/user/src/index.ts"],
-      "@lifestyle-dashboard/widget-contracts": [
-        "libs/shared/widget-contracts/src/index.ts"
-      ],
-      "@lifestyle-dashboard/widget-name-pipe": [
-        "libs/front/ui/widget-name-pipe/src/index.ts"
-      ],
-      "@lifestyle-dashboard/widget-registry": [
-        "libs/shared/widget-registry/src/index.ts"
-      ],
-      "@lifestyle-dashboard/dynamic-host": ["libs/front/ui/dynamic-host/src/index.ts"]
+      "@lifestyle-dashboard/widget-contracts": ["libs/shared/widget-contracts/src/index.ts"],
+      "@lifestyle-dashboard/widget-name-pipe": ["libs/front/ui/widget-name-pipe/src/index.ts"],
+      "@lifestyle-dashboard/widget-registry": ["libs/shared/widget-registry/src/index.ts"],
+      "@lifestyle-dashboard/day-data": ["libs/shared/day-data/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

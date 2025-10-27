@@ -7,10 +7,7 @@ import { DayDataModule } from './day-data/day-data.module';
 import { AuthModule } from './auth/auth.module';
 
 @Module({
-  imports: [PrismaModule,
-    AuthModule, 
-    WidgetConfigModule, 
-    DayDataModule],
+  imports: [PrismaModule, AuthModule, WidgetConfigModule, DayDataModule],
   controllers: [AppController],
   providers: [AppService],
 })

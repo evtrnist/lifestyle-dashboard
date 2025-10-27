@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-  OnInit,
-  output,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, OnInit, output } from '@angular/core';
 import { AuthDto } from '../auth.dto';
 import {
   AbstractControl,
@@ -32,12 +25,9 @@ function repeatPasswordValidatorFactory(form: FormGroup): ValidatorFn {
     const password = form.get(SignUpField.Password)?.value;
     const repeat = control.value;
 
-    return password === repeat
-      ? null
-      : { passwordMismatch: 'Passwords do not match' };
+    return password === repeat ? null : { passwordMismatch: 'Passwords do not match' };
   };
 }
-
 
 enum SignUpField {
   Email = 'email',
@@ -69,9 +59,7 @@ export class SignUpComponent implements OnInit {
 
   public readonly userSignedUp = output<AuthDto>();
 
-  protected readonly shouldShowLoading = computed(
-    () => this.state() === State.Loading,
-  );
+  protected readonly shouldShowLoading = computed(() => this.state() === State.Loading);
 
   protected readonly SignUpField = SignUpField;
 

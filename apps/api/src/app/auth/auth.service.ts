@@ -8,6 +8,7 @@ import { JwtService } from '@nestjs/jwt';
 import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UserProfile } from '@lifestyle-dashboard/user';
+import { RequestWithUser } from './auth.controller';
 
 @Injectable()
 export class AuthService {
@@ -50,9 +51,10 @@ export class AuthService {
     return this.generateToken(user.id, user.email);
   }
 
-  public async getUserProfile(userId: string): Promise<UserProfile> {
+  public async getUserProfile(req: RequestWithUser): Promise<UserProfile> {
+    console.log('AuthService.getUserProfile called with user ID:', req.user);
     const user = await this.prismaService.user.findUnique({
-      where: { id: userId },
+      where: { id: req.user.id },
       select: {
         id: true,
         email: true,
