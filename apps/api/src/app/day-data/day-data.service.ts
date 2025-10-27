@@ -35,7 +35,7 @@ export class DayDataService {
     widgetData: InputJsonValue,
   ) {
     console.log('Creating or updating day data:', { userId, widgetType, date, widgetData });
-    
+
     const existing = await this.prismaService.dayData.findFirst({
       where: { userId, widgetType, date },
     });

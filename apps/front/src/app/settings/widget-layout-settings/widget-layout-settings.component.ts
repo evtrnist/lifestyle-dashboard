@@ -65,9 +65,12 @@ export class WidgetLayoutSettingsComponent implements OnInit {
 
   public readonly stringify = (x: WidgetOptions) => x.label;
 
-  public readonly  keepOrder = (a: KeyValue<string, unknown>, b: KeyValue<string, unknown>): number => {
-  return 0;
-};
+  public readonly keepOrder = (
+    a: KeyValue<string, unknown>,
+    b: KeyValue<string, unknown>,
+  ): number => {
+    return 0;
+  };
 
   ngOnInit(): void {
     this.setConfigData();

@@ -1,4 +1,13 @@
-import { BadRequestException, Body, Controller, Get, Post, Query, Req, UseGuards } from '@nestjs/common';
+import {
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  Post,
+  Query,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { DayDataService } from './day-data.service';
 import { CreateOrUpdateDayDataDto } from '@lifestyle-dashboard/day-data';
 import { InputJsonValue } from '@prisma/client/runtime/library';
