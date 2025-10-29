@@ -14,7 +14,7 @@ import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { TuiDay } from '@taiga-ui/cdk';
 import { catchError, EMPTY } from 'rxjs';
 import { DatePipe } from '@angular/common';
-
+import { DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
 
 @Component({
   selector: 'lifestyle-calendar',
@@ -28,7 +28,7 @@ export class CalendarComponent implements OnInit {
   private readonly lifestyleWidgetDataService = inject(LifestyleWidgetDataService);
   public readonly $config = input.required<Config | null>({ alias: 'config' });
 
-  public readonly $dayOpenRequest = output<Date>({ alias: 'dayOpenRequest' });
+  public readonly $dayOpenRequest = output<DayCardDialogContext>({ alias: 'dayOpenRequest' });
 
   protected $currentDate = signal(new Date());
   protected $daysInMonth = signal<(Date | null)[]>([]);
@@ -95,7 +95,7 @@ export class CalendarComponent implements OnInit {
       return;
     }
 
-    this.$dayOpenRequest.emit(date);
+    this.$dayOpenRequest.emit({date, calendarData: this.$calendarData()['days'] ?? {}});
   }
 
   private getCalendarData(startDate: TuiDay, endDate: TuiDay) {

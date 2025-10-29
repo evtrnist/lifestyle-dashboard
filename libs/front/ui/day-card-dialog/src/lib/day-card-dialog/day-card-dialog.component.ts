@@ -19,9 +19,15 @@ import {
 } from '@lifestyle-dashboard/widget-name-pipe';
 import { WidgetSettingsComponent, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
+import { TimeTrackerWidgetInput } from 'libs/front/ui/timetracker-widget/src/lib/timetracker-widget/timetracker-widget-input';
 
 function isWidgetSettingsComponent(x: unknown): x is WidgetSettingsComponent {
   return typeof x === 'object' && x !== null && 'form' in x;
+}
+
+export interface DayCardDialogContext {
+  date: Date;
+  calendarData: Record<string, Record<WidgetType, any>>; // to do
 }
 
 @Component({
@@ -46,11 +52,12 @@ export class DayCardDialogComponent {
   private readonly dayCardDialogService = inject(DayCardDialogService);
   private readonly injector = inject(Injector);
 
-  public readonly context = injectContext<TuiDialogContext<Date, Date>>();
+  public readonly context = injectContext<TuiDialogContext<DayCardDialogContext, DayCardDialogContext>>();
 
   public readonly $tabs = this.dayCardDialogService.$tabs;
 
-  public readonly date = this.context.data;
+  public readonly date = this.context.data.date;
+  public readonly calendarData = this.context.data.calendarData;
 
   public readonly $shownWidget = computed(() => {
     const widgetOptions = this.dayCardDialogService.$widgetOptions();
@@ -74,6 +81,33 @@ export class DayCardDialogComponent {
 
   private injectorCache?: Injector;
   private lastToken?: InjectionToken<unknown>;
+
+    protected readonly $widgetInjector = computed<Injector | null>(() => {
+    const widget = this.$shownWidget();
+
+    if (!widget) {
+      return null;
+    }
+
+    const dayData = this.date.toLocaleDateString('sv-SE');
+
+    const data = this.calendarData?.[dayData]?.[widget.key] ?? null;
+
+
+    return Injector.create({
+      providers: [
+        {
+          provide: widget.token,
+          useFactory: () =>
+            signal<TimeTrackerWidgetInput>({
+              size: 'xl',
+              data,
+            }),
+        },
+      ],
+      parent: this.injector,
+    });
+  });
 
   protected onClick(item: string): void {
     console.log(item);
