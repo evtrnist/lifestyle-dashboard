@@ -13,14 +13,8 @@ import { LifestyleWidgetDataService } from '@lifestyle-dashboard/lifestyle-widge
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { TuiDay } from '@taiga-ui/cdk';
 import { catchError, EMPTY } from 'rxjs';
-import { toUTCDateKey } from '@lifestyle-dashboard/day-data';
 import { DatePipe } from '@angular/common';
 
-
-function ymdToLocalDate(ymd: string): Date {
-  const [y, m, d] = ymd.split('-').map(Number);
-  return new Date(y, m - 1, d); // локальная полночь
-}
 
 @Component({
   selector: 'lifestyle-calendar',

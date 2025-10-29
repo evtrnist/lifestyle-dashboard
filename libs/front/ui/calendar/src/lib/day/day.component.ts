@@ -5,24 +5,19 @@ import {
   input,
   Injector,
   inject,
-  InjectionToken,
-  signal,
 } from '@angular/core';
-import { AsyncPipe } from '@angular/common';
-import { Slot, WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
+import { Slot, WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import { Config } from '@lifestyle-dashboard/config';
-import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
-import { Observable, of } from 'rxjs';
-import { TimeTrackerWidgetInput } from 'libs/front/ui/timetracker-widget/src/lib/timetracker-widget/timetracker-widget-input';
+import { DaySlotComponent } from './day-slot/day-slot.component';
 
 @Component({
   selector: 'lifestyle-day',
   standalone: true,
-  imports: [AsyncPipe, DynamicHostComponent],
   templateUrl: './day.component.html',
   styleUrl: './day.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  imports: [DaySlotComponent],
 })
 export class DayComponent {
   public readonly $day = input.required<Date | null>({ alias: 'day' });
@@ -30,6 +25,7 @@ export class DayComponent {
   public readonly $config = input.required<Config | null>({ alias: 'config' });
 
   public readonly $dayData = input.required<Record<string, any> | null>({ alias: 'dayData' });
+  
 
   public readonly $slotWidgetMap = computed<Record<Slot, WidgetOptions | null>>(() => {
     const config = this.$config();
@@ -59,27 +55,4 @@ export class DayComponent {
   private readonly injector = inject(Injector);
 
   protected readonly Slot = Slot;
-
-  public createInjector(token: InjectionToken<WidgetType>, key: WidgetType): Injector {
-    const dayData = this.$dayData();
-
-    const data = dayData ? dayData[key] : {};
-
-    if (data === '2025-10-01') {
-      console.log('Creating injector for token:', key, 'with data:', data);
-    }
-
-    return Injector.create({
-      providers: [
-        {
-          provide: token,
-          useFactory: () => signal<TimeTrackerWidgetInput>({
-          size: 's',
-          data,
-        })
-        },
-      ],
-      parent: this.injector,
-    });
-  }
 }
