@@ -17,10 +17,11 @@
       @if (topLeftWidget) {
         @let component = topLeftWidget.component;
         @let token = topLeftWidget.token;
+        @let key = topLeftWidget.key;
 
         <lib-dynamic-host
           [component]="component"
-          [injector]="createInjector(token)"
+          [injector]="createInjector(token, key)"
         ></lib-dynamic-host>
       }
     </div>
@@ -28,10 +29,11 @@
       @if (topMiddleWidget) {
         @let component = topMiddleWidget.component;
         @let token = topMiddleWidget.token;
+        @let key = topMiddleWidget.key;
 
         <lib-dynamic-host
           [component]="component"
-          [injector]="createInjector(token)"
+          [injector]="createInjector(token, key)"
         ></lib-dynamic-host>
       }
     </div>
@@ -44,10 +46,11 @@
       @if (middleLeftWidget) {
         @let component = middleLeftWidget.component;
         @let token = middleLeftWidget.token;
+        @let key = middleLeftWidget.key;
 
         <lib-dynamic-host
           [component]="component"
-          [injector]="createInjector(token)"
+          [injector]="createInjector(token, key)"
         ></lib-dynamic-host>
       }
     </div>
@@ -55,10 +58,11 @@
       @if (middleWidget) {
         @let component = middleWidget.component;
         @let token = middleWidget.token;
+        @let key = middleWidget.key;
 
         <lib-dynamic-host
           [component]="component"
-          [injector]="createInjector(token)"
+          [injector]="createInjector(token, key)"
         ></lib-dynamic-host>
       }
     </div>
@@ -66,10 +70,11 @@
       @if (middleRightWidget) {
         @let component = middleRightWidget.component;
         @let token = middleRightWidget.token;
+        @let key = middleRightWidget.key;
 
         <lib-dynamic-host
           [component]="component"
-          [injector]="createInjector(token)"
+          [injector]="createInjector(token, key)"
         ></lib-dynamic-host>
       }
     </div>
@@ -79,10 +84,11 @@
       @if (bottomLeftWidget) {
         @let component = bottomLeftWidget.component;
         @let token = bottomLeftWidget.token;
+        @let key = bottomLeftWidget.key;
 
         <lib-dynamic-host
           [component]="component"
-          [injector]="createInjector(token)"
+          [injector]="createInjector(token, key)"
         ></lib-dynamic-host>
       }
     </div>
@@ -90,10 +96,11 @@
       @if (bottomMiddleWidget) {
         @let component = bottomMiddleWidget.component;
         @let token = bottomMiddleWidget.token;
+        @let key = bottomMiddleWidget.key;
 
         <lib-dynamic-host
           [component]="component"
-          [injector]="createInjector(token)"
+          [injector]="createInjector(token, key)"
         ></lib-dynamic-host>
       }
     </div>
@@ -101,10 +108,11 @@
       @if (bottomRightWidget) {
         @let component = bottomRightWidget.component;
         @let token = bottomRightWidget.token;
+        @let key = bottomRightWidget.key;
 
         <lib-dynamic-host
           [component]="component"
-          [injector]="createInjector(token)"
+          [injector]="createInjector(token, key)"
         ></lib-dynamic-host>
       }
     </div>

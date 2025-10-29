@@ -1,4 +1,7 @@
-<lifestyle-calendar
-  [config]="$config()"
-  (dayOpenRequest)="openDayCard($event)"
-></lifestyle-calendar>
+@let config = $config();
+@if (config) {
+  <lifestyle-calendar
+    [config]="$config()"
+    (dayOpenRequest)="openDayCard($event)"
+  ></lifestyle-calendar>
+}

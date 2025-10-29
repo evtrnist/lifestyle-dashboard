@@ -24,9 +24,9 @@ export class LifestyleWidgetConfigService {
   public getConfig(): void {
     this.getConfig$()
       .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe(({ userId, config }) => {
+      .subscribe(({ id, config }) => {
         this.$config.set(config);
-        this.$userId.set(userId);
+        this.$userId.set(id);
       });
   }
 

@@ -13,9 +13,11 @@
 
   <div class="days">
     @for (day of $daysInMonth(); track day) {
+      
       <lifestyle-day
         [day]="day"
         [config]="$config()"
+        [dayData]="getDayData(day)"
         (click)="openDayCard(day)"
       ></lifestyle-day>
     }

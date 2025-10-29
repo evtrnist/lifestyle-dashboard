@@ -6,19 +6,20 @@ import {
   Injector,
   inject,
   InjectionToken,
-  Type,
+  signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Slot, WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
+import { AsyncPipe } from '@angular/common';
+import { Slot, WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import { Config } from '@lifestyle-dashboard/config';
-import { TIMETRACKER_WIDGET_TOKEN } from '@lifestyle-dashboard/timetracker-widget';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
+import { Observable, of } from 'rxjs';
+import { TimeTrackerWidgetInput } from 'libs/front/ui/timetracker-widget/src/lib/timetracker-widget/timetracker-widget-input';
 
 @Component({
   selector: 'lifestyle-day',
   standalone: true,
-  imports: [CommonModule, DynamicHostComponent],
+  imports: [AsyncPipe, DynamicHostComponent],
   templateUrl: './day.component.html',
   styleUrl: './day.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -27,6 +28,8 @@ export class DayComponent {
   public readonly $day = input.required<Date | null>({ alias: 'day' });
 
   public readonly $config = input.required<Config | null>({ alias: 'config' });
+
+  public readonly $dayData = input.required<Record<string, any> | null>({ alias: 'dayData' });
 
   public readonly $slotWidgetMap = computed<Record<Slot, WidgetOptions | null>>(() => {
     const config = this.$config();
@@ -57,20 +60,23 @@ export class DayComponent {
 
   protected readonly Slot = Slot;
 
-  public createInjector(token: InjectionToken<unknown>): Injector {
+  public createInjector(token: InjectionToken<WidgetType>, key: WidgetType): Injector {
+    const dayData = this.$dayData();
+
+    const data = dayData ? dayData[key] : {};
+
+    if (data === '2025-10-01') {
+      console.log('Creating injector for token:', key, 'with data:', data);
+    }
+
     return Injector.create({
       providers: [
         {
           provide: token,
-          useValue: {
-            size: 's',
-            timeData: {
-              routine: 3780,
-              health: 31680,
-              selfDevelopment: 21240,
-              leisure: 29580,
-            },
-          },
+          useFactory: () => signal<TimeTrackerWidgetInput>({
+          size: 's',
+          data,
+        })
         },
       ],
       parent: this.injector,

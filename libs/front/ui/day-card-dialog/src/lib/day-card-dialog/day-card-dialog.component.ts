@@ -7,10 +7,8 @@ import {
   Injector,
   signal,
   Type,
-  viewChild,
-  ViewContainerRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { TuiButton, TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
 import { injectContext } from '@taiga-ui/polymorpheus';
 import { TuiTabs } from '@taiga-ui/kit';
@@ -30,6 +28,7 @@ function isWidgetSettingsComponent(x: unknown): x is WidgetSettingsComponent {
   selector: 'lifestyle-day-card-dialog',
   standalone: true,
   imports: [
+    DatePipe,
     CommonModule,
     TuiTabs,
     TuiIconPipe,
@@ -49,11 +48,9 @@ export class DayCardDialogComponent {
 
   public readonly context = injectContext<TuiDialogContext<Date, Date>>();
 
-  protected readonly settingsContainerRef = viewChild('settingsContainerRef', {
-    read: ViewContainerRef,
-  });
-
   public readonly $tabs = this.dayCardDialogService.$tabs;
+
+  public readonly date = this.context.data;
 
   public readonly $shownWidget = computed(() => {
     const widgetOptions = this.dayCardDialogService.$widgetOptions();
@@ -89,9 +86,9 @@ export class DayCardDialogComponent {
       return;
     }
 
-    console.log('Save settings for', form.value);
+    console.log('Save settings for', form.value, this.date, widgetType);
 
-    this.dayCardDialogService.save(this.context.data, widgetType, form.value);
+    this.dayCardDialogService.save(this.date, widgetType, form.value);
   }
 
   protected onSettingsInit(instance: unknown) {
@@ -115,7 +112,7 @@ export class DayCardDialogComponent {
           provide: token,
           useValue: {
             size: 'xl',
-            timeData: {
+            data: {
               routine: 3780,
               health: 31680,
               selfDevelopment: 21240,

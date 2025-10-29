@@ -1,39 +1,40 @@
-import { HttpClient } from '@angular/common/http';
-import { DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 import { TuiDay } from '@taiga-ui/cdk';
 import { Observable } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
-import { CreateOrUpdateDayDataDto } from '@lifestyle-dashboard/day-data';
+import { CreateOrUpdateDayDataDto, toUTCDateKey } from '@lifestyle-dashboard/day-data';
+import { DaysResponse } from './day-response';
 
 const URL = '/api/day-data';
 
 @Injectable({ providedIn: 'root' })
 export class LifestyleWidgetDataService {
   private readonly httpClient = inject(HttpClient);
-  private readonly destroyRef = inject(DestroyRef);
 
-  public readonly $data = signal<any | null>(null);
+  public getData$(startDate: TuiDay, endDate: TuiDay, widgetTypes: WidgetType[]): Observable<any> {
+    const startIso = startDate;
+    const endIso = endDate;
 
-  public getData(startDate: TuiDay, endDate: TuiDay): void {
-    this.getData$(startDate, endDate)
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe((data) => {
-        this.$data.set(data);
-      });
+    let params = new HttpParams().set('startDate', toUTCDateKey(startDate.toLocalNativeDate())).set('endDate', toUTCDateKey(endDate.toLocalNativeDate()));
+
+    widgetTypes.forEach((type) => {
+      params = params.append('widgetTypes', type);
+    });
+
+    return this.httpClient.get<DaysResponse>(URL, {
+      params,
+    });
   }
 
   public saveDateData$(date: string, widgetType: WidgetType, widgetData: unknown): Observable<any> {
+    console.log('Saving date data from service:', { date, widgetType, widgetData });
     const body: CreateOrUpdateDayDataDto = {
-        date,
-        widgetType,
-        widgetData,
+      date,
+      widgetType,
+      widgetData,
     };
-    
-    return this.httpClient.post(URL, body);
-  }
 
-  private getData$(startDate: TuiDay, endDate: TuiDay): Observable<any> {
-    return this.httpClient.get<any>(URL);
+    return this.httpClient.post(URL, body);
   }
 }

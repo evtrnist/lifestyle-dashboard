@@ -5,6 +5,7 @@ import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import { LifestyleWidgetDataService } from '@lifestyle-dashboard/lifestyle-widget-data-service';
 import { catchError, of, tap } from 'rxjs';
+import { toLocalIsoString } from '@lifestyle-dashboard/day-data';
 
 @Injectable()
 export class DayCardDialogService {
@@ -39,9 +40,9 @@ export class DayCardDialogService {
   });
 
   public save(date: Date, widgetType: WidgetType, data: unknown): void {
-    console.log('Saving data for', { date: date.toISOString(), widgetType, data });
+    console.log('Saving data for', { date: date.toLocaleDateString('sv-SE'), widgetType, data });
 
-    this.lifestyleWidgetDataService.saveDateData$(date.toISOString(), widgetType, data)
+    this.lifestyleWidgetDataService.saveDateData$(date.toLocaleDateString('sv-SE'), widgetType, data)
     .pipe(
       tap(() => {
         console.log('Data saved successfully');

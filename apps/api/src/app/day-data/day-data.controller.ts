@@ -6,6 +6,7 @@ import {
   Post,
   Query,
   Req,
+  UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
 import { DayDataService } from './day-data.service';
@@ -17,20 +18,40 @@ import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 export class DayDataController {
   constructor(private readonly dayDataService: DayDataService) {}
 
+  @UseGuards(JwtAuthGuard)
   @Get()
   public async getDaysData(@Req() req, @Query() query: any) {
-    const userId = req.user?.id || 'default-user';
-    const { widgetType, startDate, endDate } = query;
-    const data = await this.dayDataService.getDaysDataForWidget(
+    const userId = req.user?.id;
+    if (!userId) {
+      throw new UnauthorizedException(`No user with id ${userId} found`);
+    }
+
+    // widgetTypes может прийти как ['a','b'] или как 'a,b'
+    const widgetTypes: string[] = Array.isArray(query.widgetTypes)
+      ? query.widgetTypes
+      : typeof query.widgetTypes === 'string'
+        ? query.widgetTypes
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean)
+        : [];
+
+    if (!widgetTypes.length) {
+      throw new BadRequestException('widgetTypes is required');
+    }
+
+    const start = query.startDate;
+    const end = query.endDate;
+
+    const daysMap = await this.dayDataService.getDaysDataForWidgets(
       userId,
-      widgetType,
-      new Date(startDate),
-      new Date(endDate),
+      widgetTypes,
+      start,
+      end,
     );
 
-    console.log('Retrieved day data:', { days: { [widgetType]: data } });
-
-    return { days: { [widgetType]: data } };
+    // Формат ответа: { days: { [widgetType]: { 'YYYY-MM-DD': { widgetType, data } } } }
+    return { days: daysMap };
   }
 
   @UseGuards(JwtAuthGuard)
@@ -48,7 +69,7 @@ export class DayDataController {
     return this.dayDataService.createOrUpdateDayData(
       userId,
       widgetType,
-      new Date(date),
+      date,
       widgetData as InputJsonValue,
     );
   }

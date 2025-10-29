@@ -3,6 +3,7 @@ import {
   Component,
   computed,
   inject,
+  Signal,
   signal,
 } from '@angular/core';
 
@@ -30,19 +31,20 @@ const SEC_IN_DAY = 86400;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimetrackerWidgetComponent {
-  public widgetData = inject<TimeTrackerWidgetInput>(TIMETRACKER_WIDGET_TOKEN);
+  public widgetData = inject<Signal<TimeTrackerWidgetInput>>(TIMETRACKER_WIDGET_TOKEN);
 
-  public readonly leisure = this.widgetData.timeData.leisure;
-  public readonly routine = this.widgetData.timeData.routine;
-  public readonly health = this.widgetData.timeData.health;
-  public readonly selfDevelopment = this.widgetData.timeData.selfDevelopment;
-  public readonly size = this.widgetData.size;
+  public readonly $size = computed(() => this.widgetData().size);
+
+  public readonly $routine = computed(() => this.widgetData().data.routine);
+  public readonly $health = computed(() => this.widgetData().data.health);
+  public readonly $selfDevelopment = computed(() => this.widgetData().data.selfDevelopment);
+  public readonly $leisure = computed(() => this.widgetData().data.leisure);
 
   public readonly $value = signal([20, 40, 25, 15]);
   public readonly $chartValue = signal(this.getChartValue());
 
   public readonly $shouldBeVisible = computed(() => {
-    const size = this.size;
+    const size = this.$size();
     const index = this.$index();
 
     return size !== 's' && Boolean(index);
@@ -69,7 +71,7 @@ export class TimetrackerWidgetComponent {
     return (
       (Number.isNaN(this.$index())
         ? null
-        : [this.routine, this.health, this.selfDevelopment, this.leisure][
+        : [this.$routine(), this.$health(), this.$selfDevelopment(), this.$leisure()][
             this.$index()
           ]) ?? 0
     );
@@ -79,10 +81,10 @@ export class TimetrackerWidgetComponent {
     // перевести все значения в проценты
     // отсортировать по CATEGORY_ORDER
 
-    const leisure = (this.leisure / SEC_IN_DAY) * 100;
-    const routine = (this.routine / SEC_IN_DAY) * 100;
-    const health = (this.health / SEC_IN_DAY) * 100;
-    const selfDevelopment = (this.selfDevelopment / SEC_IN_DAY) * 100;
+    const leisure = (this.$leisure() / SEC_IN_DAY) * 100;
+    const routine = (this.$routine() / SEC_IN_DAY) * 100;
+    const health = (this.$health() / SEC_IN_DAY) * 100;
+    const selfDevelopment = (this.$selfDevelopment() / SEC_IN_DAY) * 100;
 
     return [routine, health, selfDevelopment, leisure];
   }

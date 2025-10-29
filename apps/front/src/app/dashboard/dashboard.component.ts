@@ -16,8 +16,6 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent {
   private readonly dashboardService = inject(DashboardService);
-  public readonly widgets = [];
-
   public readonly $config = this.dashboardService.$config;
 
   private readonly dialog = tuiDialog(DayCardDialogComponent, {
@@ -27,6 +25,7 @@ export class DashboardComponent {
   });
 
   public openDayCard(date: Date) {
+    console.log('Opening day card form dashboard for date:', date);
     this.dialog(date).subscribe();
   }
 }
