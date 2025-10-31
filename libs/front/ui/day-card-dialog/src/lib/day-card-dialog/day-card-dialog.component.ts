@@ -8,7 +8,6 @@ import {
   signal,
   Type,
 } from '@angular/core';
-import { CommonModule, DatePipe } from '@angular/common';
 import { TuiButton, TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
 import { injectContext } from '@taiga-ui/polymorpheus';
 import { TuiTabs } from '@taiga-ui/kit';
@@ -34,8 +33,6 @@ export interface DayCardDialogContext {
   selector: 'lifestyle-day-card-dialog',
   standalone: true,
   imports: [
-    DatePipe,
-    CommonModule,
     TuiTabs,
     TuiIconPipe,
     TuiButton,

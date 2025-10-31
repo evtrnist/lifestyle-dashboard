@@ -83,10 +83,6 @@ export class CalendarComponent implements OnInit {
     const dateKey = date.toLocaleDateString('sv-SE');
     const calendarData = this.$calendarData()['days']?.[dateKey] ?? null;
 
-    if (dateKey === '2025-10-01') {
-      console.log('Looking for data on dateKey:', dateKey, 'in calendarData:', calendarData);
-    }
-
     return calendarData;
   }
 

@@ -1,7 +1,5 @@
 @let shownWidget = $shownWidget();
 
-{{date | date:'longDate'}}
-
 <tui-tabs [(activeItemIndex)]="activeItemIndex">
   @for (tab of $tabs(); track $index) {
     <button [iconStart]="tab | widgetIcon | tuiIcon" tuiTab type="button" (click)="onClick(tab)">
