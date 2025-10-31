@@ -13,6 +13,7 @@ import { SecondsToHoursPipe } from './seconds-to-hours.pipe';
 import { tuiSum } from '@taiga-ui/cdk';
 import { TIMETRACKER_WIDGET_TOKEN } from './timetracker-widget.token';
 import { TimeTrackerWidgetInput } from './timetracker-widget-input';
+import { INITIAL_TIME_TRACKER_WIDGET_INPUT } from './initial-time-tracker-widget-input';
 
 const CATEGORY_ORDER: Record<TimetrackerCategory, number> = {
   [TimetrackerCategory.Routine]: 0,
@@ -33,12 +34,28 @@ const SEC_IN_DAY = 86400;
 export class TimetrackerWidgetComponent {
   public widgetData = inject<Signal<TimeTrackerWidgetInput>>(TIMETRACKER_WIDGET_TOKEN);
 
-  public readonly $size = computed(() => this.widgetData().size);
+  public readonly $size = computed(() => this.widgetData()?.size);
 
-  public readonly $routine = computed(() => this.widgetData().data.routine);
-  public readonly $health = computed(() => this.widgetData().data.health);
-  public readonly $selfDevelopment = computed(() => this.widgetData().data.selfDevelopment);
-  public readonly $leisure = computed(() => this.widgetData().data.leisure);
+  public readonly $routine = computed(() => {
+    const routine = this.widgetData()?.data?.routine;
+
+    return routine ? routine : INITIAL_TIME_TRACKER_WIDGET_INPUT.routine;
+  });
+  public readonly $health = computed(() => {
+    const health = this.widgetData()?.data?.health;
+
+    return health ? health : INITIAL_TIME_TRACKER_WIDGET_INPUT.health;
+  });
+  public readonly $selfDevelopment = computed(() => {
+    const selfDevelopment = this.widgetData()?.data?.selfDevelopment;
+
+    return selfDevelopment ? selfDevelopment : INITIAL_TIME_TRACKER_WIDGET_INPUT.selfDevelopment;
+  });
+  public readonly $leisure = computed(() => {
+    const leisure = this.widgetData()?.data?.leisure;
+
+    return leisure ? leisure : INITIAL_TIME_TRACKER_WIDGET_INPUT.leisure;
+  });
 
   public readonly $value = signal([20, 40, 25, 15]);
   public readonly $chartValue = signal(this.getChartValue());

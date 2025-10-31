@@ -1,14 +1,12 @@
-@let shownWidget = $shownWidget();
-
-<tui-tabs [(activeItemIndex)]="activeItemIndex">
-  @for (tab of $tabs(); track $index) {
-    <button [iconStart]="tab | widgetIcon | tuiIcon" tuiTab type="button" (click)="onClick(tab)">
+<tui-tabs [activeItemIndex]="$activeItemIndex()">
+  @for (tab of $tabs(); track $index; let index = $index) {
+    <button [iconStart]="tab | widgetIcon | tuiIcon" tuiTab type="button" (click)="onClick(index)">
       {{ tab | widgetName }}
     </button>
   }
 </tui-tabs>
 
-@if (shownWidget) {
+@if ($shownWidget(); as shownWidget) {
   <div class="widget-container">
     @let component = shownWidget.component;
     @let settingsComponent = shownWidget.settingsComponent;

@@ -16,31 +16,27 @@ enum WaketimeField {
   templateUrl: './waketime-settings-widget.component.html',
   styleUrl: './waketime-settings-widget.component.less',
   imports: [ReactiveFormsModule, TuiTextfield, TuiInputTime],
-
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
 export class WaketimeSettingsWidgetComponent implements WidgetSettingsComponent, OnInit {
-
-    public widgetData = inject<Signal<WaketimeWidgetInput>>(WAKETIME_WIDGET_TOKEN);
+  public widgetData = inject<Signal<WaketimeWidgetInput>>(WAKETIME_WIDGET_TOKEN);
 
   public form!: FormGroup;
 
   public readonly WaketimeField = WaketimeField;
 
-  
   ngOnInit(): void {
     this.form = this.buildForm();
   }
 
-
   private buildForm() {
-    const waketime = this.widgetData().data.waketime;
+    const waketime = this.widgetData()?.data?.waketime;
 
-    const time = new TuiTime(waketime['hours'], waketime['minutes']);
-    
+    const time = waketime ? new TuiTime(waketime['hours'], waketime['minutes']) : new TuiTime(0, 0);
+
     return new FormGroup({
-      [WaketimeField.WakeTime]: new FormControl<TuiTime | null>(time),
+      [WaketimeField.WakeTime]: new FormControl<TuiTime>(time),
     });
   }
 }

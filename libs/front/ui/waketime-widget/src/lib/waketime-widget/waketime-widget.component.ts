@@ -12,7 +12,7 @@ import { WAKETIME_WIDGET_TOKEN } from './waketime-widget.token';
 })
 export class WaketimeWidgetComponent {
   public widgetData = inject<Signal<WaketimeWidgetInput>>(WAKETIME_WIDGET_TOKEN);
-    public readonly $size = computed(() => this.widgetData().size);
+    public readonly $size = computed(() => this.widgetData()?.size);
   
-    public readonly $waketime = computed(() => this.widgetData().data.waketime); 
+    public readonly $waketime = computed(() => this.widgetData()?.data?.waketime); 
 }

@@ -1,10 +1,18 @@
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { TimeTrackerWidgetInput } from '../timetracker-widget-input';
 import { TIMETRACKER_WIDGET_TOKEN } from '../timetracker-widget.token';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TuiTextfield } from '@taiga-ui/core';
 import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
 import { TimeSecondsControlComponent } from './time-seconds-control/time-seconds-control.component';
+import { INITIAL_TIME_TRACKER_WIDGET_INPUT } from '../initial-time-tracker-widget-input';
 
 @Component({
   selector: 'lifestyle-timetracker-settings-widget',
@@ -20,10 +28,10 @@ export class TimetrackerSettingsWidgetComponent implements WidgetSettingsCompone
   public readonly $keys = computed(() => {
     const widgetData = this.widgetData();
 
-    return Object.keys(widgetData.data) as Array<
-    keyof TimeTrackerWidgetInput['data']
-  >;
-  })
+    return widgetData?.data
+      ? (Object.keys(widgetData?.data) as Array<keyof TimeTrackerWidgetInput['data']>)
+      : Object.keys(INITIAL_TIME_TRACKER_WIDGET_INPUT) as Array<keyof TimeTrackerWidgetInput['data']>;
+  });
 
   public form!: FormGroup;
 
@@ -40,9 +48,14 @@ export class TimetrackerSettingsWidgetComponent implements WidgetSettingsCompone
 
   private buildFormGroup(keys: Array<keyof TimeTrackerWidgetInput['data']>) {
     const formGroup = new FormGroup({});
+    const widgetData = this.widgetData().data;
+
+    console.log('widgetData in buildFormGroup', widgetData);
 
     keys.forEach((key) => {
-      const seconds = this.widgetData().data[key];
+      console.log('building control for key', key, widgetData, INITIAL_TIME_TRACKER_WIDGET_INPUT[key]);
+      const seconds = widgetData ? widgetData?.[key] : INITIAL_TIME_TRACKER_WIDGET_INPUT[key];
+
       formGroup.addControl(key, new FormControl<number | null>(seconds));
     });
 
