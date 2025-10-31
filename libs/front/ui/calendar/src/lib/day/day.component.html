@@ -1,34 +1,74 @@
-@let day = $day(); @let bottomMiddleSlotWidgetOptions = $bottomMiddleSlotWidgetOptions();
+@let day = $day();
+@let slotWidgetMap = $slotWidgetMap();
+@let topLeftWidget = slotWidgetMap[Slot.TopLeft];
+@let topMiddleWidget = slotWidgetMap[Slot.TopMiddle];
+@let middleLeftWidget = slotWidgetMap[Slot.MiddleLeft];
+@let middleWidget = slotWidgetMap[Slot.Middle];
+@let middleRightWidget = slotWidgetMap[Slot.MiddleRight];
+@let bottomLeftWidget = slotWidgetMap[Slot.BottomLeft];
+@let bottomMiddleWidget = slotWidgetMap[Slot.BottomMiddle];
+@let bottomRightWidget = slotWidgetMap[Slot.BottomRight];
+@let dayData = $dayData();
+
 
 <div class="day">
   @if (day) {
+    <!-- Верхние слоты -->
+    <div class="slot top-left">
+      @if (topLeftWidget && dayData) {
+        <lifestyle-day-slot [dayData]="dayData" [widget]="topLeftWidget"></lifestyle-day-slot>
+      }
+    </div>
+    <div class="slot top-middle">
+      @if (topMiddleWidget && dayData) {
+        <lifestyle-day-slot [dayData]="dayData" [widget]="topMiddleWidget"></lifestyle-day-slot>
+      }
+    </div>
+    <div class="slot top-right">
+      <div class="day-number">{{ day.getDate() }}</div>
+    </div>
 
-  <!-- Верхние слоты -->
-  <div class="slot top-left"></div>
-  <div class="slot top-middle"></div>
-  <div class="slot top-right">
-    <div class="day-number">{{ day.getDate() }}</div>
-  </div>
+    <!-- Средние слоты -->
+    <div class="slot middle-left">
+      @if (middleLeftWidget && dayData) {
+        <lifestyle-day-slot [dayData]="dayData" [widget]="middleLeftWidget"></lifestyle-day-slot>
+      }
+    </div>
+    <div class="slot middle">
+      @if (middleWidget && dayData) {
+        <lifestyle-day-slot [dayData]="dayData" [widget]="middleWidget"></lifestyle-day-slot>
+      }
+    </div>
+    <div class="slot middle-right">
+      @if (middleRightWidget && dayData) {
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="middleRightWidget"
+        ></lifestyle-day-slot>
+      }
+    </div>
 
-  <!-- Средние слоты -->
-  <div class="slot middle-left"></div>
-  <div class="slot middle"></div>
-  <div class="slot middle-right"></div>
-
-  <!-- Нижние слоты -->
-  <div class="slot bottom-left"></div>
-  <div class="slot bottom-middle">
-    @if (bottomMiddleSlotWidgetOptions) {
-    @let component = bottomMiddleSlotWidgetOptions.component;
-    @let token = bottomMiddleSlotWidgetOptions.token;
-
-    <ng-container
-      [ngComponentOutlet]="component"
-      [ngComponentOutletInjector]="createInjector(token)"
-    >
-    </ng-container>
-  }
-  </div>
-  <div class="slot bottom-right"></div>
+    <!-- Нижние слоты -->
+    <div class="slot bottom-left">
+      @if (bottomLeftWidget && dayData) {
+        <lifestyle-day-slot [dayData]="dayData" [widget]="bottomLeftWidget"></lifestyle-day-slot>
+      }
+    </div>
+    <div class="slot bottom-middle">
+      @if (bottomMiddleWidget && dayData) {
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="bottomMiddleWidget"
+        ></lifestyle-day-slot>
+      }
+    </div>
+    <div class="slot bottom-right">
+      @if (bottomRightWidget && dayData) {
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="bottomRightWidget"
+        ></lifestyle-day-slot>
+      }
+    </div>
   }
 </div>

@@ -1,81 +1,63 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  inject,
   input,
+  OnInit,
   output,
   signal,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { DayComponent } from './day/day.component';
 import { Config } from '@lifestyle-dashboard/config';
+import { LifestyleWidgetDataService } from '@lifestyle-dashboard/lifestyle-widget-data-service';
+import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
+import { TuiDay } from '@taiga-ui/cdk';
+import { catchError, EMPTY } from 'rxjs';
+import { DatePipe } from '@angular/common';
+import { DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
 
 @Component({
   selector: 'lifestyle-calendar',
   standalone: true,
-  imports: [CommonModule, DayComponent],
+  imports: [DatePipe, DayComponent],
   templateUrl: './calendar.component.html',
   styleUrl: './calendar.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CalendarComponent {
-  public readonly $config = input.required<Config | null>({alias: 'config'}); // Сигнал для конфига
-  public readonly pediodStatisticsGetRequest = output<{
-    start: number;
-    end: number;
-  }>();
+export class CalendarComponent implements OnInit {
+  private readonly lifestyleWidgetDataService = inject(LifestyleWidgetDataService);
+  public readonly $config = input.required<Config | null>({ alias: 'config' });
 
-  public readonly $dayOpenRequest = output<Date>({alias: 'dayOpenRequest'}); // Сигнал для открытия дня
+  public readonly $dayOpenRequest = output<DayCardDialogContext>({ alias: 'dayOpenRequest' });
 
-  protected $currentDate = signal(new Date()); // Сигнал текущей даты
-  protected $daysInMonth = signal<(Date | null)[]>([]); // Сигнал для дней текущего месяца
-  protected weekDays: string[] = [
-    'Mon',
-    'Tue',
-    'Wed',
-    'Thu',
-    'Fri',
-    'Sat',
-    'Sun',
-  ]; // Дни недели
+  protected $currentDate = signal(new Date());
+  protected $daysInMonth = signal<(Date | null)[]>([]);
+  protected weekDays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-  constructor() {
-    // Инициализируем календарь при загрузке компонента
+  private readonly $calendarData = signal<Record<string, any>>({});
+
+  ngOnInit(): void {
     this.generateCalendar(this.$currentDate());
     this.updateDateInfo(this.$currentDate());
-    console.log('constructor', this.$currentDate());
   }
 
-  // Генерация календаря для текущего месяца
   public generateCalendar(date: Date) {
     const year = date.getFullYear();
     const month = date.getMonth();
 
-    // Определяем количество дней в текущем месяце
     const daysInCurrentMonth = new Date(year, month + 1, 0).getDate();
 
-    // Определяем первый день недели для месяца (0 = воскресенье)
     const firstDayOfMonth = new Date(year, month, 1).getDay();
 
-    // Пустые ячейки для начала недели
     const emptyCells = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
 
-    // Создаём массив дат
     const daysArray = Array(emptyCells)
-      .fill(null) // Пустые ячейки в начале
-      .concat(
-        // Дни текущего месяца
-        [...Array(daysInCurrentMonth).keys()].map(
-          (i) => new Date(year, month, i + 1) // Создаём объект Date для каждого дня
-        )
-      );
+      .fill(null)
+      .concat([...Array(daysInCurrentMonth).keys()].map((i) => new Date(year, month, i + 1)));
 
-    console.log('daysArray', daysArray);
-
-    // Устанавливаем массив в переменную
     this.$daysInMonth.set(daysArray);
   }
 
-  // Перелистывание месяца вперед
   public nextMonth() {
     const newDate = new Date(this.$currentDate());
     newDate.setMonth(newDate.getMonth() + 1);
@@ -84,7 +66,6 @@ export class CalendarComponent {
     this.updateDateInfo(newDate);
   }
 
-  // Перелистывание месяца назад
   public previousMonth() {
     const newDate = new Date(this.$currentDate());
     newDate.setMonth(newDate.getMonth() - 1);
@@ -94,56 +75,58 @@ export class CalendarComponent {
     this.updateDateInfo(newDate);
   }
 
+  public getDayData(date: Date | null) {
+    if (!date) {
+      return null;
+    }
+
+    const dateKey = date.toLocaleDateString('sv-SE');
+    const calendarData = this.$calendarData()['days']?.[dateKey] ?? null;
+
+    return calendarData;
+  }
+
   public openDayCard(date: Date | null) {
-    console.log('openDayCard', date);
     if (!date) {
       return;
     }
 
-    console.log(date);
+    this.$dayOpenRequest.emit({date, calendarData: this.$calendarData()['days'] ?? {}});
+  }
 
-    this.$dayOpenRequest.emit(date);
+  private getCalendarData(startDate: TuiDay, endDate: TuiDay) {
+    const config = this.$config();
+    if (!config) {
+      return;
+    }
 
-    //const {startOfDay, endOfDay} = getDayRange(date);
+    const widgetTypes = Object.values(config.layout).filter(Boolean) as WidgetType[];
 
-    // this.pediodStatisticsGetRequest.emit({ start: startOfDay, end: endOfDay });
+    this.lifestyleWidgetDataService
+      .getData$(startDate, endDate, widgetTypes)
+      .pipe(
+        catchError((error) => {
+          console.error('Error fetching calendar data:', error);
+
+          return EMPTY;
+        }),
+      )
+      .subscribe((data) => {
+        console.log('Calendar data received:', data);
+        this.$calendarData.set(data);
+      });
   }
 
   private updateDateInfo(date: Date) {
-    console.log(date.getMonth(), 123);
-    const [currentMonth, currentYear] = [
-      new Date().getMonth(),
-      new Date().getFullYear(),
-    ];
+    const [currentMonth, currentYear] = [new Date().getMonth(), new Date().getFullYear()];
     const start = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0);
 
-    console.log('start', start);
-    console.log('currentMonth', currentMonth);
-    console.log('currentYear', currentYear);
-
-    if (
-      date.getMonth() === currentMonth &&
-      date.getFullYear() === currentYear
-    ) {
-      console.log('===');
-      this.pediodStatisticsGetRequest.emit({
-        start: start.getTime(),
-        end: Date.now(),
-      });
+    if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
+      this.getCalendarData(TuiDay.fromLocalNativeDate(start), TuiDay.currentLocal());
     } else {
-      console.log('!==');
-      const end = new Date(
-        date.getFullYear(),
-        date.getMonth() + 1,
-        0,
-        23,
-        59,
-        59
-      );
-      this.pediodStatisticsGetRequest.emit({
-        start: start.getTime() / 1000,
-        end: end.getTime() / 1000,
-      });
+      const end = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
+
+      this.getCalendarData(TuiDay.fromLocalNativeDate(start), TuiDay.fromLocalNativeDate(end));
     }
   }
 }

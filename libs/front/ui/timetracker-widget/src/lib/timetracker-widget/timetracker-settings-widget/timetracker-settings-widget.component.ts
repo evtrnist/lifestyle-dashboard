@@ -1,51 +1,62 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  Signal,
+} from '@angular/core';
 import { TimeTrackerWidgetInput } from '../timetracker-widget-input';
 import { TIMETRACKER_WIDGET_TOKEN } from '../timetracker-widget.token';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { TuiLabel, TuiTextfield } from '@taiga-ui/core';
-import { TuiInputTime } from '@taiga-ui/kit';
+import { TuiTextfield } from '@taiga-ui/core';
 import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
-import { TuiTime } from '@taiga-ui/cdk';
+import { TimeSecondsControlComponent } from './time-seconds-control/time-seconds-control.component';
+import { INITIAL_TIME_TRACKER_WIDGET_INPUT } from '../initial-time-tracker-widget-input';
 
 @Component({
   selector: 'lifestyle-timetracker-settings-widget',
-  imports: [ReactiveFormsModule, TuiTextfield, TuiInputTime, TuiLabel],
   standalone: true,
+  imports: [ReactiveFormsModule, TuiTextfield, TimeSecondsControlComponent],
   templateUrl: './timetracker-settings-widget.component.html',
   styleUrl: './timetracker-settings-widget.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TimetrackerSettingsWidgetComponent
-  implements WidgetSettingsComponent
-{
-  public widgetData = inject<TimeTrackerWidgetInput>(TIMETRACKER_WIDGET_TOKEN);
+export class TimetrackerSettingsWidgetComponent implements WidgetSettingsComponent, OnInit {
+  public widgetData = inject<Signal<TimeTrackerWidgetInput>>(TIMETRACKER_WIDGET_TOKEN);
 
-  public readonly keys = Object.keys(this.widgetData.timeData) as Array<
-    keyof TimeTrackerWidgetInput['timeData']
-  >;
+  public readonly $keys = computed(() => {
+    const widgetData = this.widgetData();
 
-  public readonly form = this.buildFormGroup(this.keys);
+    return widgetData?.data
+      ? (Object.keys(widgetData?.data) as Array<keyof TimeTrackerWidgetInput['data']>)
+      : Object.keys(INITIAL_TIME_TRACKER_WIDGET_INPUT) as Array<keyof TimeTrackerWidgetInput['data']>;
+  });
 
-  public getControlInfo(key: keyof TimeTrackerWidgetInput['timeData']) {
+  public form!: FormGroup;
+
+  ngOnInit(): void {
+    this.form = this.buildFormGroup(this.$keys());
+  }
+
+  public getControlInfo(key: keyof TimeTrackerWidgetInput['data']) {
     return {
       title: key,
-      control: this.form.get(key) as unknown as FormControl,
+      control: this.form.get(key) as unknown as FormControl<number | null>,
     };
   }
 
-  private buildFormGroup(
-    keys: Array<keyof TimeTrackerWidgetInput['timeData']>,
-  ) {
-    console.log('build');
+  private buildFormGroup(keys: Array<keyof TimeTrackerWidgetInput['data']>) {
     const formGroup = new FormGroup({});
+    const widgetData = this.widgetData().data;
+
+    console.log('widgetData in buildFormGroup', widgetData);
 
     keys.forEach((key) => {
-      const seconds = this.widgetData.timeData[key];
+      console.log('building control for key', key, widgetData, INITIAL_TIME_TRACKER_WIDGET_INPUT[key]);
+      const seconds = widgetData ? widgetData?.[key] : INITIAL_TIME_TRACKER_WIDGET_INPUT[key];
 
-      const hours = Math.floor(seconds / 3600);
-      const minutes = Math.floor((seconds % 3600) / 60);
-
-      formGroup.addControl(key, new FormControl(new TuiTime(hours, minutes)));
+      formGroup.addControl(key, new FormControl<number | null>(seconds));
     });
 
     return formGroup;

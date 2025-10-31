@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import { CalendarComponent } from '@lifestyle-dashboard/calendar';
 import { tuiDialog } from '@taiga-ui/core';
-import { DayCardDialogComponent } from '@lifestyle-dashboard/day-card-dialog';
+import { DayCardDialogComponent, DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
 import { DashboardService } from './dashboard.service';
 
 @Component({
@@ -16,8 +16,6 @@ import { DashboardService } from './dashboard.service';
 })
 export class DashboardComponent {
   private readonly dashboardService = inject(DashboardService);
-  public readonly widgets = [];
-
   public readonly $config = this.dashboardService.$config;
 
   private readonly dialog = tuiDialog(DayCardDialogComponent, {
@@ -26,7 +24,8 @@ export class DashboardComponent {
     dismissible: true,
   });
 
-  public openDayCard(date: Date) {
-    this.dialog(date).subscribe();
+  public openDayCard({ date, calendarData }: DayCardDialogContext) {
+    console.log('Opening day card form dashboard for date:', date);
+    this.dialog({ date, calendarData }).subscribe();
   }
 }

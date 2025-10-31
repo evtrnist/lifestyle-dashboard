@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Slot, WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
@@ -11,8 +18,8 @@ import {
   TuiTitle,
 } from '@taiga-ui/core';
 import { TuiButtonLoading, TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
-import { WIDGET_LAYOUT_SLOT_MAP, WidgetLayoutSlot } from './widget-layout-slots';
-import { KeyValuePipe } from '@angular/common';
+import { WIDGET_LAYOUT_SLOT_MAP } from './widget-layout-slots';
+import { KeyValue, KeyValuePipe } from '@angular/common';
 import { TuiHeader } from '@taiga-ui/layout';
 import { WidgetLayoutSettingsService } from './widget-layout-settings.service';
 import { Layout } from '@lifestyle-dashboard/config';
@@ -39,7 +46,7 @@ import { State } from '@lifestyle-dashboard/state';
     TuiButtonLoading,
   ],
 })
-export class WidgetLayoutSettingsComponent {
+export class WidgetLayoutSettingsComponent implements OnInit {
   private readonly widgetLayoutSettingsService = inject(WidgetLayoutSettingsService);
 
   private readonly $config = this.widgetLayoutSettingsService.$config;
@@ -56,23 +63,18 @@ export class WidgetLayoutSettingsComponent {
     return state === State.Loading;
   });
 
-  public readonly $currentWidgetLayoutSettings = computed<Record<Slot, WidgetLayoutSlot>>(() => {
-    const slotsMap = this.$slotsMap();
-    const config = this.$config();
+  public readonly stringify = (x: WidgetOptions) => x.label;
 
-    if (!config) {
-      return slotsMap;
-    }
+  public readonly keepOrder = (
+    a: KeyValue<string, unknown>,
+    b: KeyValue<string, unknown>,
+  ): number => {
+    return 0;
+  };
 
-    Object.entries(config?.layout).forEach(([slot, widget]) => {
-      if (slotsMap[slot as Slot] && widget) {
-        slotsMap[slot as Slot].value = widget;
-        slotsMap[slot as Slot].label = WidgetRegistry[widget as WidgetType].label;
-      }
-    });
-
-    return slotsMap;
-  });
+  ngOnInit(): void {
+    this.setConfigData();
+  }
 
   public save() {
     const layout: Layout = Object.entries(this.$slotsMap()).reduce(
@@ -86,14 +88,45 @@ export class WidgetLayoutSettingsComponent {
     this.widgetLayoutSettingsService.saveWidgetLayoutSettings(layout);
   }
 
-  public selectWidget({ key }: WidgetOptions, slot: string) {
+  public selectWidget(options: WidgetOptions | null, slot: string) {
+    console.log('Selected widget', options, 'for slot', slot);
     this.$slotsMap.update((slots) => {
-      const currentSlot = slots[slot as Slot];
-      if (currentSlot) {
-        currentSlot.value = key;
-        currentSlot.label = WidgetRegistry[key].label;
-      }
-      return { ...slots };
+      const key = slot as Slot;
+
+      const next = {
+        ...slots[key],
+        value: options === null ? null : options.key,
+        label: options === null ? '' : options.label,
+      };
+
+      console.log('Next slot value:', next);
+
+      console.log('Updated slots:', { ...slots, [key]: { ...next } });
+
+      return { ...slots, [key]: { ...next } };
     });
+  }
+
+  private setConfigData() {
+    const slotsMap = this.$slotsMap();
+    const config = this.$config();
+
+    const updated = {
+      ...slotsMap,
+    };
+
+    if (!config) {
+      return;
+    }
+
+    Object.entries(config?.layout).forEach(([slot, widget]) => {
+      console.log('Config layout entry:', { slot, widget });
+      if (slotsMap[slot as Slot] && widget) {
+        updated[slot as Slot].value = widget;
+        updated[slot as Slot].label = WidgetRegistry[widget as WidgetType].label;
+      }
+    });
+
+    this.$slotsMap.set(updated);
   }
 }

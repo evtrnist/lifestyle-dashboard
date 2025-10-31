@@ -2,53 +2,89 @@ import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma/prisma.service';
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { InputJsonValue } from '@prisma/client/runtime/library';
+import { Prisma } from '@prisma/client';
+import { toUTCDateKey } from '@lifestyle-dashboard/day-data';
+
+export function ymdToUTCDate(ymd: string): Date {
+  // "2025-10-01" -> 2025-10-01T00:00:00.000Z
+  const [y, m, d] = ymd.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d));
+}
+
+export function dateToYMD(date: Date): string {
+  // Prisma вернёт полуночь UTC -> отдадим "YYYY-MM-DD"
+  return date.toISOString().slice(0, 10);
+}
+
+type DaysByDate = Record<string, Record<string, Prisma.JsonValue>>;
 
 @Injectable()
 export class DayDataService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  public async getDaysDataForWidget(
+  public async getDaysDataForWidgets(
     userId: string,
-    widgetType: WidgetType,
-    startDate: Date,
-    endDate: Date,
-  ) {
-    const data = await this.prismaService.dayData.findMany({
+    widgetTypes: string[],
+    startDate: string,
+    endDate: string,
+  ): Promise<DaysByDate> {
+    const gte = new Date(startDate).toISOString();
+    const lte = new Date(endDate).toISOString();
+
+    console.log(
+      'Fetching days data for user:',
+      userId,
+      'widgetTypes:',
+      widgetTypes,
+      'from',
+      gte,
+      'to',
+      lte,
+    );
+
+    const rows = await this.prismaService.dayData.findMany({
       where: {
         userId,
-        widgetType,
-        date: {
-          gte: startDate,
-          lte: endDate,
-        },
+        widgetType: { in: widgetTypes },
+        date: { gte, lte },
       },
-      orderBy: { date: 'asc' },
+      select: { date: true, widgetType: true, data: true },
+      orderBy: [{ date: 'asc' }, { widgetType: 'asc' }],
     });
 
-    return data.map((d) => d.data);
+    const result: DaysByDate = {};
+
+    for (const row of rows) {
+      const dayKey = dateToYMD(row.date);
+      console.log('Processing row for date:', dayKey);
+      if (!result[dayKey]) {
+        result[dayKey] = {};
+      }
+
+      result[dayKey][row.widgetType as WidgetType] = row.data as Prisma.JsonValue;
+    }
+
+    return result;
   }
 
   public async createOrUpdateDayData(
     userId: string,
     widgetType: string,
-    date: Date,
+    dateYmd: string, // "YYYY-MM-DD"
     widgetData: InputJsonValue,
   ) {
-    console.log('Creating or updating day data:', { userId, widgetType, date, widgetData });
-    
-    const existing = await this.prismaService.dayData.findFirst({
-      where: { userId, widgetType, date },
+    const row = await this.prismaService.dayData.upsert({
+      where: {
+        day_unique: { userId, widgetType, date: ymdToUTCDate(dateYmd) },
+      },
+      update: { data: widgetData },
+      create: { userId, widgetType, date: ymdToUTCDate(dateYmd), data: widgetData },
     });
 
-    if (existing) {
-      return this.prismaService.dayData.update({
-        where: { id: existing.id },
-        data: { data: widgetData },
-      });
-    }
-
-    return this.prismaService.dayData.create({
-      data: { userId, widgetType, date, data: widgetData },
-    });
+    // нормализуем ответ под фронт: "YYYY-MM-DD" вместо Date
+    return {
+      ...row,
+      date: dateToYMD(row.date),
+    };
   }
 }

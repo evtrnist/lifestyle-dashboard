@@ -1,45 +1,55 @@
 import {
-  AfterViewInit,
   Component,
+  DestroyRef,
   Injector,
+  Type,
+  ViewContainerRef,
+  effect,
+  inject,
   input,
   output,
-  Type,
   viewChild,
-  ViewContainerRef,
+  ComponentRef,
 } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'lib-dynamic-host',
-  imports: [CommonModule],
   template: `<ng-container #vcRef></ng-container>`,
-  styles: [
-    `
-      :host {
-        display: block;
-        width: 100%;
-      }
-    `,
-  ],
+  styles: [`
+    :host {
+      display: block;
+      width: 100%;
+    }
+  `],
+  standalone: true,
 })
-export class DynamicHostComponent implements AfterViewInit {
+export class DynamicHostComponent {
   public readonly component = input<Type<unknown> | null>(null);
   public readonly injector = input<Injector | null>(null);
 
   public readonly init = output<unknown>();
 
   private readonly vcRef = viewChild('vcRef', { read: ViewContainerRef });
+  private readonly destroyRef = inject(DestroyRef);
 
-  ngAfterViewInit(): void {
-    const component = this.component();
-    const injector = this.injector();
-    if (!component || !injector) {
-      return;
-    }
+  private cmpRef: ComponentRef<unknown> | null = null;
 
-    const ref = this.vcRef()?.createComponent(component, { injector });
+  constructor() {
+    effect(() => {
+      const vc = this.vcRef();
+      const cmp = this.component();
+      const inj = this.injector() ?? inject(Injector);
 
-    this.init.emit(ref?.instance);
+      if (!vc || !cmp || !inj) {
+        return;
+      }
+
+      this.cmpRef?.destroy();
+      vc.clear();
+
+      this.cmpRef = vc.createComponent(cmp, { injector: inj });
+
+      this.init.emit(this.cmpRef.instance);
+    }, { allowSignalWrites: true });
   }
 }
