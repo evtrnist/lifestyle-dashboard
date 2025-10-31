@@ -24,8 +24,8 @@ export class DashboardComponent {
     dismissible: true,
   });
 
-  public openDayCard({date, calendarData}: DayCardDialogContext) {
+  public openDayCard({ date, calendarData }: DayCardDialogContext) {
     console.log('Opening day card form dashboard for date:', date);
-    this.dialog({date, calendarData}).subscribe();
+    this.dialog({ date, calendarData }).subscribe();
   }
 }
