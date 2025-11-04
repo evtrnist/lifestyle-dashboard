@@ -1,0 +1,10 @@
+@let totalCount = $totalCount();
+@let plannedCount = $plannedCount();
+@let totalRange = $totalRange();
+
+<div [class]="`container ${$size()}`">
+  <span> {{ totalCount }} / {{ plannedCount }} </span>
+  @for (total of totalRange; track $index) {
+    <tui-icon class="icon" icon="@tui.dot" [style.color]="$color()" />
+  }
+</div>
