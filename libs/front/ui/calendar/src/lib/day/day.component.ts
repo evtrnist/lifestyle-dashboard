@@ -3,8 +3,6 @@ import {
   Component,
   computed,
   input,
-  Injector,
-  inject,
 } from '@angular/core';
 import { Slot, WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
@@ -51,8 +49,6 @@ export class DayComponent {
 
     return map;
   });
-
-  private readonly injector = inject(Injector);
 
   protected readonly Slot = Slot;
 }

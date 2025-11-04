@@ -16,7 +16,6 @@ import { WidgetIconPipe, WidgetNamePipe } from '@lifestyle-dashboard/widget-name
 import { WidgetSettingsComponent, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
 import { TimeTrackerWidgetInput } from 'libs/front/ui/timetracker-widget/src/lib/timetracker-widget/timetracker-widget-input';
-import { JsonPipe } from '@angular/common';
 
 function isWidgetSettingsComponent(x: unknown): x is WidgetSettingsComponent {
   return typeof x === 'object' && x !== null && 'form' in x;
@@ -30,7 +29,7 @@ export interface DayCardDialogContext {
 @Component({
   selector: 'lifestyle-day-card-dialog',
   standalone: true,
-  imports: [TuiTabs, TuiIconPipe, TuiButton, WidgetNamePipe, WidgetIconPipe, DynamicHostComponent, JsonPipe],
+  imports: [TuiTabs, TuiIconPipe, TuiButton, WidgetNamePipe, WidgetIconPipe, DynamicHostComponent],
   templateUrl: './day-card-dialog.component.html',
   styleUrl: './day-card-dialog.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
