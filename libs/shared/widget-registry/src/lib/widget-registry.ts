@@ -5,6 +5,7 @@ import {
 } from '@lifestyle-dashboard/timetracker-widget';
 import { WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WAKETIME_WIDGET_TOKEN, WaketimeSettingsWidgetComponent, WaketimeWidgetComponent } from '@lifestyle-dashboard/waketime-widget';
+import { TODOS_WIDGET_TOKEN, TodosSettingsWidgetComponent, TodosWidgetComponent } from '@lifestyle-dashboard/todos-widget';
 
 export const WidgetRegistry: Record<WidgetType, WidgetOptions> = {
   [WidgetType.TimeTracker]: {
@@ -20,5 +21,12 @@ export const WidgetRegistry: Record<WidgetType, WidgetOptions> = {
     token: WAKETIME_WIDGET_TOKEN,
     label: 'Wake Time',
     key: WidgetType.WakeTime,
+  },
+  [WidgetType.ToDos]: {
+    component: TodosWidgetComponent,
+    settingsComponent: TodosSettingsWidgetComponent,
+    token: TODOS_WIDGET_TOKEN,
+    label: 'Todos list',
+    key: WidgetType.ToDos
   }
 };
