@@ -1,8 +1,32 @@
-:host {
-  display: block;
+.container {
+  display: flex;
+  align-items: flex-end;
+  gap: 0.25rem;
 }
 
 .s {
-  inline-size: 1rem;
-  block-size: 1rem;
+  .icon {
+    inline-size: 1rem;
+    block-size: 1rem;
+  }
+
+  .time {
+    height: 0.9rem;
+    font-size: 0.5rem;
+    font-weight: 600;
+  }
+}
+
+.xl {
+  gap: 1rem;
+  
+  .icon {
+    inline-size: 3rem;
+    block-size: 3rem;
+  }
+
+  .time {
+    font-size: 1rem;
+    font-weight: 800;
+  }
 }

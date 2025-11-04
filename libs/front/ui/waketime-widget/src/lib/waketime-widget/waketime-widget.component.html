@@ -1,9 +1,11 @@
 @let waketime = $waketime();
 
-<tui-icon icon="@tui.sunrise" [class]="$size()" [style.color]="'var(--tui-background-accent-1)'" />
+<div [class]="`container ${$size()}`">
+<tui-icon class="icon" icon="@tui.sunrise" [style.color]="$color()" />
 
 @if (waketime) {
-  <time [attr.datetime]="waketime">
-    {{ waketime }}
+  <time class="time" [attr.datetime]="waketime">
+    {{ waketime | time }}
   </time>
 }
+</div>

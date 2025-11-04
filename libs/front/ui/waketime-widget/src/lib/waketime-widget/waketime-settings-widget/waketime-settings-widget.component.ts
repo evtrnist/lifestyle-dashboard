@@ -8,7 +8,7 @@ import { WaketimeWidgetInput } from '../waketime-widget-input';
 import { WAKETIME_WIDGET_TOKEN } from '../waketime-widget.token';
 
 enum WaketimeField {
-  WakeTime = 'wakeTime',
+  WakeTime = 'waketime',
 }
 
 @Component({
