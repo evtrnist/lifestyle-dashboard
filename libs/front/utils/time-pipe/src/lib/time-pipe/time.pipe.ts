@@ -5,8 +5,8 @@ import { TuiTime, TuiTimeMode } from '@taiga-ui/cdk';
   name: 'time',
 })
 export class TimePipe implements PipeTransform {
-  transform(value: TuiTime, ...args: TuiTimeMode[]): string {
-    const format = args[0] || 'HH:MM';
+  transform(value: TuiTime, ...formats: TuiTimeMode[]): string {
+    const format = formats[0] || 'HH:MM';
     return value.toString(format);
   }
 }
