@@ -47,7 +47,7 @@ export class TodosSettingsWidgetComponent implements WidgetSettingsComponent, On
   }
 
   private buildForm() {
-    const data = this.widgetData()?.data?.todos;
+    const data = this.widgetData()?.data;
 
     return new FormGroup({
       [ToDosField.AdditionCount]: new FormControl<number>(data ? data.additionCount : 0),

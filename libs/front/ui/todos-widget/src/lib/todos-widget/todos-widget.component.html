@@ -3,8 +3,10 @@
 @let totalRange = $totalRange();
 
 <div [class]="`container ${$size()}`">
-  <span> {{ totalCount }} / {{ plannedCount }} </span>
+  <span class="count"> {{ totalCount }} / {{ plannedCount }} </span>
+  <div class="dots">
   @for (total of totalRange; track $index) {
     <tui-icon class="icon" icon="@tui.dot" [style.color]="$color()" />
   }
+  </div>
 </div>
