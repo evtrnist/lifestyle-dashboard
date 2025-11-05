@@ -45,9 +45,5 @@ export class TodosWidgetComponent {
   public readonly $totalRange = computed(() => Array(this.$totalCount()));
 
   constructor() {
-    effect(() => {
-  console.log('widgetData ref changed?', this.widgetData());
-});
-
   }
 }
