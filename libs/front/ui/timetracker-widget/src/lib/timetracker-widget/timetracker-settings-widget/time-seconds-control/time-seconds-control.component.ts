@@ -24,7 +24,7 @@ import { Subscription } from 'rxjs';
   imports: [ReactiveFormsModule, TuiTextfield, TuiInputTime],
   template: `
     <tui-textfield>
-      <label  [for]="$id()" tuiLabel>{{ $label() }}</label>
+      <label [for]="$id()" tuiLabel>{{ $label() }}</label>
       <input [id]="$id()" tuiInputTime [formControl]="ui" (blur)="onTouched()" />
     </tui-textfield>
   `,

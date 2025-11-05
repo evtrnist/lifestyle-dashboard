@@ -22,17 +22,16 @@ export class WaketimeWidgetComponent {
   public widgetData = inject<Signal<WaketimeWidgetInput>>(WAKETIME_WIDGET_TOKEN);
   public readonly $size = computed(() => this.widgetData()?.size);
 
-  public readonly $waketime = computed(
-    () =>
-    {
-      const waketime = this.widgetData()?.data?.waketime;
-      if (!waketime) {
-        return null;
-      }
-
-      return new TuiTime(waketime['hours'], waketime['minutes']);
+  public readonly $waketime = computed(() => {
+    const waketime = this.widgetData()?.data?.waketime;
+    if (!waketime) {
+      return null;
     }
-  );
 
-  public readonly $color = computed(() => this.widgetData()?.data?.waketime ? ACTIVE_COLOR : GREY_COLOR);
+    return new TuiTime(waketime['hours'], waketime['minutes']);
+  });
+
+  public readonly $color = computed(() =>
+    this.widgetData()?.data?.waketime ? ACTIVE_COLOR : GREY_COLOR,
+  );
 }

@@ -30,7 +30,9 @@ export class TimetrackerSettingsWidgetComponent implements WidgetSettingsCompone
 
     return widgetData?.data
       ? (Object.keys(widgetData?.data) as Array<keyof TimeTrackerWidgetInput['data']>)
-      : Object.keys(INITIAL_TIME_TRACKER_WIDGET_INPUT) as Array<keyof TimeTrackerWidgetInput['data']>;
+      : (Object.keys(INITIAL_TIME_TRACKER_WIDGET_INPUT) as Array<
+          keyof TimeTrackerWidgetInput['data']
+        >);
   });
 
   public form!: FormGroup;
@@ -53,7 +55,12 @@ export class TimetrackerSettingsWidgetComponent implements WidgetSettingsCompone
     console.log('widgetData in buildFormGroup', widgetData);
 
     keys.forEach((key) => {
-      console.log('building control for key', key, widgetData, INITIAL_TIME_TRACKER_WIDGET_INPUT[key]);
+      console.log(
+        'building control for key',
+        key,
+        widgetData,
+        INITIAL_TIME_TRACKER_WIDGET_INPUT[key],
+      );
       const seconds = widgetData ? widgetData?.[key] : INITIAL_TIME_TRACKER_WIDGET_INPUT[key];
 
       formGroup.addControl(key, new FormControl<number | null>(seconds));

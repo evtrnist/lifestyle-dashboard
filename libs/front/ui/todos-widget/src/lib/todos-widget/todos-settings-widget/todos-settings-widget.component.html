@@ -5,7 +5,11 @@
   </tui-textfield>
   <tui-textfield>
     <label for="completed-count-input" tuiLabel>Enter completed count</label>
-    <input id="completed-count-input" tuiInputNumber [formControlName]="ToDosField.CompletedCount" />
+    <input
+      id="completed-count-input"
+      tuiInputNumber
+      [formControlName]="ToDosField.CompletedCount"
+    />
   </tui-textfield>
   <tui-textfield>
     <label for="addition-count-input" tuiLabel>Enter addition count</label>
@@ -14,6 +18,11 @@
 
   <tui-textfield>
     <label for="total-count-input" tuiLabel>Total count will be computed</label>
-    <input id="total-count-input" tuiInputNumber [formControlName]="ToDosField.TotalCount" [readOnly]="true" />
+    <input
+      id="total-count-input"
+      tuiInputNumber
+      [formControlName]="ToDosField.TotalCount"
+      [readOnly]="true"
+    />
   </tui-textfield>
 </div>

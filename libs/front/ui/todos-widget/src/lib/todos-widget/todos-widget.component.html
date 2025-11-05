@@ -5,8 +5,8 @@
 <div [class]="`container ${$size()}`">
   <span class="count"> {{ totalCount }} / {{ plannedCount }} </span>
   <div class="dots">
-  @for (total of totalRange; track $index) {
-    <tui-icon class="icon" icon="@tui.dot" [style.color]="$color()" />
-  }
+    @for (total of totalRange; track $index) {
+      <tui-icon class="icon" icon="@tui.dot" [style.color]="$color()" />
+    }
   </div>
 </div>

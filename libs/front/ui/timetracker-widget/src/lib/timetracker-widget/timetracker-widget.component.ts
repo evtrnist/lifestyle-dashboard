@@ -79,9 +79,7 @@ export class TimetrackerWidgetComponent {
   ];
 
   protected get label(): string {
-    return (
-      (Number.isNaN(this.$index()) ? null : this.labels[this.$index()]) ?? ''
-    );
+    return (Number.isNaN(this.$index()) ? null : this.labels[this.$index()]) ?? '';
   }
 
   protected getSeconds(): number {

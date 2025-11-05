@@ -71,8 +71,7 @@ export class TodosSettingsWidgetComponent implements WidgetSettingsComponent, On
       additionCountControl.valueChanges.pipe(startWith(additionCountControl.value)),
       completedCountControl.valueChanges.pipe(startWith(completedCountControl.value)),
     ])
-      .pipe(
-        takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(([additionCount, completedCount]) => {
         const totalCount = (additionCount ?? 0) + (completedCount ?? 0);
         this.form.get(ToDosField.TotalCount)!.setValue(totalCount);

@@ -16,7 +16,9 @@ export class LifestyleWidgetDataService {
     const startIso = startDate;
     const endIso = endDate;
 
-    let params = new HttpParams().set('startDate', toUTCDateKey(startDate.toLocalNativeDate())).set('endDate', toUTCDateKey(endDate.toLocalNativeDate()));
+    let params = new HttpParams()
+      .set('startDate', toUTCDateKey(startDate.toLocalNativeDate()))
+      .set('endDate', toUTCDateKey(endDate.toLocalNativeDate()));
 
     widgetTypes.forEach((type) => {
       params = params.append('widgetTypes', type);

@@ -1,13 +1,6 @@
-
-
-<div
-[formGroup]="form"
->
-    <tui-textfield>
-      <label  for="wake-time-input" tuiLabel>
-        Waketime
-      </label>
-      <input id="wake-time-input" tuiInputTime [formControlName]="WaketimeField.WakeTime" />
-    </tui-textfield>
-
-    </div>
+<div [formGroup]="form">
+  <tui-textfield>
+    <label for="wake-time-input" tuiLabel> Waketime </label>
+    <input id="wake-time-input" tuiInputTime [formControlName]="WaketimeField.WakeTime" />
+  </tui-textfield>
+</div>

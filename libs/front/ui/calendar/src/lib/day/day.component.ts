@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { Slot, WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import { Config } from '@lifestyle-dashboard/config';
@@ -23,7 +18,6 @@ export class DayComponent {
   public readonly $config = input.required<Config | null>({ alias: 'config' });
 
   public readonly $dayData = input.required<Record<string, any> | null>({ alias: 'dayData' });
-  
 
   public readonly $slotWidgetMap = computed<Record<Slot, WidgetOptions | null>>(() => {
     const config = this.$config();

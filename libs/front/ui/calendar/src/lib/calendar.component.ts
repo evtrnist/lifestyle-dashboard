@@ -91,7 +91,7 @@ export class CalendarComponent implements OnInit {
       return;
     }
 
-    this.$dayOpenRequest.emit({date, calendarData: this.$calendarData()['days'] ?? {}});
+    this.$dayOpenRequest.emit({ date, calendarData: this.$calendarData()['days'] ?? {} });
   }
 
   private getCalendarData(startDate: TuiDay, endDate: TuiDay) {
