@@ -75,7 +75,6 @@ export class LoginComponent {
 
   protected readonly loginForm = new FormGroup({
     [LoginField.Email]: new FormControl('', {
-      updateOn: 'blur',
       nonNullable: true,
       validators: [requiredValidator, emailValidator],
     }),
