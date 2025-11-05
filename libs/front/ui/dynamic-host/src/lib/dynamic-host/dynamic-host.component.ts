@@ -15,12 +15,14 @@ import {
 @Component({
   selector: 'lib-dynamic-host',
   template: `<ng-container #vcRef></ng-container>`,
-  styles: [`
-    :host {
-      display: block;
-      width: 100%;
-    }
-  `],
+  styles: [
+    `
+      :host {
+        display: block;
+        width: 100%;
+      }
+    `,
+  ],
   standalone: true,
 })
 export class DynamicHostComponent {
@@ -35,21 +37,24 @@ export class DynamicHostComponent {
   private cmpRef: ComponentRef<unknown> | null = null;
 
   constructor() {
-    effect(() => {
-      const vc = this.vcRef();
-      const cmp = this.component();
-      const inj = this.injector() ?? inject(Injector);
+    effect(
+      () => {
+        const vc = this.vcRef();
+        const cmp = this.component();
+        const inj = this.injector() ?? inject(Injector);
 
-      if (!vc || !cmp || !inj) {
-        return;
-      }
+        if (!vc || !cmp || !inj) {
+          return;
+        }
 
-      this.cmpRef?.destroy();
-      vc.clear();
+        this.cmpRef?.destroy();
+        vc.clear();
 
-      this.cmpRef = vc.createComponent(cmp, { injector: inj });
+        this.cmpRef = vc.createComponent(cmp, { injector: inj });
 
-      this.init.emit(this.cmpRef.instance);
-    }, { allowSignalWrites: true });
+        this.init.emit(this.cmpRef.instance);
+      },
+      { allowSignalWrites: true },
+    );
   }
 }

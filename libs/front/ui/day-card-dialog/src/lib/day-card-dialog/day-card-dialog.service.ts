@@ -42,15 +42,17 @@ export class DayCardDialogService {
   public save(date: Date, widgetType: WidgetType, data: unknown): void {
     console.log('Saving data for', { date: date.toLocaleDateString('sv-SE'), widgetType, data });
 
-    this.lifestyleWidgetDataService.saveDateData$(date.toLocaleDateString('sv-SE'), widgetType, data)
-    .pipe(
-      tap(() => {
-        console.log('Data saved successfully');
-      }),
-      catchError((error) => {
-        console.error('Error saving data:', error);
-        return of(null);
-      }))
-    .subscribe();
+    this.lifestyleWidgetDataService
+      .saveDateData$(date.toLocaleDateString('sv-SE'), widgetType, data)
+      .pipe(
+        tap(() => {
+          console.log('Data saved successfully');
+        }),
+        catchError((error) => {
+          console.error('Error saving data:', error);
+          return of(null);
+        }),
+      )
+      .subscribe();
   }
 }

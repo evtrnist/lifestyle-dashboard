@@ -1,5 +1,5 @@
-import { FormGroup } from "@angular/forms";
+import { FormGroup } from '@angular/forms';
 
 export interface WidgetSettingsComponent {
-    form: FormGroup;
+  form: FormGroup;
 }

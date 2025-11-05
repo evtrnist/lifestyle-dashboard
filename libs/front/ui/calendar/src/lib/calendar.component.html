@@ -1,7 +1,7 @@
 <div class="calendar-container">
   <div class="header">
     <button (click)="previousMonth()">&#8249;</button>
-    <span>{{ $currentDate() | date : 'MMMM yyyy' }}</span>
+    <span>{{ $currentDate() | date: 'MMMM yyyy' }}</span>
     <button (click)="nextMonth()">&#8250;</button>
   </div>
 
@@ -13,7 +13,6 @@
 
   <div class="days">
     @for (day of $daysInMonth(); track day) {
-      
       <lifestyle-day
         [day]="day"
         [config]="$config()"

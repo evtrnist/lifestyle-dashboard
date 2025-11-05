@@ -10,7 +10,6 @@
 @let bottomRightWidget = slotWidgetMap[Slot.BottomRight];
 @let dayData = $dayData();
 
-
 <div class="day">
   @if (day) {
     <!-- Верхние слоты -->
@@ -41,10 +40,7 @@
     </div>
     <div class="slot middle-right">
       @if (middleRightWidget && dayData) {
-        <lifestyle-day-slot
-          [dayData]="dayData"
-          [widget]="middleRightWidget"
-        ></lifestyle-day-slot>
+        <lifestyle-day-slot [dayData]="dayData" [widget]="middleRightWidget"></lifestyle-day-slot>
       }
     </div>
 
@@ -56,18 +52,12 @@
     </div>
     <div class="slot bottom-middle">
       @if (bottomMiddleWidget && dayData) {
-        <lifestyle-day-slot
-          [dayData]="dayData"
-          [widget]="bottomMiddleWidget"
-        ></lifestyle-day-slot>
+        <lifestyle-day-slot [dayData]="dayData" [widget]="bottomMiddleWidget"></lifestyle-day-slot>
       }
     </div>
     <div class="slot bottom-right">
       @if (bottomRightWidget && dayData) {
-        <lifestyle-day-slot
-          [dayData]="dayData"
-          [widget]="bottomRightWidget"
-        ></lifestyle-day-slot>
+        <lifestyle-day-slot [dayData]="dayData" [widget]="bottomRightWidget"></lifestyle-day-slot>
       }
     </div>
   }
