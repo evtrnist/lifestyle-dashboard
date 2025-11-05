@@ -1,10 +1,11 @@
+import { HttpStatusCode } from '@angular/common/http';
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { catchError, EMPTY } from 'rxjs';
+import { State } from '@lifestyle-dashboard/state';
 import { AuthApiService } from './auth-api.service';
 import { AuthDto } from './auth.dto';
-import { catchError, EMPTY } from 'rxjs';
-import { Router } from '@angular/router';
-import { State } from '@lifestyle-dashboard/state';
 
 @Injectable()
 export class AuthService {
@@ -15,6 +16,10 @@ export class AuthService {
   private readonly router = inject(Router);
 
   public readonly authState = signal<State | null>(null);
+
+  public setState(state: State | null) {
+    this.authState.set(state);
+  }
 
   public login(dto: AuthDto) {
     this.authState.set(State.Loading);
@@ -46,7 +51,12 @@ export class AuthService {
         catchError((err) => {
           console.warn('Sign up failed', err);
 
-          this.authState.set(State.Error);
+          if (err.status === HttpStatusCode.Conflict) {
+            this.authState.set(State.Conflict);
+          } else {
+            this.authState.set(State.Error);
+          }
+
           return EMPTY;
         }),
         takeUntilDestroyed(this.destroyRef),

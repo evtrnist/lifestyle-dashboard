@@ -9,13 +9,13 @@ import {
   Type,
 } from '@angular/core';
 import { TuiButton, TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
-import { injectContext } from '@taiga-ui/polymorpheus';
 import { TuiTabs } from '@taiga-ui/kit';
-import { DayCardDialogService } from './day-card-dialog.service';
-import { WidgetIconPipe, WidgetNamePipe } from '@lifestyle-dashboard/widget-name-pipe';
-import { WidgetSettingsComponent, WidgetType } from '@lifestyle-dashboard/widget-contracts';
+import { injectContext } from '@taiga-ui/polymorpheus';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
+import { WidgetSettingsComponent, WidgetType } from '@lifestyle-dashboard/widget-contracts';
+import { WidgetIconPipe, WidgetNamePipe } from '@lifestyle-dashboard/widget-name-pipe';
 import { TimeTrackerWidgetInput } from 'libs/front/ui/timetracker-widget/src/lib/timetracker-widget/timetracker-widget-input';
+import { DayCardDialogService } from './day-card-dialog.service';
 
 function isWidgetSettingsComponent(x: unknown): x is WidgetSettingsComponent {
   return typeof x === 'object' && x !== null && 'form' in x;

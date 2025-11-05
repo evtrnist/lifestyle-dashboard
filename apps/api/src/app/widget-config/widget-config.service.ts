@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../prisma/prisma.service';
-import { InputJsonValue } from '@prisma/client/runtime/library';
 import { WidgetConfig } from '@prisma/client';
+import { InputJsonValue } from '@prisma/client/runtime/library';
+import { PrismaService } from '../prisma/prisma.service';
 
 @Injectable()
 export class WidgetConfigService {

@@ -6,16 +6,15 @@ import {
   OnInit,
   Signal,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { combineLatest, startWith } from 'rxjs';
+import { TuiLabel } from '@taiga-ui/core/components/label';
+import { TuiTextfield } from '@taiga-ui/core/components/textfield';
+import { TuiInputNumber } from '@taiga-ui/kit';
 import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
 import { TodosWidgetInput } from '../todos-widget-input';
 import { TODOS_WIDGET_TOKEN } from '../todos-widget.token';
-import { FormControl, FormGroup } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
-import { TuiInputNumber } from '@taiga-ui/kit';
-import { TuiLabel } from '@taiga-ui/core/components/label';
-import { TuiTextfield } from '@taiga-ui/core/components/textfield';
-import { combineLatest, startWith } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 enum ToDosField {
   AdditionCount = 'additionCount',

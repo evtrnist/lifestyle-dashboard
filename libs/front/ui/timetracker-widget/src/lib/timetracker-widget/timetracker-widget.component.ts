@@ -6,14 +6,13 @@ import {
   Signal,
   signal,
 } from '@angular/core';
-
 import { TuiRingChart } from '@taiga-ui/addon-charts';
-import { TimetrackerCategory } from '@lifestyle-dashboard/timetracker';
-import { SecondsToHoursPipe } from './seconds-to-hours.pipe';
 import { tuiSum } from '@taiga-ui/cdk';
-import { TIMETRACKER_WIDGET_TOKEN } from './timetracker-widget.token';
-import { TimeTrackerWidgetInput } from './timetracker-widget-input';
+import { TimetrackerCategory } from '@lifestyle-dashboard/timetracker';
 import { INITIAL_TIME_TRACKER_WIDGET_INPUT } from './initial-time-tracker-widget-input';
+import { SecondsToHoursPipe } from './seconds-to-hours.pipe';
+import { TimeTrackerWidgetInput } from './timetracker-widget-input';
+import { TIMETRACKER_WIDGET_TOKEN } from './timetracker-widget.token';
 
 const CATEGORY_ORDER: Record<TimetrackerCategory, number> = {
   [TimetrackerCategory.Routine]: 0,

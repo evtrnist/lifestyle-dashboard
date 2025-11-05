@@ -1,5 +1,5 @@
-import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { InputJsonValue } from '@prisma/client/runtime/library';
+import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 
 export class UpsertDayDataDto {
   widgetType: WidgetType;

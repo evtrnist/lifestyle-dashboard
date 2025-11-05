@@ -1,15 +1,15 @@
 import {
   Component,
+  ComponentRef,
   DestroyRef,
-  Injector,
-  Type,
-  ViewContainerRef,
   effect,
   inject,
+  Injector,
   input,
   output,
+  Type,
   viewChild,
-  ComponentRef,
+  ViewContainerRef,
 } from '@angular/core';
 
 @Component({

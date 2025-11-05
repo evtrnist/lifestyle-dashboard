@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { Config } from '@lifestyle-dashboard/config';
 import { Slot, WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
-import { Config } from '@lifestyle-dashboard/config';
 import { DaySlotComponent } from './day-slot/day-slot.component';
 
 @Component({

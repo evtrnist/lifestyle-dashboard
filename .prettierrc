@@ -8,9 +8,20 @@
   "overrides": [
     {
       "files": "*.component.html",
-      "options": {
-        "parser": "angular"
-      }
+      "options": { "parser": "angular" }
     }
+  ],
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"],
+  "importOrderParserPlugins": ["typescript", "decorators-legacy"],
+  "importOrder": [
+    "^node:",
+    "^@angular/(.*)$",
+    "^rxjs($|/)",
+    "^@taiga-ui/(.*)$",
+    "^@lifestyle-dashboard/(.*)$",
+    "^libs/(.*)$",
+    "^apps/(.*)$",
+    "^shared/(.*)$",
+    "^[./]"
   ]
 }

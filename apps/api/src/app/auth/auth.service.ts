@@ -1,13 +1,13 @@
 import {
-  BadRequestException,
+  ConflictException,
   Injectable,
   NotFoundException,
   UnauthorizedException,
 } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
-import { PrismaService } from '../prisma/prisma.service';
 import * as bcrypt from 'bcrypt';
 import { UserProfile } from '@lifestyle-dashboard/user';
+import { PrismaService } from '../prisma/prisma.service';
 import { RequestWithUser } from './auth.controller';
 
 @Injectable()
@@ -25,7 +25,7 @@ export class AuthService {
     });
 
     if (isExistingUser) {
-      throw new BadRequestException('User already exists');
+      throw new ConflictException('User already exists');
     }
 
     const user = await this.prismaService.user.create({

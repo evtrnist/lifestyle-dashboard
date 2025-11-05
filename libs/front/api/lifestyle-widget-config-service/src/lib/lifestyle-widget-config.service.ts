@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { DestroyRef, inject, Injectable, signal } from '@angular/core';
-import { Config } from '@lifestyle-dashboard/config';
-import { catchError, EMPTY, Observable } from 'rxjs';
-import { WidgetConfigResponse } from './widget-config-response';
-import { State } from '@lifestyle-dashboard/state';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { catchError, EMPTY, Observable } from 'rxjs';
+import { Config } from '@lifestyle-dashboard/config';
+import { State } from '@lifestyle-dashboard/state';
+import { WidgetConfigResponse } from './widget-config-response';
 
 const URL = '/api/widget-config';
 

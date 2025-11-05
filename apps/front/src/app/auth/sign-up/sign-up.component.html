@@ -1,50 +1,72 @@
-<form [formGroup]="signUpForm" class="form">
-  <p>
-    <tui-input
-      [formControlName]="SignUpField.Email"
-      tuiTextfieldSize="l"
-      [tuiTextfieldCleaner]="true"
-    >
-      Type an email
-      <input autocomplete="email" tuiTextfieldLegacy type="email" />
-    </tui-input>
+@let shouldShowLoading = $shouldShowLoading();
+@let shouldShowConflictError = $shouldShowConflictError();
+
+<form [formGroup]="signUpForm" class="form" (keydown.enter)="signUp()">
+  @if (shouldShowConflictError) {
+    <tui-notification appearance="negative" size="l">
+      User with this email already exists
+    </tui-notification>
+  }
+  <div>
+    <tui-textfield>
+      <label for="email-input" tuiLabel>Type an email</label>
+      <input
+        id="email-input"
+        placeholder="Your email"
+        tuiTextfield
+        [formControlName]="SignUpField.Email"
+        tuiTextfieldSize="l"
+        [tuiTextfieldCleaner]="true"
+        type="email"
+      />
+    </tui-textfield>
     <tui-error [formControlName]="SignUpField.Email" [error]="[] | tuiFieldError | async" />
-  </p>
+  </div>
 
-  <p>
-    <tui-input
-      [formControlName]="SignUpField.Password"
-      tuiTextfieldSize="l"
-      [tuiTextfieldCleaner]="true"
-    >
-      Type a password
-      <input autocomplete="new-password" tuiTextfieldLegacy type="password" />
-    </tui-input>
+  <div>
+    <tui-textfield>
+      <label for="password-input" tuiLabel>Type a password</label>
+      <input
+        id="password-input"
+        placeholder="7+ characters"
+        tuiTextfield
+        [formControlName]="SignUpField.Password"
+        tuiTextfieldSize="l"
+        [tuiTextfieldCleaner]="true"
+        type="password"
+        autocomplete="new-password"
+      />
+    </tui-textfield>
     <tui-error [formControlName]="SignUpField.Password" [error]="[] | tuiFieldError | async" />
-  </p>
+  </div>
 
-  <p>
-    <tui-input
-      [formControlName]="SignUpField.RepeatPassword"
-      tuiTextfieldSize="l"
-      [tuiTextfieldCleaner]="true"
-    >
-      Repeat password
-      <input autocomplete="new-password" tuiTextfieldLegacy type="password" />
-    </tui-input>
+  <div>
+    <tui-textfield>
+      <label for="repeat-password-input" tuiLabel>Repeat a password</label>
+      <input
+        id="repeat-password-input"
+        placeholder="same 7+ characters"
+        tuiTextfield
+        [formControlName]="SignUpField.RepeatPassword"
+        tuiTextfieldSize="l"
+        [tuiTextfieldCleaner]="true"
+        type="password"
+        autocomplete="new-password"
+      />
+    </tui-textfield>
     <tui-error
       [formControlName]="SignUpField.RepeatPassword"
       [error]="[] | tuiFieldError | async"
     />
-  </p>
+  </div>
 
   <button
     class="button"
     size="l"
     tuiButton
-    type="button"
-    [disabled]="signUpForm.invalid || shouldShowLoading()"
-    [loading]="shouldShowLoading()"
+    type="submit"
+    [disabled]="signUpForm.invalid || shouldShowLoading"
+    [loading]="shouldShowLoading"
     (click)="signUp()"
   >
     Sign up

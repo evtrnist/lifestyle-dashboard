@@ -1,11 +1,11 @@
 import { computed, inject, Injectable } from '@angular/core';
+import { catchError, of, tap } from 'rxjs';
 import { tuiIsPresent } from '@taiga-ui/cdk';
+import { toLocalIsoString } from '@lifestyle-dashboard/day-data';
 import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-widget-config-service';
+import { LifestyleWidgetDataService } from '@lifestyle-dashboard/lifestyle-widget-data-service';
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
-import { LifestyleWidgetDataService } from '@lifestyle-dashboard/lifestyle-widget-data-service';
-import { catchError, of, tap } from 'rxjs';
-import { toLocalIsoString } from '@lifestyle-dashboard/day-data';
 
 @Injectable()
 export class DayCardDialogService {

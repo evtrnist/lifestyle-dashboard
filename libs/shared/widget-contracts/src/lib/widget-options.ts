@@ -1,6 +1,6 @@
 import { InjectionToken, Type } from '@angular/core';
-import { WidgetType } from './widget-type';
 import { WidgetSettingsComponent } from './widget-settings-component';
+import { WidgetType } from './widget-type';
 
 export interface WidgetOptions {
   component: Type<unknown>;

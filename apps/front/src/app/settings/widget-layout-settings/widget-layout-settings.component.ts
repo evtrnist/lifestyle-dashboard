@@ -1,3 +1,4 @@
+import { KeyValue, KeyValuePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,8 +8,6 @@ import {
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Slot, WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
-import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import {
   TuiButton,
   TuiLabel,
@@ -18,12 +17,14 @@ import {
   TuiTitle,
 } from '@taiga-ui/core';
 import { TuiButtonLoading, TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
-import { WIDGET_LAYOUT_SLOT_MAP } from './widget-layout-slots';
-import { KeyValue, KeyValuePipe } from '@angular/common';
 import { TuiHeader } from '@taiga-ui/layout';
-import { WidgetLayoutSettingsService } from './widget-layout-settings.service';
 import { Layout } from '@lifestyle-dashboard/config';
 import { State } from '@lifestyle-dashboard/state';
+import { Slot, WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
+import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
+import { WidgetLayoutSettingsService } from './widget-layout-settings.service';
+import { WIDGET_LAYOUT_SLOT_MAP } from './widget-layout-slots';
+
 @Component({
   selector: 'app-widget-layout-settings',
   templateUrl: './widget-layout-settings.component.html',
