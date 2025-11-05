@@ -22,8 +22,6 @@ export class TodosWidgetComponent {
       const additionCount = this.$additionCount();
       const completedCount = this.$completedCount();
 
-      console.log('calculating total count', { additionCount, completedCount });
-
       return (
         (additionCount ?? 0) + (completedCount ?? 0)
       );
