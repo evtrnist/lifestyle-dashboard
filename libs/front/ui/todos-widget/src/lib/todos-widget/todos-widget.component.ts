@@ -1,5 +1,4 @@
 import { Component, computed, effect, inject, Signal } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { TodosWidgetInput } from './todos-widget-input';
 import { TODOS_WIDGET_TOKEN } from './todos-widget.token';
 import { TuiIcon } from '@taiga-ui/core';
