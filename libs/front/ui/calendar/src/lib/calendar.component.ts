@@ -1,3 +1,4 @@
+import { DatePipe } from '@angular/common';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -7,14 +8,13 @@ import {
   output,
   signal,
 } from '@angular/core';
-import { DayComponent } from './day/day.component';
+import { catchError, EMPTY } from 'rxjs';
+import { TuiDay } from '@taiga-ui/cdk';
 import { Config } from '@lifestyle-dashboard/config';
+import { DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
 import { LifestyleWidgetDataService } from '@lifestyle-dashboard/lifestyle-widget-data-service';
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
-import { TuiDay } from '@taiga-ui/cdk';
-import { catchError, EMPTY } from 'rxjs';
-import { DatePipe } from '@angular/common';
-import { DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
+import { DayComponent } from './day/day.component';
 
 @Component({
   selector: 'lifestyle-calendar',

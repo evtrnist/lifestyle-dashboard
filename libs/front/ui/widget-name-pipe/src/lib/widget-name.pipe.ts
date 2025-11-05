@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { WIDGET_NAME_REGISTRY } from './widget-name.registry';
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
+import { WIDGET_NAME_REGISTRY } from './widget-name.registry';
 
 @Pipe({
   name: 'widgetName',

@@ -1,4 +1,5 @@
 import { Slot, WidgetType } from '@lifestyle-dashboard/widget-contracts';
+
 export interface Layout {
   [Slot.TopLeft]: WidgetType | null;
   [Slot.TopMiddle]: WidgetType | null;

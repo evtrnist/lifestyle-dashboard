@@ -1,5 +1,5 @@
+import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, input, OnInit, output } from '@angular/core';
-import { AuthDto } from '../auth.dto';
 import {
   AbstractControl,
   FormControl,
@@ -8,17 +8,23 @@ import {
   ValidationErrors,
   ValidatorFn,
 } from '@angular/forms';
+import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
+import {
+  TuiButton,
+  TuiError,
+  TuiHint,
+  TuiLabel,
+  TuiNotification,
+  TuiTextfield,
+} from '@taiga-ui/core';
+import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
+import { State } from '@lifestyle-dashboard/state';
+import { AuthDto } from '../auth.dto';
 import {
   emailValidator,
   passwordLengthValidator,
   requiredValidator,
 } from '../login/login.component';
-import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
-import { AsyncPipe } from '@angular/common';
-import { TuiButton, TuiError, TuiHint, TuiTextfield } from '@taiga-ui/core';
-import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
-import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
-import { State } from '@lifestyle-dashboard/state';
 
 function repeatPasswordValidatorFactory(form: FormGroup): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -45,13 +51,13 @@ enum SignUpField {
     AsyncPipe,
     ReactiveFormsModule,
     TuiHint,
-    TuiInputModule,
     TuiTextfield,
-    TuiTextfieldControllerModule,
     TuiFieldErrorPipe,
     TuiError,
     TuiButton,
     TuiButtonLoading,
+    TuiLabel,
+    TuiNotification,
   ],
 })
 export class SignUpComponent implements OnInit {
@@ -59,7 +65,9 @@ export class SignUpComponent implements OnInit {
 
   public readonly userSignedUp = output<AuthDto>();
 
-  protected readonly shouldShowLoading = computed(() => this.state() === State.Loading);
+  protected readonly $shouldShowLoading = computed(() => this.state() === State.Loading);
+
+  protected readonly $shouldShowConflictError = computed(() => this.state() === State.Conflict);
 
   protected readonly SignUpField = SignUpField;
 

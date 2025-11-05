@@ -1,9 +1,9 @@
 import { Body, Controller, Delete, Get, Post, Put, Req, UseGuards } from '@nestjs/common';
-import { WidgetConfigService } from './widget-config.service';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { RequestWithUser } from '../auth/auth.controller';
 import { WidgetConfig } from '@prisma/client';
 import { InputJsonValue } from '@prisma/client/runtime/library';
+import { RequestWithUser } from '../auth/auth.controller';
+import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { WidgetConfigService } from './widget-config.service';
 
 @UseGuards(JwtAuthGuard)
 @Controller('widget-config')

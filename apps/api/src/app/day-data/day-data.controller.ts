@@ -9,10 +9,10 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { DayDataService } from './day-data.service';
-import { CreateOrUpdateDayDataDto } from '@lifestyle-dashboard/day-data';
 import { InputJsonValue } from '@prisma/client/runtime/library';
+import { CreateOrUpdateDayDataDto } from '@lifestyle-dashboard/day-data';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { DayDataService } from './day-data.service';
 
 @Controller('day-data')
 export class DayDataController {

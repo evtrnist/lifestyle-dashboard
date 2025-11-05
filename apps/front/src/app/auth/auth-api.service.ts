@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { AuthDto } from './auth.dto';
 import { Observable } from 'rxjs';
 import { UserProfile } from '@lifestyle-dashboard/user';
+import { AuthDto } from './auth.dto';
 
 @Injectable({ providedIn: 'root' })
 export class AuthApiService {

@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
+import { TuiTime } from '@taiga-ui/cdk';
 import { TuiTextfield } from '@taiga-ui/core';
 import { TuiInputTime } from '@taiga-ui/kit';
-import { TuiTime } from '@taiga-ui/cdk';
+import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
 import { WaketimeWidgetInput } from '../waketime-widget-input';
 import { WAKETIME_WIDGET_TOKEN } from '../waketime-widget.token';
 

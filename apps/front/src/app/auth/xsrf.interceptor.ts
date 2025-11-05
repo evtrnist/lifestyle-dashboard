@@ -1,5 +1,5 @@
 import { HttpInterceptorFn } from '@angular/common/http';
-import { inject, DOCUMENT } from '@angular/core';
+import { DOCUMENT, inject } from '@angular/core';
 
 export const xsrfInterceptor: HttpInterceptorFn = (req, next) => {
   const document = inject(DOCUMENT);

@@ -7,12 +7,11 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { TuiButton, TuiError, TuiHint, TuiTextfield } from '@taiga-ui/core';
-import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
-import { TuiInputModule, TuiTextfieldControllerModule } from '@taiga-ui/legacy';
-import { AuthDto } from '../auth.dto';
 import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
+import { TuiButton, TuiError, TuiHint, TuiLabel, TuiTextfield } from '@taiga-ui/core';
+import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { State } from '@lifestyle-dashboard/state';
+import { AuthDto } from '../auth.dto';
 
 const PASSWORD_MIN_LENGTH = 7;
 
@@ -56,13 +55,12 @@ export function emailValidator(field: AbstractControl): Validators | null {
     AsyncPipe,
     ReactiveFormsModule,
     TuiHint,
-    TuiInputModule,
     TuiTextfield,
-    TuiTextfieldControllerModule,
     TuiFieldErrorPipe,
     TuiError,
     TuiButton,
     TuiButtonLoading,
+    TuiLabel,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

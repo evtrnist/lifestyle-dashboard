@@ -1,10 +1,10 @@
-import { Body, Controller, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
-import { AuthService } from './auth.service';
-import { JwtAuthGuard } from './jwt-auth.guard';
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { Response, Request } from 'express';
-import { CsrfAuthGuard } from './csrf-auth.guard';
 import crypto from 'crypto';
+import { Body, Controller, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+import { Request, Response } from 'express';
+import { AuthService } from './auth.service';
+import { CsrfAuthGuard } from './csrf-auth.guard';
+import { JwtAuthGuard } from './jwt-auth.guard';
 
 const ACCESS_TOKEN = 'access_token';
 const XSRF_TOKEN = 'XSRF-TOKEN';

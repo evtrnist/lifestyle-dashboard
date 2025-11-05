@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
+import { TuiTime } from '@taiga-ui/cdk';
 import { TuiIcon } from '@taiga-ui/core';
+import { TimePipe } from '@lifestyle-dashboard/time-pipe';
 import { WaketimeWidgetInput } from './waketime-widget-input';
 import { WAKETIME_WIDGET_TOKEN } from './waketime-widget.token';
-import { TimePipe } from '@lifestyle-dashboard/time-pipe';
-import { TuiTime } from '@taiga-ui/cdk';
 
 const GREY_COLOR = 'var(--tui-background-neutral-2)';
 const ACTIVE_COLOR = 'var(--tui-chart-categorical-08)';

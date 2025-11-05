@@ -1,7 +1,7 @@
 import { Component, computed, effect, inject, Signal } from '@angular/core';
+import { TuiIcon } from '@taiga-ui/core';
 import { TodosWidgetInput } from './todos-widget-input';
 import { TODOS_WIDGET_TOKEN } from './todos-widget.token';
-import { TuiIcon } from '@taiga-ui/core';
 
 const GREY_COLOR = 'var(--tui-background-neutral-2)';
 const ACTIVE_COLOR = 'var(--tui-chart-categorical-10)';

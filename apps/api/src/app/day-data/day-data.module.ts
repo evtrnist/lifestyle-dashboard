@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import { DayDataService } from './day-data.service';
 import { DayDataController } from './day-data.controller';
+import { DayDataService } from './day-data.service';
 
 @Module({
   providers: [DayDataService],

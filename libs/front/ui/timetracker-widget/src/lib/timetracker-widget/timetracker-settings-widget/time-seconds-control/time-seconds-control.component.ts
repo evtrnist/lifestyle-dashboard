@@ -13,10 +13,10 @@ import {
   NG_VALUE_ACCESSOR,
   ReactiveFormsModule,
 } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { TuiTime } from '@taiga-ui/cdk';
 import { TuiTextfield } from '@taiga-ui/core';
 import { TuiInputTime } from '@taiga-ui/kit';
-import { TuiTime } from '@taiga-ui/cdk';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'time-seconds-control',

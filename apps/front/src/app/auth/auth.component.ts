@@ -1,9 +1,9 @@
 import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { TuiTabs } from '@taiga-ui/kit';
-import { LoginComponent } from './login/login.component';
-import { AuthService } from './auth.service';
 import { AuthDto } from './auth.dto';
+import { AuthService } from './auth.service';
+import { LoginComponent } from './login/login.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 
 enum AuthState {
@@ -33,6 +33,7 @@ export class AuthComponent {
 
   protected openForm(state: AuthState) {
     this.$formMode.set(state);
+    this.authService.setState(null);
     this.activeItemIndex.set(state === AuthState.Login ? 0 : 1);
   }
 

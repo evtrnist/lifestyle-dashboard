@@ -1,9 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { TuiDay } from '@taiga-ui/cdk';
 import { Observable } from 'rxjs';
-import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
+import { TuiDay } from '@taiga-ui/cdk';
 import { CreateOrUpdateDayDataDto, toUTCDateKey } from '@lifestyle-dashboard/day-data';
+import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { DaysResponse } from './day-response';
 
 const URL = '/api/day-data';

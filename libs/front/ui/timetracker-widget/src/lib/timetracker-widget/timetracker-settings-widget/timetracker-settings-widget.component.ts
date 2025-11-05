@@ -6,13 +6,13 @@ import {
   OnInit,
   Signal,
 } from '@angular/core';
-import { TimeTrackerWidgetInput } from '../timetracker-widget-input';
-import { TIMETRACKER_WIDGET_TOKEN } from '../timetracker-widget.token';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TuiTextfield } from '@taiga-ui/core';
 import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
-import { TimeSecondsControlComponent } from './time-seconds-control/time-seconds-control.component';
 import { INITIAL_TIME_TRACKER_WIDGET_INPUT } from '../initial-time-tracker-widget-input';
+import { TimeTrackerWidgetInput } from '../timetracker-widget-input';
+import { TIMETRACKER_WIDGET_TOKEN } from '../timetracker-widget.token';
+import { TimeSecondsControlComponent } from './time-seconds-control/time-seconds-control.component';
 
 @Component({
   selector: 'lifestyle-timetracker-settings-widget',
