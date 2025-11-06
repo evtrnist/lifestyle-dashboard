@@ -52,8 +52,6 @@ export class WidgetLayoutSettingsComponent implements OnInit {
 
   private readonly $config = this.widgetLayoutSettingsService.$config;
 
-  protected readonly widgetType = WidgetType;
-
   protected readonly widgets = Object.values(WidgetRegistry);
 
   protected readonly $slotsMap = signal(WIDGET_LAYOUT_SLOT_MAP);

@@ -10,10 +10,6 @@ import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-wid
   templateUrl: './app.component.html',
   styleUrl: './app.component.less',
 })
-export class AppComponent implements OnInit {
-  private readonly lifestyleConfigService = inject(LifestyleWidgetConfigService);
+export class AppComponent {
 
-  ngOnInit() {
-    this.lifestyleConfigService.init();
-  }
 }
