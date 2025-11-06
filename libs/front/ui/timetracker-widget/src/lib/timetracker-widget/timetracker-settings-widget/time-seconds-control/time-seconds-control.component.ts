@@ -3,7 +3,6 @@ import {
   Component,
   forwardRef,
   input,
-  Input,
   OnDestroy,
   OnInit,
 } from '@angular/core';

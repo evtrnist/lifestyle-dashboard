@@ -1,12 +1,5 @@
 import { KeyValue, KeyValuePipe } from '@angular/common';
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  inject,
-  OnInit,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   TuiButton,
@@ -47,16 +40,43 @@ import { WIDGET_LAYOUT_SLOT_MAP } from './widget-layout-slots';
     TuiButtonLoading,
   ],
 })
-export class WidgetLayoutSettingsComponent implements OnInit {
+export class WidgetLayoutSettingsComponent {
   private readonly widgetLayoutSettingsService = inject(WidgetLayoutSettingsService);
 
   private readonly $config = this.widgetLayoutSettingsService.$config;
 
-  protected readonly widgetType = WidgetType;
-
   protected readonly widgets = Object.values(WidgetRegistry);
 
-  protected readonly $slotsMap = signal(WIDGET_LAYOUT_SLOT_MAP);
+  protected readonly $slotsMap = computed(() => {
+    const base = structuredClone(WIDGET_LAYOUT_SLOT_MAP) as typeof WIDGET_LAYOUT_SLOT_MAP;
+    const config = this.$config();
+    const selectedWidget = this.$selectedWidget();
+
+    if (config) {
+      for (const [slot, widget] of Object.entries(config.layout)) {
+        if (widget && base[slot as Slot]) {
+          base[slot as Slot] = {
+            ...base[slot as Slot],
+            value: widget as WidgetType,
+            label: WidgetRegistry[widget as WidgetType].label,
+          };
+        }
+      }
+    }
+
+    if (selectedWidget) {
+      const key = selectedWidget.slot;
+      const prev = base[key];
+
+      base[key] = {
+        ...prev,
+        value: selectedWidget.options ? selectedWidget.options.key : null,
+        label: selectedWidget.options ? selectedWidget.options.label : '',
+      };
+    }
+
+    return base;
+  });
 
   protected readonly $shouldShowLoading = computed(() => {
     const state = this.widgetLayoutSettingsService.$widgetConfigState();
@@ -66,19 +86,22 @@ export class WidgetLayoutSettingsComponent implements OnInit {
 
   public readonly stringify = (x: WidgetOptions) => x.label;
 
-  public readonly keepOrder = (
-    a: KeyValue<string, unknown>,
-    b: KeyValue<string, unknown>,
-  ): number => {
+  private readonly $selectedWidget = signal<{ slot: Slot; options: WidgetOptions | null } | null>(
+    null,
+  );
+
+  public readonly keepOrder = (a: KeyValue<Slot, unknown>, b: KeyValue<Slot, unknown>): number => {
     return 0;
   };
 
-  ngOnInit(): void {
-    this.setConfigData();
-  }
-
   public save() {
-    const layout: Layout = Object.entries(this.$slotsMap()).reduce(
+    const slots = this.$slotsMap();
+
+    if (!slots) {
+      return;
+    }
+
+    const layout: Layout = Object.entries(slots).reduce(
       (acc, [slot, widget]) => ({
         ...acc,
         [slot]: widget.value as WidgetType,
@@ -89,45 +112,9 @@ export class WidgetLayoutSettingsComponent implements OnInit {
     this.widgetLayoutSettingsService.saveWidgetLayoutSettings(layout);
   }
 
-  public selectWidget(options: WidgetOptions | null, slot: string) {
+  public selectWidget(options: WidgetOptions | null, slot: Slot) {
     console.log('Selected widget', options, 'for slot', slot);
-    this.$slotsMap.update((slots) => {
-      const key = slot as Slot;
 
-      const next = {
-        ...slots[key],
-        value: options === null ? null : options.key,
-        label: options === null ? '' : options.label,
-      };
-
-      console.log('Next slot value:', next);
-
-      console.log('Updated slots:', { ...slots, [key]: { ...next } });
-
-      return { ...slots, [key]: { ...next } };
-    });
-  }
-
-  private setConfigData() {
-    const slotsMap = this.$slotsMap();
-    const config = this.$config();
-
-    const updated = {
-      ...slotsMap,
-    };
-
-    if (!config) {
-      return;
-    }
-
-    Object.entries(config?.layout).forEach(([slot, widget]) => {
-      console.log('Config layout entry:', { slot, widget });
-      if (slotsMap[slot as Slot] && widget) {
-        updated[slot as Slot].value = widget;
-        updated[slot as Slot].label = WidgetRegistry[widget as WidgetType].label;
-      }
-    });
-
-    this.$slotsMap.set(updated);
+    this.$selectedWidget.set({ slot, options });
   }
 }

@@ -117,32 +117,4 @@ export class DayCardDialogComponent {
       console.warn('Got incompatible instance:', instance);
     }
   }
-
-  public createInjector(token: InjectionToken<unknown>): Injector {
-    // Если токен не меняется, возвращаем старый инжектор
-    if (this.lastToken === token && this.injectorCache) {
-      return this.injectorCache;
-    }
-
-    this.lastToken = token;
-    this.injectorCache = Injector.create({
-      providers: [
-        {
-          provide: token,
-          useValue: {
-            size: 'xl',
-            data: {
-              routine: 3780,
-              health: 31680,
-              selfDevelopment: 21240,
-              leisure: 29580,
-            },
-          },
-        },
-      ],
-      parent: this.injector,
-    });
-
-    return this.injectorCache;
-  }
 }

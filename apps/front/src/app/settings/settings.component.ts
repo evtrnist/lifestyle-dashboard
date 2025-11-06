@@ -1,6 +1,7 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { TuiTabs } from '@taiga-ui/kit';
+import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-widget-config-service';
 import { SETTING_URLS } from './setting-urls';
 
 @Component({
@@ -11,6 +12,16 @@ import { SETTING_URLS } from './setting-urls';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterLinkActive, RouterOutlet, TuiTabs],
 })
-export class SettingsComponent {
+export class SettingsComponent implements OnInit {
+  private readonly lifestyleConfigService = inject(LifestyleWidgetConfigService);
+
   protected readonly SETTING_URLS = SETTING_URLS;
+
+  private readonly $config = this.lifestyleConfigService.$config;
+
+  ngOnInit() {
+    if (!this.$config()) {
+      this.lifestyleConfigService.init();
+    }
+  }
 }
