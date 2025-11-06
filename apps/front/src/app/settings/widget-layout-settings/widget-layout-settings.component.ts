@@ -48,14 +48,11 @@ export class WidgetLayoutSettingsComponent {
   protected readonly widgets = Object.values(WidgetRegistry);
 
   protected readonly $slotsMap = computed(() => {
-    // 1) Глубокая копия базовой карты слотов
-    // можно structuredClone, если объект без функций/Map/Set
     const base = structuredClone(WIDGET_LAYOUT_SLOT_MAP) as typeof WIDGET_LAYOUT_SLOT_MAP;
 
     const config = this.$config();
     const selectedWidget = this.$selectedWidget();
 
-    // 3) Если пришла конфигурация — заполняем карту из неё
     if (config) {
       for (const [slot, widget] of Object.entries(config.layout)) {
         if (widget && base[slot as Slot]) {
@@ -68,7 +65,6 @@ export class WidgetLayoutSettingsComponent {
       }
     }
 
-    // 2) Если выбрали виджет вручную — применяем точечное обновление
     if (selectedWidget) {
       const key = selectedWidget.slot;
       const prev = base[key];
@@ -80,7 +76,6 @@ export class WidgetLayoutSettingsComponent {
       };
     }
 
-    // 4) По умолчанию — чистая база
     return base;
   });
 
