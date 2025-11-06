@@ -49,7 +49,6 @@ export class WidgetLayoutSettingsComponent {
 
   protected readonly $slotsMap = computed(() => {
     const base = structuredClone(WIDGET_LAYOUT_SLOT_MAP) as typeof WIDGET_LAYOUT_SLOT_MAP;
-
     const config = this.$config();
     const selectedWidget = this.$selectedWidget();
 
