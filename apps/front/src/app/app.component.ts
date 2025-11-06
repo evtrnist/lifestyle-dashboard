@@ -10,6 +10,4 @@ import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-wid
   templateUrl: './app.component.html',
   styleUrl: './app.component.less',
 })
-export class AppComponent {
-
-}
+export class AppComponent {}

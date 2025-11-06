@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { tuiDialog } from '@taiga-ui/core';
 import { CalendarComponent } from '@lifestyle-dashboard/calendar';
 import { DayCardDialogComponent, DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
-import { DashboardService } from './dashboard.service';
 import { LifestyleWidgetConfigService } from 'libs/front/api/lifestyle-widget-config-service/src/lib/lifestyle-widget-config.service';
+import { DashboardService } from './dashboard.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -15,7 +15,7 @@ import { LifestyleWidgetConfigService } from 'libs/front/api/lifestyle-widget-co
   providers: [DashboardService],
 })
 export class DashboardComponent implements OnInit {
-    private readonly lifestyleConfigService = inject(LifestyleWidgetConfigService);
+  private readonly lifestyleConfigService = inject(LifestyleWidgetConfigService);
 
   private readonly dashboardService = inject(DashboardService);
   public readonly $config = this.dashboardService.$config;
@@ -26,10 +26,9 @@ export class DashboardComponent implements OnInit {
     dismissible: true,
   });
 
-    ngOnInit() {
+  ngOnInit() {
     this.lifestyleConfigService.init();
   }
-
 
   public openDayCard({ date, calendarData }: DayCardDialogContext) {
     console.log('Opening day card form dashboard for date:', date);
