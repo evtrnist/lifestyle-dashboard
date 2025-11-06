@@ -1,7 +1,6 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TuiRoot } from '@taiga-ui/core';
-import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-widget-config-service';
 
 @Component({
   imports: [RouterOutlet, TuiRoot],

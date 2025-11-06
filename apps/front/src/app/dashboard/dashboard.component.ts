@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/cor
 import { tuiDialog } from '@taiga-ui/core';
 import { CalendarComponent } from '@lifestyle-dashboard/calendar';
 import { DayCardDialogComponent, DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
-import { LifestyleWidgetConfigService } from 'libs/front/api/lifestyle-widget-config-service/src/lib/lifestyle-widget-config.service';
+import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-widget-config-service';
 import { DashboardService } from './dashboard.service';
 
 @Component({
