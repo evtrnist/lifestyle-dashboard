@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   standalone: true,
 })
 export class SecondsToHoursPipe implements PipeTransform {
-  transform(value: number): string {
+  public transform(value: number): string {
     // 29580 -> 8:13
     console.log(value);
     const hours = Math.floor(value / 3600);

@@ -1,8 +1,5 @@
-export interface DayEntry {
-  date: string;
-  data: unknown;
-}
+export type DayWidgetData = Record<string, unknown>;
 
 export interface DaysResponse {
-  days: Record<string, DayEntry[]>;
+  days: Record<string, DayWidgetData>;
 }

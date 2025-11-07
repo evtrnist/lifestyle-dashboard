@@ -21,16 +21,17 @@ export class DashboardComponent implements OnInit {
   public readonly $config = this.dashboardService.$config;
 
   private readonly dialog = tuiDialog(DayCardDialogComponent, {
-    size: 'page',
+    size: 'l',
+
     closeable: true,
     dismissible: true,
   });
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.lifestyleConfigService.init();
   }
 
-  public openDayCard({ date, calendarData }: DayCardDialogContext) {
+  public openDayCard({ date, calendarData }: DayCardDialogContext): void {
     console.log('Opening day card form dashboard for date:', date);
     this.dialog({ date, calendarData }).subscribe();
   }

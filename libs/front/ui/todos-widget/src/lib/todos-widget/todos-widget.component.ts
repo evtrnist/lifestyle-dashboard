@@ -1,4 +1,4 @@
-import { Component, computed, effect, inject, Signal } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { TuiIcon } from '@taiga-ui/core';
 import { TodosWidgetInput } from './todos-widget-input';
 import { TODOS_WIDGET_TOKEN } from './todos-widget.token';
@@ -32,6 +32,4 @@ export class TodosWidgetComponent {
   public readonly $color = computed(() => (this.widgetData()?.data ? ACTIVE_COLOR : GREY_COLOR));
 
   public readonly $totalRange = computed(() => Array(this.$totalCount()));
-
-  constructor() {}
 }

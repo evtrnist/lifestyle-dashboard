@@ -39,13 +39,13 @@ export class TodosSettingsWidgetComponent implements WidgetSettingsComponent, On
 
   public readonly ToDosField = ToDosField;
 
-  ngOnInit() {
+  public ngOnInit(): void {
     this.form = this.buildForm();
 
     this.setSubscriptionForUpdatingTotalCount();
   }
 
-  private buildForm() {
+  private buildForm(): FormGroup {
     const data = this.widgetData()?.data;
 
     return new FormGroup({
@@ -58,7 +58,7 @@ export class TodosSettingsWidgetComponent implements WidgetSettingsComponent, On
     });
   }
 
-  private setSubscriptionForUpdatingTotalCount() {
+  private setSubscriptionForUpdatingTotalCount(): void {
     const additionCountControl = this.form.get(ToDosField.AdditionCount);
     const completedCountControl = this.form.get(ToDosField.CompletedCount);
 
@@ -73,7 +73,11 @@ export class TodosSettingsWidgetComponent implements WidgetSettingsComponent, On
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(([additionCount, completedCount]) => {
         const totalCount = (additionCount ?? 0) + (completedCount ?? 0);
-        this.form.get(ToDosField.TotalCount)!.setValue(totalCount);
+        const totalCountControl = this.form.get(ToDosField.TotalCount);
+
+        if (totalCountControl) {
+          totalCountControl.setValue(totalCount);
+        }
       });
   }
 }

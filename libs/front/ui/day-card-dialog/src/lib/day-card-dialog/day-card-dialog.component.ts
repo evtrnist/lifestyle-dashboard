@@ -5,16 +5,17 @@ import {
   inject,
   InjectionToken,
   Injector,
+  Signal,
   signal,
-  Type,
 } from '@angular/core';
 import { TuiButton, TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
 import { TuiTabs } from '@taiga-ui/kit';
 import { injectContext } from '@taiga-ui/polymorpheus';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
+import { DayWidgetData } from '@lifestyle-dashboard/lifestyle-widget-data-service';
+import { TimeTrackerWidgetInput } from '@lifestyle-dashboard/timetracker-widget';
 import { WidgetSettingsComponent, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetIconPipe, WidgetNamePipe } from '@lifestyle-dashboard/widget-name-pipe';
-import { TimeTrackerWidgetInput } from 'libs/front/ui/timetracker-widget/src/lib/timetracker-widget/timetracker-widget-input';
 import { DayCardDialogService } from './day-card-dialog.service';
 
 function isWidgetSettingsComponent(x: unknown): x is WidgetSettingsComponent {
@@ -23,7 +24,7 @@ function isWidgetSettingsComponent(x: unknown): x is WidgetSettingsComponent {
 
 export interface DayCardDialogContext {
   date: Date;
-  calendarData: Record<string, Record<WidgetType, any>>; // to do
+  calendarData: Record<string, DayWidgetData>;
 }
 
 @Component({
@@ -85,8 +86,8 @@ export class DayCardDialogComponent {
       providers: [
         {
           provide: widget.token,
-          useFactory: () =>
-            signal<TimeTrackerWidgetInput>({
+          useFactory: (): Signal<unknown> => // to do: make more generic
+            signal<unknown>({
               size: 'xl',
               data,
             }),
@@ -110,7 +111,7 @@ export class DayCardDialogComponent {
     this.dayCardDialogService.save(this.date, widgetType, form.value);
   }
 
-  protected onSettingsInit(instance: unknown) {
+  protected onSettingsInit(instance: unknown): void {
     if (isWidgetSettingsComponent(instance)) {
       this.settingsInstance.set(instance);
     } else {

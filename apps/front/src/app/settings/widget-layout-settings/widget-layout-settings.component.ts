@@ -84,17 +84,21 @@ export class WidgetLayoutSettingsComponent {
     return state === State.Loading;
   });
 
-  public readonly stringify = (x: WidgetOptions) => x.label;
+  public readonly stringify = (x: WidgetOptions): string => x.label;
 
   private readonly $selectedWidget = signal<{ slot: Slot; options: WidgetOptions | null } | null>(
     null,
   );
 
-  public readonly keepOrder = (a: KeyValue<Slot, unknown>, b: KeyValue<Slot, unknown>): number => {
+  /**
+   * Comparator to maintain insertion order in ngFor with KeyValuePipe.
+   * Parameters are intentionally unused.
+   */
+  public readonly keepOrder = (_a: KeyValue<Slot, unknown>, _b: KeyValue<Slot, unknown>): number => {
     return 0;
   };
 
-  public save() {
+  public save(): void {
     const slots = this.$slotsMap();
 
     if (!slots) {
@@ -112,7 +116,7 @@ export class WidgetLayoutSettingsComponent {
     this.widgetLayoutSettingsService.saveWidgetLayoutSettings(layout);
   }
 
-  public selectWidget(options: WidgetOptions | null, slot: Slot) {
+  public selectWidget(options: WidgetOptions | null, slot: Slot): void {
     console.log('Selected widget', options, 'for slot', slot);
 
     this.$selectedWidget.set({ slot, options });

@@ -5,11 +5,12 @@ import {
   inject,
   Injector,
   input,
+  Signal,
   signal,
 } from '@angular/core';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
+import { DayWidgetData } from '@lifestyle-dashboard/lifestyle-widget-data-service';
 import { WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
-import { TimeTrackerWidgetInput } from 'libs/front/ui/timetracker-widget/src/lib/timetracker-widget/timetracker-widget-input';
 
 @Component({
   selector: 'lifestyle-day-slot',
@@ -24,7 +25,7 @@ export class DaySlotComponent {
 
   public readonly $widget = input.required<WidgetOptions | null>({ alias: 'widget' });
 
-  public readonly $dayData = input.required<Record<string, any> | null>({ alias: 'dayData' });
+  public readonly $dayData = input.required<DayWidgetData | null>({ alias: 'dayData' });
 
   protected readonly $widgetInjector = computed<Injector | null>(() => {
     const widget = this.$widget();
@@ -40,8 +41,8 @@ export class DaySlotComponent {
       providers: [
         {
           provide: widget.token,
-          useFactory: () =>
-            signal<TimeTrackerWidgetInput>({
+          useFactory: (): Signal<unknown> =>
+            signal<unknown>({
               size: 's',
               data,
             }),

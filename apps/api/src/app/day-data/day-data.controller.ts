@@ -9,10 +9,11 @@ import {
   UnauthorizedException,
   UseGuards,
 } from '@nestjs/common';
-import { InputJsonValue } from '@prisma/client/runtime/library';
+import { InputJsonValue, JsonValue } from '@prisma/client/runtime/library';
 import { CreateOrUpdateDayDataDto } from '@lifestyle-dashboard/day-data';
+import { RequestWithUser } from '../auth/auth.controller';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
-import { DayDataService } from './day-data.service';
+import { DayDataService, DaysByDate } from './day-data.service';
 
 @Controller('day-data')
 export class DayDataController {
@@ -20,7 +21,17 @@ export class DayDataController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  public async getDaysData(@Req() req, @Query() query: any) {
+  public async getDaysData(
+    @Req() req: RequestWithUser,
+    @Query()
+    query: {
+      widgetTypes?: string[] | string;
+      startDate?: string;
+      endDate?: string;
+    },
+  ): Promise<{
+    days: DaysByDate;
+  }> {
     const userId = req.user?.id;
     if (!userId) {
       throw new UnauthorizedException(`No user with id ${userId} found`);
@@ -56,7 +67,18 @@ export class DayDataController {
 
   @UseGuards(JwtAuthGuard)
   @Post()
-  public async createOrUpdate(@Req() req, @Body() body: CreateOrUpdateDayDataDto) {
+  public async createOrUpdate(
+    @Req() req: RequestWithUser,
+    @Body() body: CreateOrUpdateDayDataDto,
+  ): Promise<{
+    date: string;
+    widgetType: string;
+    id: string;
+    userId: string;
+    data: JsonValue;
+    createdAt: Date;
+    updatedAt: Date;
+  }> {
     console.log('Received createOrUpdate request with body:', body);
     const userId = req.user?.id;
 

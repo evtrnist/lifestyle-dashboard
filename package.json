@@ -10,6 +10,7 @@
     "build:api": "nx build api",
     "test:api": "nx test api",
     "nx:format:fix": "nx format:write",
+    "lint:all": "nx run-many --target=lint --all --parallel",
     "build:all": "nx run-many --target=build --all --parallel",
     "generate:api-types": "npx @openapitools/openapi-generator-cli generate -i openapi.json -g typescript -o libs/api-types --additional-properties=fileNaming=kebab-case",
     "prettier:fix": "npx prettier --write \"apps/**/*.{ts,html,less}\" \"libs/**/*.{ts,html,less}\""
@@ -93,6 +94,7 @@
     "eslint": "^9.28.0",
     "eslint-config-prettier": "10.1.1",
     "eslint-plugin-playwright": "^1.6.2",
+    "eslint-plugin-prettier": "^5.5.4",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "jest-environment-node": "^29.7.0",

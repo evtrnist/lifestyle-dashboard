@@ -12,7 +12,11 @@ import { catchError, EMPTY } from 'rxjs';
 import { TuiDay } from '@taiga-ui/cdk';
 import { Config } from '@lifestyle-dashboard/config';
 import { DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
-import { LifestyleWidgetDataService } from '@lifestyle-dashboard/lifestyle-widget-data-service';
+import {
+  DaysResponse,
+  DayWidgetData,
+  LifestyleWidgetDataService,
+} from '@lifestyle-dashboard/lifestyle-widget-data-service';
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { DayComponent } from './day/day.component';
 
@@ -34,14 +38,14 @@ export class CalendarComponent implements OnInit {
   protected $daysInMonth = signal<(Date | null)[]>([]);
   protected weekDays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-  private readonly $calendarData = signal<Record<string, any>>({});
+  private readonly $calendarData = signal<DaysResponse>({ days: {} });
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.generateCalendar(this.$currentDate());
     this.updateDateInfo(this.$currentDate());
   }
 
-  public generateCalendar(date: Date) {
+  public generateCalendar(date: Date): void {
     const year = date.getFullYear();
     const month = date.getMonth();
 
@@ -58,7 +62,7 @@ export class CalendarComponent implements OnInit {
     this.$daysInMonth.set(daysArray);
   }
 
-  public nextMonth() {
+  public nextMonth(): void {
     const newDate = new Date(this.$currentDate());
     newDate.setMonth(newDate.getMonth() + 1);
     this.$currentDate.set(newDate);
@@ -66,7 +70,7 @@ export class CalendarComponent implements OnInit {
     this.updateDateInfo(newDate);
   }
 
-  public previousMonth() {
+  public previousMonth(): void {
     const newDate = new Date(this.$currentDate());
     newDate.setMonth(newDate.getMonth() - 1);
     this.$currentDate.set(newDate);
@@ -75,26 +79,29 @@ export class CalendarComponent implements OnInit {
     this.updateDateInfo(newDate);
   }
 
-  public getDayData(date: Date | null) {
+  public getDayData(date: Date | null): DayWidgetData | null {
     if (!date) {
       return null;
     }
 
     const dateKey = date.toLocaleDateString('sv-SE');
-    const calendarData = this.$calendarData()['days']?.[dateKey] ?? null;
+    const calendarData = this.$calendarData().days?.[dateKey] ?? null;
 
     return calendarData;
   }
 
-  public openDayCard(date: Date | null) {
+  public openDayCard(date: Date | null): void {
     if (!date) {
       return;
     }
 
-    this.$dayOpenRequest.emit({ date, calendarData: this.$calendarData()['days'] ?? {} });
+    this.$dayOpenRequest.emit({
+      date,
+      calendarData: this.$calendarData().days ?? ({} as Record<string, DayWidgetData>),
+    });
   }
 
-  private getCalendarData(startDate: TuiDay, endDate: TuiDay) {
+  private getCalendarData(startDate: TuiDay, endDate: TuiDay): void {
     const config = this.$config();
     if (!config) {
       return;
@@ -117,7 +124,7 @@ export class CalendarComponent implements OnInit {
       });
   }
 
-  private updateDateInfo(date: Date) {
+  private updateDateInfo(date: Date): void {
     const [currentMonth, currentYear] = [new Date().getMonth(), new Date().getFullYear()];
     const start = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0);
 
