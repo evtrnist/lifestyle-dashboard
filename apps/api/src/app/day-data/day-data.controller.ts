@@ -20,7 +20,15 @@ export class DayDataController {
 
   @UseGuards(JwtAuthGuard)
   @Get()
-  public async getDaysData(@Req() req, @Query() query: any) {
+  public async getDaysData(
+    @Req() req,
+    @Query()
+    query: {
+      widgetTypes?: string[] | string;
+      startDate?: string;
+      endDate?: string;
+    },
+  ) {
     const userId = req.user?.id;
     if (!userId) {
       throw new UnauthorizedException(`No user with id ${userId} found`);

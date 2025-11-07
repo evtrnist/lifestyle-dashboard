@@ -86,7 +86,7 @@ export class SignUpComponent implements OnInit {
     }),
   });
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.signUpForm
       .get(SignUpField.RepeatPassword)
       ?.addValidators(repeatPasswordValidatorFactory(this.signUpForm));

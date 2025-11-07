@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
 
   private readonly $config = this.lifestyleConfigService.$config;
 
-  ngOnInit() {
+  public ngOnInit(): void {
     if (!this.$config()) {
       this.lifestyleConfigService.init();
     }

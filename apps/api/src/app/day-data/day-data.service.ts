@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Prisma } from '@prisma/client';
 import { InputJsonValue } from '@prisma/client/runtime/library';
-import { toUTCDateKey } from '@lifestyle-dashboard/day-data';
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { PrismaService } from '../prisma/prisma.service';
 

@@ -12,7 +12,11 @@ import { catchError, EMPTY } from 'rxjs';
 import { TuiDay } from '@taiga-ui/cdk';
 import { Config } from '@lifestyle-dashboard/config';
 import { DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
-import { LifestyleWidgetDataService } from '@lifestyle-dashboard/lifestyle-widget-data-service';
+import {
+  DaysResponse,
+  DayWidgetData,
+  LifestyleWidgetDataService,
+} from '@lifestyle-dashboard/lifestyle-widget-data-service';
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { DayComponent } from './day/day.component';
 
@@ -34,7 +38,7 @@ export class CalendarComponent implements OnInit {
   protected $daysInMonth = signal<(Date | null)[]>([]);
   protected weekDays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
 
-  private readonly $calendarData = signal<Record<string, any>>({});
+  private readonly $calendarData = signal<DaysResponse>({ days: {} });
 
   ngOnInit(): void {
     this.generateCalendar(this.$currentDate());
@@ -75,13 +79,13 @@ export class CalendarComponent implements OnInit {
     this.updateDateInfo(newDate);
   }
 
-  public getDayData(date: Date | null) {
+  public getDayData(date: Date | null): DayWidgetData | null {
     if (!date) {
       return null;
     }
 
     const dateKey = date.toLocaleDateString('sv-SE');
-    const calendarData = this.$calendarData()['days']?.[dateKey] ?? null;
+    const calendarData = this.$calendarData().days?.[dateKey] ?? null;
 
     return calendarData;
   }
@@ -91,7 +95,7 @@ export class CalendarComponent implements OnInit {
       return;
     }
 
-    this.$dayOpenRequest.emit({ date, calendarData: this.$calendarData()['days'] ?? {} });
+    this.$dayOpenRequest.emit({ date, calendarData: this.$calendarData().days ?? {} });
   }
 
   private getCalendarData(startDate: TuiDay, endDate: TuiDay) {

@@ -31,17 +31,17 @@ export class AuthComponent {
 
   protected readonly state = this.authService.authState;
 
-  protected openForm(state: AuthState) {
+  protected openForm(state: AuthState): void {
     this.$formMode.set(state);
     this.authService.setState(null);
     this.activeItemIndex.set(state === AuthState.Login ? 0 : 1);
   }
 
-  protected login(dto: AuthDto) {
+  protected login(dto: AuthDto): void {
     this.authService.login(dto);
   }
 
-  protected signUp(dto: AuthDto) {
+  protected signUp(dto: AuthDto): void {
     this.authService.signUp(dto);
   }
 }

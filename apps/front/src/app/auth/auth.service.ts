@@ -17,11 +17,11 @@ export class AuthService {
 
   public readonly authState = signal<State | null>(null);
 
-  public setState(state: State | null) {
+  public setState(state: State | null): void {
     this.authState.set(state);
   }
 
-  public login(dto: AuthDto) {
+  public login(dto: AuthDto): void {
     this.authState.set(State.Loading);
 
     this.api
@@ -42,7 +42,7 @@ export class AuthService {
       });
   }
 
-  public signUp(dto: AuthDto) {
+  public signUp(dto: AuthDto): void {
     this.authState.set(State.Loading);
 
     this.api
@@ -68,7 +68,7 @@ export class AuthService {
       });
   }
 
-  private navigateToDashboard() {
+  private navigateToDashboard(): void {
     this.router.navigate(['/', 'dashboard']);
   }
 }
