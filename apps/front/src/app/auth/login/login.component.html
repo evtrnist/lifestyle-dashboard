@@ -12,10 +12,7 @@
         type="email"
       />
     </tui-textfield>
-    <tui-error
-      [formControlName]="LoginField.Email"
-      [error]="[] | tuiFieldError | async"
-    />
+    <tui-error [formControlName]="LoginField.Email" [error]="[] | tuiFieldError | async" />
   </div>
 
   <div>
@@ -31,10 +28,7 @@
         type="password"
       />
     </tui-textfield>
-    <tui-error
-      [formControlName]="LoginField.Password"
-      [error]="[] | tuiFieldError | async"
-    />
+    <tui-error [formControlName]="LoginField.Password" [error]="[] | tuiFieldError | async" />
   </div>
 
   <button

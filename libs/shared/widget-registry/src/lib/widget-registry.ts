@@ -13,10 +13,7 @@ import {
   WaketimeSettingsWidgetComponent,
   WaketimeWidgetComponent,
 } from '@lifestyle-dashboard/waketime-widget';
-import {
-  WidgetOptions,
-  WidgetType,
-} from '@lifestyle-dashboard/widget-contracts';
+import { WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 
 export const WidgetRegistry: Record<WidgetType, WidgetOptions> = {
   [WidgetType.TimeTracker]: {

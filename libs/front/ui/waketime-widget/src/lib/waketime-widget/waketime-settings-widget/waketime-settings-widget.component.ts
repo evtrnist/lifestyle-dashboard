@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-  Signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, OnInit, Signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { TuiTime } from '@taiga-ui/cdk';
 import { TuiTextfield } from '@taiga-ui/core';
@@ -25,12 +19,8 @@ enum WaketimeField {
   changeDetection: ChangeDetectionStrategy.OnPush,
   standalone: true,
 })
-export class WaketimeSettingsWidgetComponent
-  implements WidgetSettingsComponent, OnInit
-{
-  public widgetData = inject<Signal<WaketimeWidgetInput>>(
-    WAKETIME_WIDGET_TOKEN,
-  );
+export class WaketimeSettingsWidgetComponent implements WidgetSettingsComponent, OnInit {
+  public widgetData = inject<Signal<WaketimeWidgetInput>>(WAKETIME_WIDGET_TOKEN);
 
   public form!: FormGroup;
 
@@ -43,9 +33,7 @@ export class WaketimeSettingsWidgetComponent
   private buildForm(): FormGroup {
     const waketime = this.widgetData()?.data?.waketime;
 
-    const time = waketime
-      ? new TuiTime(waketime['hours'], waketime['minutes'])
-      : new TuiTime(0, 0);
+    const time = waketime ? new TuiTime(waketime['hours'], waketime['minutes']) : new TuiTime(0, 0);
 
     return new FormGroup({
       [WaketimeField.WakeTime]: new FormControl<TuiTime>(time),

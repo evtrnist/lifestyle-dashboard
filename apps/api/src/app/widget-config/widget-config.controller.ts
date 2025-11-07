@@ -1,13 +1,4 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Post,
-  Put,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { WidgetConfig } from '@prisma/client';
 import { InputJsonValue, JsonValue } from '@prisma/client/runtime/library';
 import { RequestWithUser } from '../auth/auth.controller';
@@ -20,9 +11,7 @@ export class WidgetConfigController {
   constructor(private readonly widgetConfigService: WidgetConfigService) {}
 
   @Get()
-  public async getUserConfig(
-    @Req() req: RequestWithUser,
-  ): Promise<WidgetConfig | null> {
+  public async getUserConfig(@Req() req: RequestWithUser): Promise<WidgetConfig | null> {
     console.log('Getting widget config for user:', req.user);
     const userId = req.user['id'];
 

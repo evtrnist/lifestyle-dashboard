@@ -60,8 +60,7 @@ export class DayDataService {
         result[dayKey] = {};
       }
 
-      result[dayKey][row.widgetType as WidgetType] =
-        row.data as Prisma.JsonValue;
+      result[dayKey][row.widgetType as WidgetType] = row.data as Prisma.JsonValue;
     }
 
     return result;

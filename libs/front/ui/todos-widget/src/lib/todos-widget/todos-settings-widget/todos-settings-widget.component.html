@@ -1,11 +1,7 @@
 <div class="container" [formGroup]="form">
   <tui-textfield>
     <label for="planned-count-input" tuiLabel>Enter planned count</label>
-    <input
-      id="planned-count-input"
-      tuiInputNumber
-      [formControlName]="ToDosField.PlannedCount"
-    />
+    <input id="planned-count-input" tuiInputNumber [formControlName]="ToDosField.PlannedCount" />
   </tui-textfield>
   <tui-textfield>
     <label for="completed-count-input" tuiLabel>Enter completed count</label>
@@ -17,11 +13,7 @@
   </tui-textfield>
   <tui-textfield>
     <label for="addition-count-input" tuiLabel>Enter addition count</label>
-    <input
-      id="addition-count-input"
-      tuiInputNumber
-      [formControlName]="ToDosField.AdditionCount"
-    />
+    <input id="addition-count-input" tuiInputNumber [formControlName]="ToDosField.AdditionCount" />
   </tui-textfield>
 
   <tui-textfield>

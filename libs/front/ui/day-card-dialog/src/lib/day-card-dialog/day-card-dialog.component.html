@@ -1,11 +1,6 @@
 <tui-tabs [activeItemIndex]="$activeItemIndex()">
   @for (tab of $tabs(); track $index; let index = $index) {
-    <button
-      [iconStart]="tab | widgetIcon | tuiIcon"
-      tuiTab
-      type="button"
-      (click)="onClick(index)"
-    >
+    <button [iconStart]="tab | widgetIcon | tuiIcon" tuiTab type="button" (click)="onClick(index)">
       {{ tab | widgetName }}
     </button>
   }
@@ -17,10 +12,7 @@
     @let settingsComponent = shownWidget.settingsComponent;
     @let injector = $widgetInjector();
 
-    <lib-dynamic-host
-      [component]="component"
-      [injector]="injector"
-    ></lib-dynamic-host>
+    <lib-dynamic-host [component]="component" [injector]="injector"></lib-dynamic-host>
 
     @if (settingsComponent) {
       <lib-dynamic-host

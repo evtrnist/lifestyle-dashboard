@@ -1,9 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  computed,
-  input,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
 import { Config } from '@lifestyle-dashboard/config';
 import { DayWidgetData } from '@lifestyle-dashboard/lifestyle-widget-data-service';
 import { Slot, WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
@@ -27,32 +22,30 @@ export class DayComponent {
     alias: 'dayData',
   });
 
-  public readonly $slotWidgetMap = computed<Record<Slot, WidgetOptions | null>>(
-    () => {
-      const config = this.$config();
-      const map: Record<Slot, WidgetOptions | null> = {
-        [Slot.TopLeft]: null,
-        [Slot.TopMiddle]: null,
-        [Slot.TopRight]: null,
-        [Slot.MiddleLeft]: null,
-        [Slot.Middle]: null,
-        [Slot.MiddleRight]: null,
+  public readonly $slotWidgetMap = computed<Record<Slot, WidgetOptions | null>>(() => {
+    const config = this.$config();
+    const map: Record<Slot, WidgetOptions | null> = {
+      [Slot.TopLeft]: null,
+      [Slot.TopMiddle]: null,
+      [Slot.TopRight]: null,
+      [Slot.MiddleLeft]: null,
+      [Slot.Middle]: null,
+      [Slot.MiddleRight]: null,
 
-        [Slot.BottomLeft]: null,
-        [Slot.BottomMiddle]: null,
-        [Slot.BottomRight]: null,
-      };
+      [Slot.BottomLeft]: null,
+      [Slot.BottomMiddle]: null,
+      [Slot.BottomRight]: null,
+    };
 
-      if (config) {
-        (Object.keys(config.layout) as Slot[]).forEach((slot) => {
-          const widgetType = config.layout[slot];
-          map[slot] = widgetType ? WidgetRegistry[widgetType] : null;
-        });
-      }
+    if (config) {
+      (Object.keys(config.layout) as Slot[]).forEach((slot) => {
+        const widgetType = config.layout[slot];
+        map[slot] = widgetType ? WidgetRegistry[widgetType] : null;
+      });
+    }
 
-      return map;
-    },
-  );
+    return map;
+  });
 
   protected readonly Slot = Slot;
 }

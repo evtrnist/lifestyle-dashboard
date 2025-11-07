@@ -9,9 +9,7 @@ import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 @Injectable()
 export class DayCardDialogService {
   private readonly configService = inject(LifestyleWidgetConfigService);
-  private readonly lifestyleWidgetDataService = inject(
-    LifestyleWidgetDataService,
-  );
+  private readonly lifestyleWidgetDataService = inject(LifestyleWidgetDataService);
 
   public readonly $config = this.configService.$config;
 

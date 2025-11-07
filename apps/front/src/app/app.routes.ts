@@ -5,17 +5,13 @@ export const appRoutes: Route[] = [
   {
     path: 'dashboard',
     loadComponent: () =>
-      import('./dashboard/dashboard.component').then(
-        (component) => component.DashboardComponent,
-      ),
+      import('./dashboard/dashboard.component').then((component) => component.DashboardComponent),
     canActivate: [authGuard],
   },
   {
     path: 'settings',
     loadComponent: () =>
-      import('./settings/settings.component').then(
-        (component) => component.SettingsComponent,
-      ),
+      import('./settings/settings.component').then((component) => component.SettingsComponent),
     canActivate: [authGuard],
     children: [
       {
@@ -26,18 +22,16 @@ export const appRoutes: Route[] = [
       {
         path: 'widget-layout',
         loadComponent: () =>
-          import(
-            './settings/widget-layout-settings/widget-layout-settings.component'
-          ).then((component) => component.WidgetLayoutSettingsComponent),
+          import('./settings/widget-layout-settings/widget-layout-settings.component').then(
+            (component) => component.WidgetLayoutSettingsComponent,
+          ),
       },
     ],
   },
   {
     path: 'auth',
     loadComponent: () =>
-      import('./auth/auth.component').then(
-        (component) => component.AuthComponent,
-      ),
+      import('./auth/auth.component').then((component) => component.AuthComponent),
   },
   {
     path: '',

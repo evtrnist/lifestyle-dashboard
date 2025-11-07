@@ -31,9 +31,7 @@ const SEC_IN_DAY = 86400;
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimetrackerWidgetComponent {
-  public widgetData = inject<Signal<TimeTrackerWidgetInput>>(
-    TIMETRACKER_WIDGET_TOKEN,
-  );
+  public widgetData = inject<Signal<TimeTrackerWidgetInput>>(TIMETRACKER_WIDGET_TOKEN);
 
   public readonly $size = computed(() => this.widgetData()?.size);
 
@@ -50,9 +48,7 @@ export class TimetrackerWidgetComponent {
   public readonly $selfDevelopment = computed(() => {
     const selfDevelopment = this.widgetData()?.data?.selfDevelopment;
 
-    return selfDevelopment
-      ? selfDevelopment
-      : INITIAL_TIME_TRACKER_WIDGET_INPUT.selfDevelopment;
+    return selfDevelopment ? selfDevelopment : INITIAL_TIME_TRACKER_WIDGET_INPUT.selfDevelopment;
   });
   public readonly $leisure = computed(() => {
     const leisure = this.widgetData()?.data?.leisure;
@@ -82,21 +78,16 @@ export class TimetrackerWidgetComponent {
   ];
 
   protected get label(): string {
-    return (
-      (Number.isNaN(this.$index()) ? null : this.labels[this.$index()]) ?? ''
-    );
+    return (Number.isNaN(this.$index()) ? null : this.labels[this.$index()]) ?? '';
   }
 
   protected getSeconds(): number {
     return (
       (Number.isNaN(this.$index())
         ? null
-        : [
-            this.$routine(),
-            this.$health(),
-            this.$selfDevelopment(),
-            this.$leisure(),
-          ][this.$index()]) ?? 0
+        : [this.$routine(), this.$health(), this.$selfDevelopment(), this.$leisure()][
+            this.$index()
+          ]) ?? 0
     );
   }
 

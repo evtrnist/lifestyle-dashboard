@@ -4,9 +4,7 @@ import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-wid
 
 @Injectable({ providedIn: 'root' })
 export class WidgetLayoutSettingsService {
-  private readonly lifestyleWidgetConfigService = inject(
-    LifestyleWidgetConfigService,
-  );
+  private readonly lifestyleWidgetConfigService = inject(LifestyleWidgetConfigService);
 
   public readonly $config = this.lifestyleWidgetConfigService.$config;
 
