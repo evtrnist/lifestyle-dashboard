@@ -15,7 +15,7 @@ export function dateToYMD(date: Date): string {
   return date.toISOString().slice(0, 10);
 }
 
-type DaysByDate = Record<string, Record<string, Prisma.JsonValue>>;
+export type DaysByDate = Record<string, Record<string, Prisma.JsonValue>>;
 
 @Injectable()
 export class DayDataService {
@@ -71,7 +71,15 @@ export class DayDataService {
     widgetType: string,
     dateYmd: string, // "YYYY-MM-DD"
     widgetData: InputJsonValue,
-  ) {
+  ): Promise<{
+    date: string;
+    widgetType: string;
+    id: string;
+    userId: string;
+    data: Prisma.JsonValue;
+    createdAt: Date;
+    updatedAt: Date;
+  }> {
     const row = await this.prismaService.dayData.upsert({
       where: {
         day_unique: { userId, widgetType, date: ymdToUTCDate(dateYmd) },

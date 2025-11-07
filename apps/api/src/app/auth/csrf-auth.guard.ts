@@ -6,7 +6,7 @@ const CSRF_COOKIE_NAME = 'XSRF-TOKEN';
 
 @Injectable()
 export class CsrfAuthGuard implements CanActivate {
-  canActivate(context: ExecutionContext): boolean {
+  public canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest<Request>();
 
     const tokenFromHeader = req.headers[CSRF_HEADER_NAME];
