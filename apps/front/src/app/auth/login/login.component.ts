@@ -1,5 +1,11 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  output,
+} from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -8,7 +14,13 @@ import {
   Validators,
 } from '@angular/forms';
 import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
-import { TuiButton, TuiError, TuiHint, TuiLabel, TuiTextfield } from '@taiga-ui/core';
+import {
+  TuiButton,
+  TuiError,
+  TuiHint,
+  TuiLabel,
+  TuiTextfield,
+} from '@taiga-ui/core';
 import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { State } from '@lifestyle-dashboard/state';
 import { AuthDto } from '../auth.dto';
@@ -29,7 +41,9 @@ export function requiredValidator(field: AbstractControl): Validators | null {
       };
 }
 
-export function passwordLengthValidator(field: AbstractControl): Validators | null {
+export function passwordLengthValidator(
+  field: AbstractControl,
+): Validators | null {
   return field.value && field.value.length >= PASSWORD_MIN_LENGTH
     ? null
     : {
@@ -69,7 +83,9 @@ export class LoginComponent {
 
   public readonly userLoggedIn = output<AuthDto>();
 
-  protected readonly shouldShowLoading = computed(() => this.state() === State.Loading);
+  protected readonly shouldShowLoading = computed(
+    () => this.state() === State.Loading,
+  );
 
   protected readonly LoginField = LoginField;
 

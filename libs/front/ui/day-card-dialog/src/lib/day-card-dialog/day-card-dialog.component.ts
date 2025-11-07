@@ -14,8 +14,14 @@ import { injectContext } from '@taiga-ui/polymorpheus';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
 import { DayWidgetData } from '@lifestyle-dashboard/lifestyle-widget-data-service';
 import { TimeTrackerWidgetInput } from '@lifestyle-dashboard/timetracker-widget';
-import { WidgetSettingsComponent, WidgetType } from '@lifestyle-dashboard/widget-contracts';
-import { WidgetIconPipe, WidgetNamePipe } from '@lifestyle-dashboard/widget-name-pipe';
+import {
+  WidgetSettingsComponent,
+  WidgetType,
+} from '@lifestyle-dashboard/widget-contracts';
+import {
+  WidgetIconPipe,
+  WidgetNamePipe,
+} from '@lifestyle-dashboard/widget-name-pipe';
 import { DayCardDialogService } from './day-card-dialog.service';
 
 function isWidgetSettingsComponent(x: unknown): x is WidgetSettingsComponent {
@@ -30,7 +36,14 @@ export interface DayCardDialogContext {
 @Component({
   selector: 'lifestyle-day-card-dialog',
   standalone: true,
-  imports: [TuiTabs, TuiIconPipe, TuiButton, WidgetNamePipe, WidgetIconPipe, DynamicHostComponent],
+  imports: [
+    TuiTabs,
+    TuiIconPipe,
+    TuiButton,
+    WidgetNamePipe,
+    WidgetIconPipe,
+    DynamicHostComponent,
+  ],
   templateUrl: './day-card-dialog.component.html',
   styleUrl: './day-card-dialog.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -41,7 +54,9 @@ export class DayCardDialogComponent {
   private readonly injector = inject(Injector);
 
   public readonly context =
-    injectContext<TuiDialogContext<DayCardDialogContext, DayCardDialogContext>>();
+    injectContext<
+      TuiDialogContext<DayCardDialogContext, DayCardDialogContext>
+    >();
 
   public readonly $tabs = this.dayCardDialogService.$tabs;
 
@@ -66,7 +81,9 @@ export class DayCardDialogComponent {
 
   protected readonly $activeItemIndex = signal(0);
 
-  private readonly settingsInstance = signal<WidgetSettingsComponent | null>(null);
+  private readonly settingsInstance = signal<WidgetSettingsComponent | null>(
+    null,
+  );
 
   private injectorCache?: Injector;
   private lastToken?: InjectionToken<unknown>;

@@ -15,7 +15,10 @@ export class WidgetConfigService {
     return res;
   }
 
-  public async create(userId: string, config: InputJsonValue): Promise<WidgetConfig> {
+  public async create(
+    userId: string,
+    config: InputJsonValue,
+  ): Promise<WidgetConfig> {
     return this.prismaService.widgetConfig.create({
       data: {
         userId,
@@ -24,7 +27,10 @@ export class WidgetConfigService {
     });
   }
 
-  public async updateByUser(userId: string, config: InputJsonValue): Promise<WidgetConfig> {
+  public async updateByUser(
+    userId: string,
+    config: InputJsonValue,
+  ): Promise<WidgetConfig> {
     return this.prismaService.widgetConfig.update({
       where: { userId },
       data: { config: config },

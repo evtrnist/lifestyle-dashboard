@@ -15,12 +15,18 @@
     <!-- Верхние слоты -->
     <div class="slot top-left">
       @if (topLeftWidget && dayData) {
-        <lifestyle-day-slot [dayData]="dayData" [widget]="topLeftWidget"></lifestyle-day-slot>
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="topLeftWidget"
+        ></lifestyle-day-slot>
       }
     </div>
     <div class="slot top-middle">
       @if (topMiddleWidget && dayData) {
-        <lifestyle-day-slot [dayData]="dayData" [widget]="topMiddleWidget"></lifestyle-day-slot>
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="topMiddleWidget"
+        ></lifestyle-day-slot>
       }
     </div>
     <div class="slot top-right">
@@ -30,34 +36,52 @@
     <!-- Средние слоты -->
     <div class="slot middle-left">
       @if (middleLeftWidget && dayData) {
-        <lifestyle-day-slot [dayData]="dayData" [widget]="middleLeftWidget"></lifestyle-day-slot>
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="middleLeftWidget"
+        ></lifestyle-day-slot>
       }
     </div>
     <div class="slot middle">
       @if (middleWidget && dayData) {
-        <lifestyle-day-slot [dayData]="dayData" [widget]="middleWidget"></lifestyle-day-slot>
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="middleWidget"
+        ></lifestyle-day-slot>
       }
     </div>
     <div class="slot middle-right">
       @if (middleRightWidget && dayData) {
-        <lifestyle-day-slot [dayData]="dayData" [widget]="middleRightWidget"></lifestyle-day-slot>
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="middleRightWidget"
+        ></lifestyle-day-slot>
       }
     </div>
 
     <!-- Нижние слоты -->
     <div class="slot bottom-left">
       @if (bottomLeftWidget && dayData) {
-        <lifestyle-day-slot [dayData]="dayData" [widget]="bottomLeftWidget"></lifestyle-day-slot>
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="bottomLeftWidget"
+        ></lifestyle-day-slot>
       }
     </div>
     <div class="slot bottom-middle">
       @if (bottomMiddleWidget && dayData) {
-        <lifestyle-day-slot [dayData]="dayData" [widget]="bottomMiddleWidget"></lifestyle-day-slot>
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="bottomMiddleWidget"
+        ></lifestyle-day-slot>
       }
     </div>
     <div class="slot bottom-right">
       @if (bottomRightWidget && dayData) {
-        <lifestyle-day-slot [dayData]="dayData" [widget]="bottomRightWidget"></lifestyle-day-slot>
+        <lifestyle-day-slot
+          [dayData]="dayData"
+          [widget]="bottomRightWidget"
+        ></lifestyle-day-slot>
       }
     </div>
   }

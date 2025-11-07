@@ -22,14 +22,20 @@ import { TimeSecondsControlComponent } from './time-seconds-control/time-seconds
   styleUrl: './timetracker-settings-widget.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class TimetrackerSettingsWidgetComponent implements WidgetSettingsComponent, OnInit {
-  public widgetData = inject<Signal<TimeTrackerWidgetInput>>(TIMETRACKER_WIDGET_TOKEN);
+export class TimetrackerSettingsWidgetComponent
+  implements WidgetSettingsComponent, OnInit
+{
+  public widgetData = inject<Signal<TimeTrackerWidgetInput>>(
+    TIMETRACKER_WIDGET_TOKEN,
+  );
 
   public readonly $keys = computed(() => {
     const widgetData = this.widgetData();
 
     return widgetData?.data
-      ? (Object.keys(widgetData?.data) as Array<keyof TimeTrackerWidgetInput['data']>)
+      ? (Object.keys(widgetData?.data) as Array<
+          keyof TimeTrackerWidgetInput['data']
+        >)
       : (Object.keys(INITIAL_TIME_TRACKER_WIDGET_INPUT) as Array<
           keyof TimeTrackerWidgetInput['data']
         >);
@@ -51,7 +57,9 @@ export class TimetrackerSettingsWidgetComponent implements WidgetSettingsCompone
     };
   }
 
-  private buildFormGroup(keys: Array<keyof TimeTrackerWidgetInput['data']>): FormGroup {
+  private buildFormGroup(
+    keys: Array<keyof TimeTrackerWidgetInput['data']>,
+  ): FormGroup {
     const formGroup = new FormGroup({});
     const widgetData = this.widgetData().data;
 
@@ -64,7 +72,9 @@ export class TimetrackerSettingsWidgetComponent implements WidgetSettingsCompone
         widgetData,
         INITIAL_TIME_TRACKER_WIDGET_INPUT[key],
       );
-      const seconds = widgetData ? widgetData?.[key] : INITIAL_TIME_TRACKER_WIDGET_INPUT[key];
+      const seconds = widgetData
+        ? widgetData?.[key]
+        : INITIAL_TIME_TRACKER_WIDGET_INPUT[key];
 
       formGroup.addControl(key, new FormControl<number | null>(seconds));
     });

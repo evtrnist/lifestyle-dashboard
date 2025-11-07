@@ -1,5 +1,8 @@
 @let component = $widget()?.component;
 
 @if (component) {
-  <lib-dynamic-host [component]="component" [injector]="$widgetInjector()"></lib-dynamic-host>
+  <lib-dynamic-host
+    [component]="component"
+    [injector]="$widgetInjector()"
+  ></lib-dynamic-host>
 }

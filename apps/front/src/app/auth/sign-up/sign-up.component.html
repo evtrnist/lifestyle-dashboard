@@ -20,7 +20,10 @@
         type="email"
       />
     </tui-textfield>
-    <tui-error [formControlName]="SignUpField.Email" [error]="[] | tuiFieldError | async" />
+    <tui-error
+      [formControlName]="SignUpField.Email"
+      [error]="[] | tuiFieldError | async"
+    />
   </div>
 
   <div>
@@ -37,7 +40,10 @@
         autocomplete="new-password"
       />
     </tui-textfield>
-    <tui-error [formControlName]="SignUpField.Password" [error]="[] | tuiFieldError | async" />
+    <tui-error
+      [formControlName]="SignUpField.Password"
+      [error]="[] | tuiFieldError | async"
+    />
   </div>
 
   <div>

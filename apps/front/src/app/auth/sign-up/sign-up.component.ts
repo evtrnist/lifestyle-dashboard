@@ -1,5 +1,12 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input, OnInit, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  input,
+  OnInit,
+  output,
+} from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -31,7 +38,9 @@ function repeatPasswordValidatorFactory(form: FormGroup): ValidatorFn {
     const password = form.get(SignUpField.Password)?.value;
     const repeat = control.value;
 
-    return password === repeat ? null : { passwordMismatch: 'Passwords do not match' };
+    return password === repeat
+      ? null
+      : { passwordMismatch: 'Passwords do not match' };
   };
 }
 
@@ -65,9 +74,13 @@ export class SignUpComponent implements OnInit {
 
   public readonly userSignedUp = output<AuthDto>();
 
-  protected readonly $shouldShowLoading = computed(() => this.state() === State.Loading);
+  protected readonly $shouldShowLoading = computed(
+    () => this.state() === State.Loading,
+  );
 
-  protected readonly $shouldShowConflictError = computed(() => this.state() === State.Conflict);
+  protected readonly $shouldShowConflictError = computed(
+    () => this.state() === State.Conflict,
+  );
 
   protected readonly SignUpField = SignUpField;
 

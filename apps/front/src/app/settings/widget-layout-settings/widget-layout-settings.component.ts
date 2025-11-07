@@ -1,5 +1,11 @@
 import { KeyValue, KeyValuePipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
   TuiButton,
@@ -9,11 +15,20 @@ import {
   TuiTextfieldDropdownDirective,
   TuiTitle,
 } from '@taiga-ui/core';
-import { TuiButtonLoading, TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
+import {
+  TuiButtonLoading,
+  TuiChevron,
+  TuiDataListWrapper,
+  TuiSelect,
+} from '@taiga-ui/kit';
 import { TuiHeader } from '@taiga-ui/layout';
 import { Layout } from '@lifestyle-dashboard/config';
 import { State } from '@lifestyle-dashboard/state';
-import { Slot, WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
+import {
+  Slot,
+  WidgetOptions,
+  WidgetType,
+} from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import { WidgetLayoutSettingsService } from './widget-layout-settings.service';
 import { WIDGET_LAYOUT_SLOT_MAP } from './widget-layout-slots';
@@ -41,14 +56,18 @@ import { WIDGET_LAYOUT_SLOT_MAP } from './widget-layout-slots';
   ],
 })
 export class WidgetLayoutSettingsComponent {
-  private readonly widgetLayoutSettingsService = inject(WidgetLayoutSettingsService);
+  private readonly widgetLayoutSettingsService = inject(
+    WidgetLayoutSettingsService,
+  );
 
   private readonly $config = this.widgetLayoutSettingsService.$config;
 
   protected readonly widgets = Object.values(WidgetRegistry);
 
   protected readonly $slotsMap = computed(() => {
-    const base = structuredClone(WIDGET_LAYOUT_SLOT_MAP) as typeof WIDGET_LAYOUT_SLOT_MAP;
+    const base = structuredClone(
+      WIDGET_LAYOUT_SLOT_MAP,
+    ) as typeof WIDGET_LAYOUT_SLOT_MAP;
     const config = this.$config();
     const selectedWidget = this.$selectedWidget();
 
@@ -86,15 +105,19 @@ export class WidgetLayoutSettingsComponent {
 
   public readonly stringify = (x: WidgetOptions): string => x.label;
 
-  private readonly $selectedWidget = signal<{ slot: Slot; options: WidgetOptions | null } | null>(
-    null,
-  );
+  private readonly $selectedWidget = signal<{
+    slot: Slot;
+    options: WidgetOptions | null;
+  } | null>(null);
 
   /**
    * Comparator to maintain insertion order in ngFor with KeyValuePipe.
    * Parameters are intentionally unused.
    */
-  public readonly keepOrder = (_a: KeyValue<Slot, unknown>, _b: KeyValue<Slot, unknown>): number => {
+  public readonly keepOrder = (
+    _a: KeyValue<Slot, unknown>,
+    _b: KeyValue<Slot, unknown>,
+  ): number => {
     return 0;
   };
 

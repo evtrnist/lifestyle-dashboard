@@ -31,7 +31,9 @@ enum ToDosField {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, TuiInputNumber, TuiLabel, TuiTextfield],
 })
-export class TodosSettingsWidgetComponent implements WidgetSettingsComponent, OnInit {
+export class TodosSettingsWidgetComponent
+  implements WidgetSettingsComponent, OnInit
+{
   private readonly destroyRef = inject(DestroyRef);
   public widgetData = inject<Signal<TodosWidgetInput>>(TODOS_WIDGET_TOKEN);
 
@@ -49,9 +51,15 @@ export class TodosSettingsWidgetComponent implements WidgetSettingsComponent, On
     const data = this.widgetData()?.data;
 
     return new FormGroup({
-      [ToDosField.AdditionCount]: new FormControl<number>(data ? data.additionCount : 0),
-      [ToDosField.CompletedCount]: new FormControl<number>(data ? data.completedCount : 0),
-      [ToDosField.PlannedCount]: new FormControl<number>(data ? data.plannedCount : 0),
+      [ToDosField.AdditionCount]: new FormControl<number>(
+        data ? data.additionCount : 0,
+      ),
+      [ToDosField.CompletedCount]: new FormControl<number>(
+        data ? data.completedCount : 0,
+      ),
+      [ToDosField.PlannedCount]: new FormControl<number>(
+        data ? data.plannedCount : 0,
+      ),
       [ToDosField.TotalCount]: new FormControl<number>(
         data ? data.completedCount + data.additionCount : 0,
       ),
@@ -67,8 +75,12 @@ export class TodosSettingsWidgetComponent implements WidgetSettingsComponent, On
     }
 
     combineLatest([
-      additionCountControl.valueChanges.pipe(startWith(additionCountControl.value)),
-      completedCountControl.valueChanges.pipe(startWith(completedCountControl.value)),
+      additionCountControl.valueChanges.pipe(
+        startWith(additionCountControl.value),
+      ),
+      completedCountControl.valueChanges.pipe(
+        startWith(completedCountControl.value),
+      ),
     ])
       .pipe(takeUntilDestroyed(this.destroyRef))
       .subscribe(([additionCount, completedCount]) => {

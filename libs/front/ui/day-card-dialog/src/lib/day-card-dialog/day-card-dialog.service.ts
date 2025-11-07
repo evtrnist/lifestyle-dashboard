@@ -9,7 +9,9 @@ import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 @Injectable()
 export class DayCardDialogService {
   private readonly configService = inject(LifestyleWidgetConfigService);
-  private readonly lifestyleWidgetDataService = inject(LifestyleWidgetDataService);
+  private readonly lifestyleWidgetDataService = inject(
+    LifestyleWidgetDataService,
+  );
 
   public readonly $config = this.configService.$config;
 
@@ -39,7 +41,11 @@ export class DayCardDialogService {
   });
 
   public save(date: Date, widgetType: WidgetType, data: unknown): void {
-    console.log('Saving data for', { date: date.toLocaleDateString('sv-SE'), widgetType, data });
+    console.log('Saving data for', {
+      date: date.toLocaleDateString('sv-SE'),
+      widgetType,
+      data,
+    });
 
     this.lifestyleWidgetDataService
       .saveDateData$(date.toLocaleDateString('sv-SE'), widgetType, data)

@@ -6,5 +6,6 @@ export default {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../../../coverage/libs/front/api/lifestyle-widget-data-service',
+  coverageDirectory:
+    '../../../../coverage/libs/front/api/lifestyle-widget-data-service',
 };

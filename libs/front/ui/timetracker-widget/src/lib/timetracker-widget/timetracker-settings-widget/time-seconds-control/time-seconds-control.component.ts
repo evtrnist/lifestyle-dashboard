@@ -24,7 +24,12 @@ import { TuiInputTime } from '@taiga-ui/kit';
   template: `
     <tui-textfield>
       <label [for]="$id()" tuiLabel>{{ $label() }}</label>
-      <input [id]="$id()" tuiInputTime [formControl]="ui" (blur)="onTouched()" />
+      <input
+        [id]="$id()"
+        tuiInputTime
+        [formControl]="ui"
+        (blur)="onTouched()"
+      />
     </tui-textfield>
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,11 +41,16 @@ import { TuiInputTime } from '@taiga-ui/kit';
     },
   ],
 })
-export class TimeSecondsControlComponent implements ControlValueAccessor, OnInit, OnDestroy {
+export class TimeSecondsControlComponent
+  implements ControlValueAccessor, OnInit, OnDestroy
+{
   public readonly $label = input.required<string>({ alias: 'label' });
-  public readonly $id = input<string>(`time-${Math.random().toString(36).slice(2)}`, {
-    alias: 'id',
-  });
+  public readonly $id = input<string>(
+    `time-${Math.random().toString(36).slice(2)}`,
+    {
+      alias: 'id',
+    },
+  );
 
   public ui = new FormControl<TuiTime | null>(null);
   private sub?: Subscription;

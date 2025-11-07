@@ -2,7 +2,10 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TuiDay } from '@taiga-ui/cdk';
-import { CreateOrUpdateDayDataDto, toUTCDateKey } from '@lifestyle-dashboard/day-data';
+import {
+  CreateOrUpdateDayDataDto,
+  toUTCDateKey,
+} from '@lifestyle-dashboard/day-data';
 import { WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { DaysResponse } from './day-response';
 
@@ -30,8 +33,16 @@ export class LifestyleWidgetDataService {
     });
   }
 
-  public saveDateData$(date: string, widgetType: WidgetType, widgetData: unknown): Observable<any> {
-    console.log('Saving date data from service:', { date, widgetType, widgetData });
+  public saveDateData$(
+    date: string,
+    widgetType: WidgetType,
+    widgetData: unknown,
+  ): Observable<any> {
+    console.log('Saving date data from service:', {
+      date,
+      widgetType,
+      widgetData,
+    });
     const body: CreateOrUpdateDayDataDto = {
       date,
       widgetType,

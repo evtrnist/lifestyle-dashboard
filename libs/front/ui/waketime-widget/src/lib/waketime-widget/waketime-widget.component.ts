@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  Signal,
+} from '@angular/core';
 import { TuiTime } from '@taiga-ui/cdk';
 import { TuiIcon } from '@taiga-ui/core';
 import { TimePipe } from '@lifestyle-dashboard/time-pipe';
@@ -19,7 +25,9 @@ const ACTIVE_COLOR = 'var(--tui-chart-categorical-08)';
   },
 })
 export class WaketimeWidgetComponent {
-  public widgetData = inject<Signal<WaketimeWidgetInput>>(WAKETIME_WIDGET_TOKEN);
+  public widgetData = inject<Signal<WaketimeWidgetInput>>(
+    WAKETIME_WIDGET_TOKEN,
+  );
   public readonly $size = computed(() => this.widgetData()?.size);
 
   public readonly $waketime = computed(() => {

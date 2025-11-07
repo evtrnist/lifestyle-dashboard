@@ -1,7 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { tuiDialog } from '@taiga-ui/core';
 import { CalendarComponent } from '@lifestyle-dashboard/calendar';
-import { DayCardDialogComponent, DayCardDialogContext } from '@lifestyle-dashboard/day-card-dialog';
+import {
+  DayCardDialogComponent,
+  DayCardDialogContext,
+} from '@lifestyle-dashboard/day-card-dialog';
 import { LifestyleWidgetConfigService } from '@lifestyle-dashboard/lifestyle-widget-config-service';
 import { DashboardService } from './dashboard.service';
 
@@ -15,7 +23,9 @@ import { DashboardService } from './dashboard.service';
   providers: [DashboardService],
 })
 export class DashboardComponent implements OnInit {
-  private readonly lifestyleConfigService = inject(LifestyleWidgetConfigService);
+  private readonly lifestyleConfigService = inject(
+    LifestyleWidgetConfigService,
+  );
 
   private readonly dashboardService = inject(DashboardService);
   public readonly $config = this.dashboardService.$config;

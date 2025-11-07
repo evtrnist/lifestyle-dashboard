@@ -29,14 +29,26 @@ import { DayComponent } from './day/day.component';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CalendarComponent implements OnInit {
-  private readonly lifestyleWidgetDataService = inject(LifestyleWidgetDataService);
+  private readonly lifestyleWidgetDataService = inject(
+    LifestyleWidgetDataService,
+  );
   public readonly $config = input.required<Config | null>({ alias: 'config' });
 
-  public readonly $dayOpenRequest = output<DayCardDialogContext>({ alias: 'dayOpenRequest' });
+  public readonly $dayOpenRequest = output<DayCardDialogContext>({
+    alias: 'dayOpenRequest',
+  });
 
   protected $currentDate = signal(new Date());
   protected $daysInMonth = signal<(Date | null)[]>([]);
-  protected weekDays: string[] = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+  protected weekDays: string[] = [
+    'Mon',
+    'Tue',
+    'Wed',
+    'Thu',
+    'Fri',
+    'Sat',
+    'Sun',
+  ];
 
   private readonly $calendarData = signal<DaysResponse>({ days: {} });
 
@@ -57,7 +69,11 @@ export class CalendarComponent implements OnInit {
 
     const daysArray = Array(emptyCells)
       .fill(null)
-      .concat([...Array(daysInCurrentMonth).keys()].map((i) => new Date(year, month, i + 1)));
+      .concat(
+        [...Array(daysInCurrentMonth).keys()].map(
+          (i) => new Date(year, month, i + 1),
+        ),
+      );
 
     this.$daysInMonth.set(daysArray);
   }
@@ -97,7 +113,8 @@ export class CalendarComponent implements OnInit {
 
     this.$dayOpenRequest.emit({
       date,
-      calendarData: this.$calendarData().days ?? ({} as Record<string, DayWidgetData>),
+      calendarData:
+        this.$calendarData().days ?? ({} as Record<string, DayWidgetData>),
     });
   }
 
@@ -107,7 +124,9 @@ export class CalendarComponent implements OnInit {
       return;
     }
 
-    const widgetTypes = Object.values(config.layout).filter(Boolean) as WidgetType[];
+    const widgetTypes = Object.values(config.layout).filter(
+      Boolean,
+    ) as WidgetType[];
 
     this.lifestyleWidgetDataService
       .getData$(startDate, endDate, widgetTypes)
@@ -125,15 +144,34 @@ export class CalendarComponent implements OnInit {
   }
 
   private updateDateInfo(date: Date): void {
-    const [currentMonth, currentYear] = [new Date().getMonth(), new Date().getFullYear()];
+    const [currentMonth, currentYear] = [
+      new Date().getMonth(),
+      new Date().getFullYear(),
+    ];
     const start = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0);
 
-    if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
-      this.getCalendarData(TuiDay.fromLocalNativeDate(start), TuiDay.currentLocal());
+    if (
+      date.getMonth() === currentMonth &&
+      date.getFullYear() === currentYear
+    ) {
+      this.getCalendarData(
+        TuiDay.fromLocalNativeDate(start),
+        TuiDay.currentLocal(),
+      );
     } else {
-      const end = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
+      const end = new Date(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        0,
+        23,
+        59,
+        59,
+      );
 
-      this.getCalendarData(TuiDay.fromLocalNativeDate(start), TuiDay.fromLocalNativeDate(end));
+      this.getCalendarData(
+        TuiDay.fromLocalNativeDate(start),
+        TuiDay.fromLocalNativeDate(end),
+      );
     }
   }
 }
