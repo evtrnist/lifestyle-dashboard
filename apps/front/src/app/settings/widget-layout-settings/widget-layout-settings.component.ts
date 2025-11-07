@@ -90,10 +90,11 @@ export class WidgetLayoutSettingsComponent {
     null,
   );
 
-  public readonly keepOrder = (a: KeyValue<Slot, unknown>, b: KeyValue<Slot, unknown>): number => {
-    void a;
-    void b;
-
+  /**
+   * Comparator to maintain insertion order in ngFor with KeyValuePipe.
+   * Parameters are intentionally unused.
+   */
+  public readonly keepOrder = (_a: KeyValue<Slot, unknown>, _b: KeyValue<Slot, unknown>): number => {
     return 0;
   };
 
