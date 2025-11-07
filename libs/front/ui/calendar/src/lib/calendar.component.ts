@@ -40,12 +40,12 @@ export class CalendarComponent implements OnInit {
 
   private readonly $calendarData = signal<DaysResponse>({ days: {} });
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.generateCalendar(this.$currentDate());
     this.updateDateInfo(this.$currentDate());
   }
 
-  public generateCalendar(date: Date) {
+  public generateCalendar(date: Date): void {
     const year = date.getFullYear();
     const month = date.getMonth();
 
@@ -62,7 +62,7 @@ export class CalendarComponent implements OnInit {
     this.$daysInMonth.set(daysArray);
   }
 
-  public nextMonth() {
+  public nextMonth(): void {
     const newDate = new Date(this.$currentDate());
     newDate.setMonth(newDate.getMonth() + 1);
     this.$currentDate.set(newDate);
@@ -70,7 +70,7 @@ export class CalendarComponent implements OnInit {
     this.updateDateInfo(newDate);
   }
 
-  public previousMonth() {
+  public previousMonth(): void {
     const newDate = new Date(this.$currentDate());
     newDate.setMonth(newDate.getMonth() - 1);
     this.$currentDate.set(newDate);
@@ -90,15 +90,18 @@ export class CalendarComponent implements OnInit {
     return calendarData;
   }
 
-  public openDayCard(date: Date | null) {
+  public openDayCard(date: Date | null): void {
     if (!date) {
       return;
     }
 
-    this.$dayOpenRequest.emit({ date, calendarData: this.$calendarData().days ?? {} });
+    this.$dayOpenRequest.emit({
+      date,
+      calendarData: this.$calendarData().days ?? ({} as Record<string, DayWidgetData>),
+    });
   }
 
-  private getCalendarData(startDate: TuiDay, endDate: TuiDay) {
+  private getCalendarData(startDate: TuiDay, endDate: TuiDay): void {
     const config = this.$config();
     if (!config) {
       return;
@@ -121,7 +124,7 @@ export class CalendarComponent implements OnInit {
       });
   }
 
-  private updateDateInfo(date: Date) {
+  private updateDateInfo(date: Date): void {
     const [currentMonth, currentYear] = [new Date().getMonth(), new Date().getFullYear()];
     const start = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0);
 

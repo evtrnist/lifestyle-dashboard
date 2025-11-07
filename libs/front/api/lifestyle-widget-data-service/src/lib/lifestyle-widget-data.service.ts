@@ -12,7 +12,11 @@ const URL = '/api/day-data';
 export class LifestyleWidgetDataService {
   private readonly httpClient = inject(HttpClient);
 
-  public getData$(startDate: TuiDay, endDate: TuiDay, widgetTypes: WidgetType[]): Observable<DaysResponse> {
+  public getData$(
+    startDate: TuiDay,
+    endDate: TuiDay,
+    widgetTypes: WidgetType[],
+  ): Observable<DaysResponse> {
     let params = new HttpParams()
       .set('startDate', toUTCDateKey(startDate.toLocalNativeDate()))
       .set('endDate', toUTCDateKey(endDate.toLocalNativeDate()));

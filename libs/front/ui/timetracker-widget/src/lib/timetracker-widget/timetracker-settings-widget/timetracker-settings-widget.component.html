@@ -3,7 +3,7 @@
 <form [formGroup]="form" class="form">
   @for (key of keys; track $index) {
     @let controlInfo = getControlInfo(key);
-    <time-seconds-control
+    <lifestyle-dashboard-time-seconds-control
       [formControl]="controlInfo.control"
       [label]="controlInfo.title"
       [id]="'time-' + $index"

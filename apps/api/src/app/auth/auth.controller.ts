@@ -2,6 +2,7 @@ import crypto from 'crypto';
 import { Body, Controller, Get, HttpCode, Post, Req, Res, UseGuards } from '@nestjs/common';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Request, Response } from 'express';
+import { UserProfile } from '@lifestyle-dashboard/user';
 import { AuthService } from './auth.service';
 import { CsrfAuthGuard } from './csrf-auth.guard';
 import { JwtAuthGuard } from './jwt-auth.guard';
@@ -27,7 +28,7 @@ export class AuthController {
     @Body('email') email: string,
     @Body('password') password: string,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<{ ok: true }> {
     const { access_token } = await this.authService.register(email, password);
 
     this.setAuthCookies(res, access_token);
@@ -41,7 +42,7 @@ export class AuthController {
     @Body('email') email: string,
     @Body('password') password: string,
     @Res({ passthrough: true }) res: Response,
-  ) {
+  ): Promise<{ ok: true }> {
     const { access_token } = await this.authService.login(email, password);
     this.setAuthCookies(res, access_token);
     return { ok: true };
@@ -50,13 +51,13 @@ export class AuthController {
   @UseGuards(JwtAuthGuard, CsrfAuthGuard)
   @Get('me')
   @ApiBearerAuth()
-  getMe(@Req() req: RequestWithUser) {
+  public getMe(@Req() req: RequestWithUser): Promise<UserProfile> {
     console.log('Getting profile for user:', req.user);
     return this.authService.getUserProfile(req);
   }
 
   @Post('logout')
-  logout(@Res({ passthrough: true }) res: Response) {
+  public logout(@Res({ passthrough: true }) res: Response): { ok: true } {
     res.clearCookie(ACCESS_TOKEN, {
       httpOnly: true,
       secure: true,
@@ -68,10 +69,11 @@ export class AuthController {
       secure: true,
       sameSite: 'strict',
     });
+
     return { ok: true };
   }
 
-  private setAuthCookies(res: Response, token: string) {
+  private setAuthCookies(res: Response, token: string): void {
     res.cookie(ACCESS_TOKEN, token, {
       httpOnly: true,
       secure: true,

@@ -26,11 +26,11 @@ export class WaketimeSettingsWidgetComponent implements WidgetSettingsComponent,
 
   public readonly WaketimeField = WaketimeField;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.form = this.buildForm();
   }
 
-  private buildForm() {
+  private buildForm(): FormGroup {
     const waketime = this.widgetData()?.data?.waketime;
 
     const time = waketime ? new TuiTime(waketime['hours'], waketime['minutes']) : new TuiTime(0, 0);

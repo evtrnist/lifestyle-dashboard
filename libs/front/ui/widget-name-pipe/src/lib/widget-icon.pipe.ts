@@ -7,7 +7,7 @@ import { WIDGET_NAME_REGISTRY } from './widget-name.registry';
   standalone: true,
 })
 export class WidgetIconPipe implements PipeTransform {
-  transform(widgetKey: WidgetType): string {
+  public transform(widgetKey: WidgetType): string {
     return WIDGET_NAME_REGISTRY[widgetKey].icon || '';
   }
 }

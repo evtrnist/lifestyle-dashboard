@@ -37,18 +37,21 @@ export class TimetrackerSettingsWidgetComponent implements WidgetSettingsCompone
 
   public form!: FormGroup;
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.form = this.buildFormGroup(this.$keys());
   }
 
-  public getControlInfo(key: keyof TimeTrackerWidgetInput['data']) {
+  public getControlInfo(key: keyof TimeTrackerWidgetInput['data']): {
+    title: string;
+    control: FormControl<number | null>;
+  } {
     return {
       title: key,
       control: this.form.get(key) as unknown as FormControl<number | null>,
     };
   }
 
-  private buildFormGroup(keys: Array<keyof TimeTrackerWidgetInput['data']>) {
+  private buildFormGroup(keys: Array<keyof TimeTrackerWidgetInput['data']>): FormGroup {
     const formGroup = new FormGroup({});
     const widgetData = this.widgetData().data;
 

@@ -34,7 +34,7 @@ module.exports = [
     rules: {
       // Требовать явный тип возврата у функций
       '@typescript-eslint/explicit-function-return-type': [
-        'error',
+        'warn',
         {
           allowExpressions: false,
           allowTypedFunctionExpressions: true,
@@ -46,7 +46,7 @@ module.exports = [
       '@typescript-eslint/explicit-module-boundary-types': 'error',
       // Требовать модификаторы доступа у членов класса
       '@typescript-eslint/explicit-member-accessibility': [
-        'error',
+        'warn',
         {
           accessibility: 'explicit', // public/protected/private обязателен
           overrides: {

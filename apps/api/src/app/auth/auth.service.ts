@@ -17,7 +17,12 @@ export class AuthService {
     private readonly jwtService: JwtService,
   ) {}
 
-  public async register(email: string, password: string) {
+  public async register(
+    email: string,
+    password: string,
+  ): Promise<{
+    access_token: string;
+  }> {
     const hashed = await bcrypt.hash(password, 10);
 
     const isExistingUser = await this.prismaService.user.findUnique({
@@ -35,7 +40,12 @@ export class AuthService {
     return this.generateToken(user.id, user.email);
   }
 
-  public async login(email: string, password: string) {
+  public async login(
+    email: string,
+    password: string,
+  ): Promise<{
+    access_token: string;
+  }> {
     const user = await this.prismaService.user.findUnique({ where: { email } });
 
     if (!user) {
@@ -72,7 +82,12 @@ export class AuthService {
     return user;
   }
 
-  private generateToken(userId: string, email: string) {
+  private generateToken(
+    userId: string,
+    email: string,
+  ): {
+    access_token: string;
+  } {
     const payload = { sub: userId, email };
 
     return {

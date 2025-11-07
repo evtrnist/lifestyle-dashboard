@@ -5,11 +5,11 @@ import {
   inject,
   Injector,
   input,
+  Signal,
   signal,
 } from '@angular/core';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
 import { DayWidgetData } from '@lifestyle-dashboard/lifestyle-widget-data-service';
-import { TimeTrackerWidgetInput } from '@lifestyle-dashboard/timetracker-widget';
 import { WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
 
 @Component({
@@ -41,8 +41,8 @@ export class DaySlotComponent {
       providers: [
         {
           provide: widget.token,
-          useFactory: () =>
-            signal<TimeTrackerWidgetInput>({
+          useFactory: (): Signal<unknown> =>
+            signal<unknown>({
               size: 's',
               data,
             }),

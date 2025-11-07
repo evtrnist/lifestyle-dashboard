@@ -10,6 +10,7 @@
     "build:api": "nx build api",
     "test:api": "nx test api",
     "nx:format:fix": "nx format:write",
+    "lint:all": "nx run-many --target=lint --all --parallel",
     "build:all": "nx run-many --target=build --all --parallel",
     "generate:api-types": "npx @openapitools/openapi-generator-cli generate -i openapi.json -g typescript -o libs/api-types --additional-properties=fileNaming=kebab-case",
     "prettier:fix": "npx prettier --write \"apps/**/*.{ts,html,less}\" \"libs/**/*.{ts,html,less}\""

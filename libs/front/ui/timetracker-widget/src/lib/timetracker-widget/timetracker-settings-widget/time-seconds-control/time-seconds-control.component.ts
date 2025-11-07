@@ -18,7 +18,7 @@ import { TuiTextfield } from '@taiga-ui/core';
 import { TuiInputTime } from '@taiga-ui/kit';
 
 @Component({
-  selector: 'time-seconds-control',
+  selector: 'lifestyle-dashboard-time-seconds-control',
   standalone: true,
   imports: [ReactiveFormsModule, TuiTextfield, TuiInputTime],
   template: `
@@ -45,21 +45,25 @@ export class TimeSecondsControlComponent implements ControlValueAccessor, OnInit
   public ui = new FormControl<TuiTime | null>(null);
   private sub?: Subscription;
 
-  private onChange: (value: number | null) => void = () => {};
-  public onTouched: () => void = () => {};
+  private onChange: (value: number | null) => void = () => {
+    // no use
+  };
+  public onTouched: () => void = () => {
+    // no use
+  };
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     this.sub = this.ui.valueChanges.subscribe((v) => {
       this.onChange(v ? v.hours * 3600 + v.minutes * 60 : null);
     });
   }
 
-  ngOnDestroy(): void {
+  public ngOnDestroy(): void {
     this.sub?.unsubscribe();
   }
 
   // CVA
-  writeValue(value: number | null): void {
+  public writeValue(value: number | null): void {
     if (value == null) {
       this.ui.setValue(null, { emitEvent: false });
       return;
@@ -69,15 +73,15 @@ export class TimeSecondsControlComponent implements ControlValueAccessor, OnInit
     this.ui.setValue(new TuiTime(h, m), { emitEvent: false });
   }
 
-  registerOnChange(fn: (value: number | null) => void): void {
+  public registerOnChange(fn: (value: number | null) => void): void {
     this.onChange = fn;
   }
 
-  registerOnTouched(fn: () => void): void {
+  public registerOnTouched(fn: () => void): void {
     this.onTouched = fn;
   }
 
-  setDisabledState(isDisabled: boolean): void {
+  public setDisabledState(isDisabled: boolean): void {
     if (isDisabled) {
       this.ui.disable({ emitEvent: false });
     } else {
