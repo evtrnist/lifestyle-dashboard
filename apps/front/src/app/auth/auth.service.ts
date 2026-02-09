@@ -17,6 +17,8 @@ export class AuthService {
 
   public readonly authState = signal<State | null>(null);
 
+  public readonly formError = signal<HttpStatusCode | null>(null);
+
   public setState(state: State | null): void {
     this.authState.set(state);
   }
@@ -51,11 +53,7 @@ export class AuthService {
         catchError((err) => {
           console.warn('Sign up failed', err);
 
-          if (err.status === HttpStatusCode.Conflict) {
-            this.authState.set(State.Conflict);
-          } else {
-            this.authState.set(State.Error);
-          }
+          this.authState.set(err.status);
 
           return EMPTY;
         }),

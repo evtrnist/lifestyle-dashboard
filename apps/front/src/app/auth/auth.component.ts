@@ -31,6 +31,8 @@ export class AuthComponent {
 
   protected readonly state = this.authService.authState;
 
+  protected readonly formError = this.authService.formError;
+
   protected openForm(state: AuthState): void {
     this.$formMode.set(state);
     this.authService.setState(null);

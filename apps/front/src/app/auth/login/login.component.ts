@@ -1,5 +1,6 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
+import { HttpStatusCode } from '@angular/common/http';
+import { ChangeDetectionStrategy, Component, computed, input, OnInit, output } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -64,8 +65,10 @@ export function emailValidator(field: AbstractControl): Validators | null {
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   public readonly state = input.required<State | null>();
+
+  public readonly formError = input.required<HttpStatusCode | null>();
 
   public readonly userLoggedIn = output<AuthDto>();
 
@@ -84,6 +87,10 @@ export class LoginComponent {
     }),
   });
 
+  public ngOnInit(): void {
+    this.loginForm.get(LoginField.Password)?.setValidators(this.wrongPasswordValidator);
+  }
+
   public login(): void {
     tuiMarkControlAsTouchedAndValidate(this.loginForm);
 
@@ -95,4 +102,16 @@ export class LoginComponent {
 
     this.userLoggedIn.emit({ email, password });
   }
+
+  private wrongPasswordValidator = (control: AbstractControl): Validators | null => {
+    const error = this.formError();
+
+    if (error === HttpStatusCode.Unauthorized) {
+      return {
+        other: 'Invalid credentials',
+      };
+    }
+
+    return null;
+  };
 }

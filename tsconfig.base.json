@@ -37,7 +37,7 @@
       "@lifestyle-dashboard/widget-contracts": ["libs/shared/widget-contracts/src/index.ts"],
       "@lifestyle-dashboard/widget-name-pipe": ["libs/front/ui/widget-name-pipe/src/index.ts"],
       "@lifestyle-dashboard/widget-registry": ["libs/shared/widget-registry/src/index.ts"],
-      "header": ["libs/front/ui/header/src/index.ts"]
+      "@lifestyle-dashboard/header": ["libs/front/ui/header/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

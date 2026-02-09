@@ -1,1 +1,31 @@
-<p>Header works!</p>
+<div class="logo">
+  <tui-icon icon="@tui.leaf" class="icon" />
+  Lifeel
+</div>
+
+<button
+  appearance="outline"
+  type="button"
+  iconStart="@tui.user"
+  class="profile"
+  tuiIconButton
+  size="s"
+  [tuiAppearanceState]="openedDropdown ? 'active' : null"
+  [tuiDropdown]="dropdown"
+  [(tuiDropdownOpen)]="openedDropdown"
+  tuiDropdownDirection="bottom"
+>
+</button>
+
+<ng-template #dropdown>
+  <tui-data-list>
+    <tui-opt-group>
+      @for (link of links; track $index) {
+        <a [routerLink]="link.pathFragments">{{ link.label }}</a>
+      }
+    </tui-opt-group>
+    <tui-opt-group>
+      <button tuiButton type="button" (click)="logout()">Log out</button>
+    </tui-opt-group>
+  </tui-data-list>
+</ng-template>

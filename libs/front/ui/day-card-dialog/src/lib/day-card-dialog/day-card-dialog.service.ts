@@ -25,8 +25,6 @@ export class DayCardDialogService {
   public readonly $widgetOptions = computed(() => {
     const config = this.$config();
 
-    console.log('config in widgetOptions:', config);
-
     if (!config) {
       return [];
     }
