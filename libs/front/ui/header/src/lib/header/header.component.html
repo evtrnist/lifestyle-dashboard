@@ -14,14 +14,22 @@
   [tuiDropdown]="dropdown"
   [(tuiDropdownOpen)]="openedDropdown"
   tuiDropdownDirection="bottom"
->
-</button>
+  aria-label="navigation"
+></button>
 
 <ng-template #dropdown>
   <tui-data-list>
     <tui-opt-group>
       @for (link of links; track $index) {
-        <a [routerLink]="link.pathFragments">{{ link.label }}</a>
+        <a
+          role="menuitemradio"
+          #rla="routerLinkActive"
+          routerLinkActive
+          tuiOption
+          [attr.aria-checked]="rla.isActive"
+          [routerLink]="link.pathFragments"
+          >{{ link.label }}</a
+        >
       }
     </tui-opt-group>
     <tui-opt-group>

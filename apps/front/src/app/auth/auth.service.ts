@@ -66,6 +66,24 @@ export class AuthService {
       });
   }
 
+  public logout(): void {
+    this.api
+      .logout()
+      .pipe(
+        catchError((err) => {
+          console.warn('Logout failed', err);
+
+          this.authState.set(err.status);
+
+          return EMPTY;
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe(() => {
+        this.authState.set(null);
+      });
+  }
+
   private navigateToDashboard(): void {
     this.router.navigate(['/', 'dashboard']);
   }
