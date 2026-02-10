@@ -18,7 +18,6 @@ enum AuthState {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, TuiTabs, LoginComponent, SignUpComponent],
-  providers: [AuthService],
 })
 export class AuthComponent {
   private readonly authService = inject(AuthService);

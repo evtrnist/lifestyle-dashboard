@@ -2,10 +2,11 @@ import { AsyncPipe } from '@angular/common';
 import { HttpStatusCode } from '@angular/common/http';
 import { ChangeDetectionStrategy, Component, computed, input, OnInit, output } from '@angular/core';
 import {
-  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
+  ValidationErrors,
+  ValidatorFn,
   Validators,
 } from '@angular/forms';
 import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
@@ -14,37 +15,11 @@ import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { State } from '@lifestyle-dashboard/state';
 import { AuthDto } from '../auth.dto';
 
-const PASSWORD_MIN_LENGTH = 7;
+export const PASSWORD_MIN_LENGTH = 7;
 
 enum LoginField {
   Email = 'email',
   Password = 'password',
-}
-
-// make global
-export function requiredValidator(field: AbstractControl): Validators | null {
-  return field.value
-    ? null
-    : {
-        other: 'The field is required',
-      };
-}
-
-export function passwordLengthValidator(field: AbstractControl): Validators | null {
-  return field.value && field.value.length >= PASSWORD_MIN_LENGTH
-    ? null
-    : {
-        other: 'The password must be at least 7 characters long',
-      };
-}
-
-export function emailValidator(field: AbstractControl): Validators | null {
-  const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-  return emailPattern.test(field.value)
-    ? null
-    : {
-        other: 'Invalid email format',
-      };
 }
 
 @Component({
@@ -79,11 +54,11 @@ export class LoginComponent implements OnInit {
   protected readonly loginForm = new FormGroup({
     [LoginField.Email]: new FormControl('', {
       nonNullable: true,
-      validators: [requiredValidator, emailValidator],
+      validators: [Validators.required, Validators.email],
     }),
     [LoginField.Password]: new FormControl('', {
       nonNullable: true,
-      validators: [requiredValidator, passwordLengthValidator],
+      validators: [Validators.required, Validators.minLength(PASSWORD_MIN_LENGTH)],
     }),
   });
 
@@ -103,15 +78,17 @@ export class LoginComponent implements OnInit {
     this.userLoggedIn.emit({ email, password });
   }
 
-  private wrongPasswordValidator = (control: AbstractControl): Validators | null => {
-    const error = this.formError();
+  private wrongPasswordValidator(): ValidatorFn {
+    return (): ValidationErrors | null => {
+      const error = this.formError();
 
-    if (error === HttpStatusCode.Unauthorized) {
-      return {
-        other: 'Invalid credentials',
-      };
-    }
+      if (error === HttpStatusCode.Unauthorized) {
+        return {
+          other: 'Invalid credentials',
+        };
+      }
 
-    return null;
-  };
+      return null;
+    };
+  }
 }

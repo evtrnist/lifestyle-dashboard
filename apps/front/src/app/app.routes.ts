@@ -14,13 +14,11 @@ export const appRoutes: Route[] = [
           import('./dashboard/dashboard.component').then(
             (component) => component.DashboardComponent,
           ),
-        canActivate: [authGuard],
       },
       {
         path: 'settings',
         loadComponent: () =>
           import('./settings/settings.component').then((component) => component.SettingsComponent),
-        canActivate: [authGuard],
         children: [
           {
             path: '',

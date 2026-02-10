@@ -21,6 +21,7 @@
       "@lifestyle-dashboard/day-card-dialog": ["libs/front/ui/day-card-dialog/src/index.ts"],
       "@lifestyle-dashboard/day-data": ["libs/shared/day-data/src/index.ts"],
       "@lifestyle-dashboard/dynamic-host": ["libs/front/ui/dynamic-host/src/index.ts"],
+      "@lifestyle-dashboard/header": ["libs/front/ui/header/src/index.ts"],
       "@lifestyle-dashboard/lifestyle-widget-config-service": [
         "libs/front/api/lifestyle-widget-config-service/src/index.ts"
       ],
@@ -36,8 +37,7 @@
       "@lifestyle-dashboard/waketime-widget": ["libs/front/ui/waketime-widget/src/index.ts"],
       "@lifestyle-dashboard/widget-contracts": ["libs/shared/widget-contracts/src/index.ts"],
       "@lifestyle-dashboard/widget-name-pipe": ["libs/front/ui/widget-name-pipe/src/index.ts"],
-      "@lifestyle-dashboard/widget-registry": ["libs/shared/widget-registry/src/index.ts"],
-      "@lifestyle-dashboard/header": ["libs/front/ui/header/src/index.ts"]
+      "@lifestyle-dashboard/widget-registry": ["libs/shared/widget-registry/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

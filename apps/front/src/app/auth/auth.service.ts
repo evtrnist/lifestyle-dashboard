@@ -7,7 +7,7 @@ import { State } from '@lifestyle-dashboard/state';
 import { AuthApiService } from './auth-api.service';
 import { AuthDto } from './auth.dto';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly api = inject(AuthApiService);
 
