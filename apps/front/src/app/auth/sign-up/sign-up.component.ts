@@ -7,6 +7,7 @@ import {
   ReactiveFormsModule,
   ValidationErrors,
   ValidatorFn,
+  Validators,
 } from '@angular/forms';
 import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
 import {
@@ -20,11 +21,7 @@ import {
 import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { State } from '@lifestyle-dashboard/state';
 import { AuthDto } from '../auth.dto';
-import {
-  emailValidator,
-  passwordLengthValidator,
-  requiredValidator,
-} from '../login/login.component';
+import { PASSWORD_MIN_LENGTH } from '../login/login.component';
 
 function repeatPasswordValidatorFactory(form: FormGroup): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -74,15 +71,15 @@ export class SignUpComponent implements OnInit {
   protected readonly signUpForm = new FormGroup({
     [SignUpField.Email]: new FormControl('', {
       nonNullable: true,
-      validators: [requiredValidator, emailValidator],
+      validators: [Validators.required, Validators.email],
     }),
     [SignUpField.Password]: new FormControl('', {
       nonNullable: true,
-      validators: [requiredValidator, passwordLengthValidator],
+      validators: [Validators.required, Validators.minLength(PASSWORD_MIN_LENGTH)],
     }),
     [SignUpField.RepeatPassword]: new FormControl('', {
       nonNullable: true,
-      validators: [requiredValidator],
+      validators: [Validators.required],
     }),
   });
 

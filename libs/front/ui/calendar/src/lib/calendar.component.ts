@@ -32,7 +32,9 @@ export class CalendarComponent implements OnInit {
   private readonly lifestyleWidgetDataService = inject(LifestyleWidgetDataService);
   public readonly $config = input.required<Config | null>({ alias: 'config' });
 
-  public readonly $dayOpenRequest = output<DayCardDialogContext>({ alias: 'dayOpenRequest' });
+  public readonly $dayOpenRequest = output<DayCardDialogContext>({
+    alias: 'dayOpenRequest',
+  });
 
   protected $currentDate = signal(new Date());
   protected $daysInMonth = signal<(Date | null)[]>([]);

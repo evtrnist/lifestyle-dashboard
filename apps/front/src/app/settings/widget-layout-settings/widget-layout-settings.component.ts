@@ -86,15 +86,19 @@ export class WidgetLayoutSettingsComponent {
 
   public readonly stringify = (x: WidgetOptions): string => x.label;
 
-  private readonly $selectedWidget = signal<{ slot: Slot; options: WidgetOptions | null } | null>(
-    null,
-  );
+  private readonly $selectedWidget = signal<{
+    slot: Slot;
+    options: WidgetOptions | null;
+  } | null>(null);
 
   /**
    * Comparator to maintain insertion order in ngFor with KeyValuePipe.
    * Parameters are intentionally unused.
    */
-  public readonly keepOrder = (_a: KeyValue<Slot, unknown>, _b: KeyValue<Slot, unknown>): number => {
+  public readonly keepOrder = (
+    _a: KeyValue<Slot, unknown>,
+    _b: KeyValue<Slot, unknown>,
+  ): number => {
     return 0;
   };
 

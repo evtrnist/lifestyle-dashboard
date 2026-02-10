@@ -7,7 +7,7 @@ import { State } from '@lifestyle-dashboard/state';
 import { AuthApiService } from './auth-api.service';
 import { AuthDto } from './auth.dto';
 
-@Injectable()
+@Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly api = inject(AuthApiService);
 
@@ -16,6 +16,8 @@ export class AuthService {
   private readonly router = inject(Router);
 
   public readonly authState = signal<State | null>(null);
+
+  public readonly formError = signal<HttpStatusCode | null>(null);
 
   public setState(state: State | null): void {
     this.authState.set(state);
@@ -51,11 +53,7 @@ export class AuthService {
         catchError((err) => {
           console.warn('Sign up failed', err);
 
-          if (err.status === HttpStatusCode.Conflict) {
-            this.authState.set(State.Conflict);
-          } else {
-            this.authState.set(State.Error);
-          }
+          this.authState.set(err.status);
 
           return EMPTY;
         }),
@@ -65,6 +63,24 @@ export class AuthService {
         this.authState.set(State.Success);
 
         this.navigateToDashboard();
+      });
+  }
+
+  public logout(): void {
+    this.api
+      .logout()
+      .pipe(
+        catchError((err) => {
+          console.warn('Logout failed', err);
+
+          this.authState.set(err.status);
+
+          return EMPTY;
+        }),
+        takeUntilDestroyed(this.destroyRef),
+      )
+      .subscribe(() => {
+        this.authState.set(null);
       });
   }
 

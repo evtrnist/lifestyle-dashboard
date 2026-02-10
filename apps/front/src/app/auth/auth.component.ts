@@ -18,7 +18,6 @@ enum AuthState {
   standalone: true,
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [ReactiveFormsModule, TuiTabs, LoginComponent, SignUpComponent],
-  providers: [AuthService],
 })
 export class AuthComponent {
   private readonly authService = inject(AuthService);
@@ -30,6 +29,8 @@ export class AuthComponent {
   protected readonly $formMode = signal<AuthState>(AuthState.Login);
 
   protected readonly state = this.authService.authState;
+
+  protected readonly formError = this.authService.formError;
 
   protected openForm(state: AuthState): void {
     this.$formMode.set(state);

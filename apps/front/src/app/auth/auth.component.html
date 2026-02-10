@@ -5,7 +5,7 @@
 
 @switch ($formMode()) {
   @case (AuthState.Login) {
-    <app-login [state]="state()" (userLoggedIn)="login($event)" />
+    <app-login [formError]="formError()" [state]="state()" (userLoggedIn)="login($event)" />
   }
   @case (AuthState.SignUp) {
     <app-sign-up [state]="state()" (userSignedUp)="signUp($event)" />

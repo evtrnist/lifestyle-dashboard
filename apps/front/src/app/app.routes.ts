@@ -1,30 +1,38 @@
 import { Route } from '@angular/router';
+import { AppLayoutComponent } from './app-layout.component';
 import { authGuard } from './auth/auth.guard';
 
 export const appRoutes: Route[] = [
   {
-    path: 'dashboard',
-    loadComponent: () =>
-      import('./dashboard/dashboard.component').then((component) => component.DashboardComponent),
-    canActivate: [authGuard],
-  },
-  {
-    path: 'settings',
-    loadComponent: () =>
-      import('./settings/settings.component').then((component) => component.SettingsComponent),
+    path: '',
+    component: AppLayoutComponent,
     canActivate: [authGuard],
     children: [
       {
-        path: '',
-        redirectTo: 'widget-layout',
-        pathMatch: 'full',
+        path: 'dashboard',
+        loadComponent: () =>
+          import('./dashboard/dashboard.component').then(
+            (component) => component.DashboardComponent,
+          ),
       },
       {
-        path: 'widget-layout',
+        path: 'settings',
         loadComponent: () =>
-          import('./settings/widget-layout-settings/widget-layout-settings.component').then(
-            (component) => component.WidgetLayoutSettingsComponent,
-          ),
+          import('./settings/settings.component').then((component) => component.SettingsComponent),
+        children: [
+          {
+            path: '',
+            redirectTo: 'widget-layout',
+            pathMatch: 'full',
+          },
+          {
+            path: 'widget-layout',
+            loadComponent: () =>
+              import('./settings/widget-layout-settings/widget-layout-settings.component').then(
+                (component) => component.WidgetLayoutSettingsComponent,
+              ),
+          },
+        ],
       },
     ],
   },

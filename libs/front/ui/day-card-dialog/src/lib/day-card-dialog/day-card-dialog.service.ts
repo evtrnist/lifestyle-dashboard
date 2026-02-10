@@ -25,8 +25,6 @@ export class DayCardDialogService {
   public readonly $widgetOptions = computed(() => {
     const config = this.$config();
 
-    console.log('config in widgetOptions:', config);
-
     if (!config) {
       return [];
     }
@@ -39,7 +37,11 @@ export class DayCardDialogService {
   });
 
   public save(date: Date, widgetType: WidgetType, data: unknown): void {
-    console.log('Saving data for', { date: date.toLocaleDateString('sv-SE'), widgetType, data });
+    console.log('Saving data for', {
+      date: date.toLocaleDateString('sv-SE'),
+      widgetType,
+      data,
+    });
 
     this.lifestyleWidgetDataService
       .saveDateData$(date.toLocaleDateString('sv-SE'), widgetType, data)

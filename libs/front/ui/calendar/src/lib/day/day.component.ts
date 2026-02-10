@@ -18,7 +18,9 @@ export class DayComponent {
 
   public readonly $config = input.required<Config | null>({ alias: 'config' });
 
-  public readonly $dayData = input.required<DayWidgetData | null>({ alias: 'dayData' });
+  public readonly $dayData = input.required<DayWidgetData | null>({
+    alias: 'dayData',
+  });
 
   public readonly $slotWidgetMap = computed<Record<Slot, WidgetOptions | null>>(() => {
     const config = this.$config();

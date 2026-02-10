@@ -85,7 +85,12 @@ export class DayDataService {
         day_unique: { userId, widgetType, date: ymdToUTCDate(dateYmd) },
       },
       update: { data: widgetData },
-      create: { userId, widgetType, date: ymdToUTCDate(dateYmd), data: widgetData },
+      create: {
+        userId,
+        widgetType,
+        date: ymdToUTCDate(dateYmd),
+        data: widgetData,
+      },
     });
 
     // нормализуем ответ под фронт: "YYYY-MM-DD" вместо Date

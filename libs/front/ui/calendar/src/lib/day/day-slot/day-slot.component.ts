@@ -23,9 +23,13 @@ import { WidgetOptions } from '@lifestyle-dashboard/widget-contracts';
 export class DaySlotComponent {
   private readonly injector = inject(Injector);
 
-  public readonly $widget = input.required<WidgetOptions | null>({ alias: 'widget' });
+  public readonly $widget = input.required<WidgetOptions | null>({
+    alias: 'widget',
+  });
 
-  public readonly $dayData = input.required<DayWidgetData | null>({ alias: 'dayData' });
+  public readonly $dayData = input.required<DayWidgetData | null>({
+    alias: 'dayData',
+  });
 
   protected readonly $widgetInjector = computed<Injector | null>(() => {
     const widget = this.$widget();
