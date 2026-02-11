@@ -1,4 +1,9 @@
 import {
+  SPORT_ACTIVITIES_WIDGET_TOKEN,
+  SportActivitiesSettingsWidgetComponent,
+  SportActivitiesWidgetComponent,
+} from '@lifestyle-dashboard/sport-activities-widget';
+import {
   TIMETRACKER_WIDGET_TOKEN,
   TimetrackerSettingsWidgetComponent,
   TimetrackerWidgetComponent,
@@ -36,5 +41,12 @@ export const WidgetRegistry: Record<WidgetType, WidgetOptions> = {
     token: TODOS_WIDGET_TOKEN,
     label: 'Todos list',
     key: WidgetType.ToDos,
+  },
+  [WidgetType.SportActivities]: {
+    component: SportActivitiesWidgetComponent,
+    settingsComponent: SportActivitiesSettingsWidgetComponent,
+    token: SPORT_ACTIVITIES_WIDGET_TOKEN,
+    label: 'Sport Activities',
+    key: WidgetType.SportActivities,
   },
 };
