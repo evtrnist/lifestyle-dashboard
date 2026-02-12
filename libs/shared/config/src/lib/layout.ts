@@ -7,6 +7,7 @@ export interface Layout {
   [Slot.MiddleLeft]: WidgetType | null;
   [Slot.Middle]: WidgetType | null;
   [Slot.MiddleRight]: WidgetType | null;
+  [Slot.MiddleRow]: WidgetType | null;
   [Slot.BottomLeft]: WidgetType | null;
   [Slot.BottomMiddle]: WidgetType | null;
   [Slot.BottomRight]: WidgetType | null;

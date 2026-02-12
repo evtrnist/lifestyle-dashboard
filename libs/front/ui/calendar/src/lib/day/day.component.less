@@ -26,11 +26,6 @@
   align-items: center;
 }
 
-.top-row,
-.middle-row,
-.bottom-row {
-  display: flex;
-}
 
 .top-left,
 .top-middle,
@@ -38,6 +33,7 @@
 .middle-left,
 .middle,
 .middle-right,
+.middle-row,
 .bottom-left,
 .bottom-middle,
 .bottom-right {
@@ -80,6 +76,11 @@
 
 .middle-right {
   grid-column: 3/3;
+  grid-row: 2/2;
+}
+
+.middle-row {
+  grid-column: 1/3;
   grid-row: 2/2;
 }
 

@@ -31,7 +31,7 @@ export class DayComponent {
       [Slot.MiddleLeft]: null,
       [Slot.Middle]: null,
       [Slot.MiddleRight]: null,
-
+      [Slot.MiddleRow]: null,
       [Slot.BottomLeft]: null,
       [Slot.BottomMiddle]: null,
       [Slot.BottomRight]: null,

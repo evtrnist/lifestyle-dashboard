@@ -1,6 +1,4 @@
 export interface SportActivitiesWidgetInput {
   size: string;
-  data: {
-    activities: string[];
-  };
+  data: string[];
 }
