@@ -31,5 +31,5 @@ export class TodosWidgetComponent {
 
   public readonly $color = computed(() => (this.widgetData()?.data ? ACTIVE_COLOR : GREY_COLOR));
 
-  public readonly $totalRange = computed(() => Array(this.$totalCount()));
+  public readonly $additionalRange = computed(() => Array(this.$additionCount()));
 }

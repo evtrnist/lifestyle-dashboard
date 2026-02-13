@@ -1,0 +1,23 @@
+@for (control of form.controls; track $index) {
+  <div class="activity-field">
+    <tui-textfield class="input">
+      <input [formControl]="control" placeholder="Type an activity" tuiTextfield />
+    </tui-textfield>
+    <button
+      appearance="secondary-destructive"
+      iconStart="@tui.trash"
+      size="xs"
+      tuiIconButton
+      type="button"
+      [style.border-radius.%]="100"
+      (click)="removeActivity($index)"
+    >
+      Delete
+    </button>
+  </div>
+}
+
+<button appearance="secondary" size="m" tuiButton type="button" (click)="addActivity()">
+  <tui-icon icon="@tui.circle-plus" [style.height.rem]="1" />
+  Add activity
+</button>
