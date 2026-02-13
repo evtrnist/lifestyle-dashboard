@@ -5,7 +5,6 @@
 @let middleLeftWidget = slotWidgetMap[Slot.MiddleLeft];
 @let middleWidget = slotWidgetMap[Slot.Middle];
 @let middleRightWidget = slotWidgetMap[Slot.MiddleRight];
-@let middleRow = slotWidgetMap[Slot.MiddleRow];
 @let bottomLeftWidget = slotWidgetMap[Slot.BottomLeft];
 @let bottomMiddleWidget = slotWidgetMap[Slot.BottomMiddle];
 @let bottomRightWidget = slotWidgetMap[Slot.BottomRight];
@@ -29,28 +28,21 @@
     </div>
 
     <!-- Средние слоты -->
-
-    @if (middleRow && dayData) {
-      <div class="slot middle-row">
-        <lifestyle-day-slot [dayData]="dayData" [widget]="middleRow"></lifestyle-day-slot>
-      </div>
-    } @else {
-      <div class="slot middle-left">
-        @if (middleLeftWidget && dayData) {
-          <lifestyle-day-slot [dayData]="dayData" [widget]="middleLeftWidget"></lifestyle-day-slot>
-        }
-      </div>
-      <div class="slot middle">
-        @if (middleWidget && dayData) {
-          <lifestyle-day-slot [dayData]="dayData" [widget]="middleWidget"></lifestyle-day-slot>
-        }
-      </div>
-      <div class="slot middle-right">
-        @if (middleRightWidget && dayData) {
-          <lifestyle-day-slot [dayData]="dayData" [widget]="middleRightWidget"></lifestyle-day-slot>
-        }
-      </div>
-    }
+    <div class="slot middle-left">
+      @if (middleLeftWidget && dayData) {
+        <lifestyle-day-slot [dayData]="dayData" [widget]="middleLeftWidget"></lifestyle-day-slot>
+      }
+    </div>
+    <div class="slot middle">
+      @if (middleWidget && dayData) {
+        <lifestyle-day-slot [dayData]="dayData" [widget]="middleWidget"></lifestyle-day-slot>
+      }
+    </div>
+    <div class="slot middle-right">
+      @if (middleRightWidget && dayData) {
+        <lifestyle-day-slot [dayData]="dayData" [widget]="middleRightWidget"></lifestyle-day-slot>
+      }
+    </div>
 
     <!-- Нижние слоты -->
     <div class="slot bottom-left">

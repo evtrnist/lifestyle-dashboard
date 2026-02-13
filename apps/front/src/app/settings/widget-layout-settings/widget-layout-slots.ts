@@ -38,13 +38,6 @@ export const WIDGET_LAYOUT_SLOT_MAP: Record<Slot, WidgetLayoutSlot> = {
     value: null,
     label: '',
   },
-  [Slot.MiddleRow]: {
-    title: 'Middle Row',
-    description:
-      'Middle row section of the calendar day (will replace Middle, Middle Left and Middle Right)',
-    value: null,
-    label: '',
-  },
   [Slot.MiddleRight]: {
     title: 'Middle Right',
     description: 'Middle right section of the calendar day',
