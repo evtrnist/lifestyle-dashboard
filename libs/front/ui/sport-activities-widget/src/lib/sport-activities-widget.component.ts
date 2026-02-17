@@ -18,5 +18,5 @@ export class SportActivitiesWidgetComponent {
 
   public readonly $size = computed(() => this.widgetData()?.size as TuiAvatar['size']);
 
-  public readonly $activities = computed(() => this.widgetData()?.data);
+  public readonly $activities = computed(() => this.widgetData()?.data ?? []);
 }
