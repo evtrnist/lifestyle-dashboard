@@ -1,12 +1,14 @@
+import { MaskitoTimeMode } from '@maskito/kit';
 import { Pipe, PipeTransform } from '@angular/core';
-import { TuiTime, TuiTimeMode } from '@taiga-ui/cdk';
+import { TuiTime } from '@taiga-ui/cdk';
 
 @Pipe({
   name: 'time',
 })
 export class TimePipe implements PipeTransform {
-  public transform(value: TuiTime, ...formats: TuiTimeMode[]): string {
+  public transform({ hours, minutes }: TuiTime, ...formats: MaskitoTimeMode[]): string {
     const format = formats[0] || 'HH:MM';
-    return value.toString(format);
+
+    return new TuiTime(hours, minutes).toString(format);
   }
 }

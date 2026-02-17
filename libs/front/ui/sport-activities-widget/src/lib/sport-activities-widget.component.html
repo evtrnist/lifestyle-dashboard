@@ -1,0 +1,12 @@
+@let size = $size();
+
+@for (activity of $activities(); track $index) {
+  @if (activity) {
+    <div [class]="`activity ${size}`">
+      <tui-avatar class="icon" [size]="size" [tuiHint]="activity.comment">
+        {{ activity.emoji }}
+      </tui-avatar>
+      <span>{{ activity.duration | time }}</span>
+    </div>
+  }
+}

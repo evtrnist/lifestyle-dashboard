@@ -13,7 +13,6 @@ import { TuiTabs } from '@taiga-ui/kit';
 import { injectContext } from '@taiga-ui/polymorpheus';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
 import { DayWidgetData } from '@lifestyle-dashboard/lifestyle-widget-data-service';
-import { TimeTrackerWidgetInput } from '@lifestyle-dashboard/timetracker-widget';
 import { WidgetSettingsComponent, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetIconPipe, WidgetNamePipe } from '@lifestyle-dashboard/widget-name-pipe';
 import { DayCardDialogService } from './day-card-dialog.service';
