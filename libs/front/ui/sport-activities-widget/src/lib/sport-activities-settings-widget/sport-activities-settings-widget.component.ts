@@ -1,6 +1,6 @@
 import { type MaskitoTimeMode } from '@maskito/kit';
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
-import { FormArray, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiTime } from '@taiga-ui/cdk';
 import { TuiButton, TuiIcon, TuiTextfield } from '@taiga-ui/core';
 import { TuiInputTime } from '@taiga-ui/kit';
@@ -10,11 +10,12 @@ import { SPORT_ACTIVITIES_WIDGET_TOKEN } from '../sport-activities-widget.token'
 
 type ActivityField = 'emoji' | 'duration' | 'comment';
 
-const INITIAL_ACTIVITY: Record<ActivityField, string | TuiTime> = {
-  emoji: '',
-  duration: new TuiTime(1, 0),
-  comment: '',
-};
+const INITIAL_ACTIVITY: Record<Exclude<ActivityField, 'duration'>, string> & { duration: TuiTime } =
+  {
+    emoji: '',
+    duration: new TuiTime(1, 0),
+    comment: '',
+  };
 
 type ActivityGroup = FormGroup<{
   emoji: FormControl<string>;
@@ -46,7 +47,10 @@ export class SportActivitiesSettingsWidgetComponent implements WidgetSettingsCom
     if (activities && activities.length) {
       activities.forEach((activity) => {
         const group = new FormGroup({
-          emoji: new FormControl<string>(activity.emoji, { nonNullable: true }),
+          emoji: new FormControl<string>(activity.emoji, {
+            nonNullable: true,
+            validators: [Validators.pattern(/^\p{Extended_Pictographic}+$/u)],
+          }),
           duration: new FormControl<TuiTime>(
             new TuiTime(activity.duration.hours, activity.duration.minutes),
             { nonNullable: true },
