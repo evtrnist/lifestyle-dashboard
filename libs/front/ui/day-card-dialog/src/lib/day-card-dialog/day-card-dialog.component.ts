@@ -103,8 +103,6 @@ export class DayCardDialogComponent {
   protected save(widgetType: WidgetType): void {
     const form = this.settingsInstance()?.form;
 
-    console.log('Saving widget data. Form:', form, 'Widget type:', widgetType);
-
     if (!form || form.invalid) {
       return;
     }
