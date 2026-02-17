@@ -1,8 +1,30 @@
-@for (control of form.controls; track $index) {
-  <div class="activity-field">
-    <tui-textfield class="input">
-      <input [formControl]="control" placeholder="Type an activity" tuiTextfield />
-    </tui-textfield>
+<button appearance="secondary" size="m" tuiButton type="button" (click)="addActivity()">
+  <tui-icon icon="@tui.circle-plus" [style.height.rem]="1" />
+  Add activity
+</button>
+
+@for (group of form.controls; track $index) {
+  <div class="activity">
+    <div class="activity-container">
+      <div class="fields-container">
+        <tui-textfield class="field">
+          <input [formControl]="group.controls.emoji" placeholder="Emoji" tuiTextfield />
+        </tui-textfield>
+
+        <tui-textfield class="field">
+          <input
+            tuiInputTime
+            [mode]="mode"
+            [formControl]="group.controls.duration"
+            placeholder="Duration"
+          />
+        </tui-textfield>
+      </div>
+
+      <tui-textfield class="field">
+        <input [formControl]="group.controls.comment" placeholder="Comment" tuiTextfield />
+      </tui-textfield>
+    </div>
     <button
       appearance="secondary-destructive"
       iconStart="@tui.trash"
@@ -16,8 +38,3 @@
     </button>
   </div>
 }
-
-<button appearance="secondary" size="m" tuiButton type="button" (click)="addActivity()">
-  <tui-icon icon="@tui.circle-plus" [style.height.rem]="1" />
-  Add activity
-</button>

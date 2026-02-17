@@ -12,10 +12,15 @@
     @let settingsComponent = shownWidget.settingsComponent;
     @let injector = $widgetInjector();
 
-    <lib-dynamic-host [component]="component" [injector]="injector"></lib-dynamic-host>
+    <lib-dynamic-host
+      class="preview"
+      [component]="component"
+      [injector]="injector"
+    ></lib-dynamic-host>
 
     @if (settingsComponent) {
       <lib-dynamic-host
+        class="settings"
         [component]="settingsComponent"
         [injector]="injector"
         (init)="onSettingsInit($event)"
