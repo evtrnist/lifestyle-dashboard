@@ -76,6 +76,7 @@ export class SportActivitiesSettingsWidgetComponent implements WidgetSettingsCom
     return new FormGroup({
       emoji: new FormControl<string>(INITIAL_ACTIVITY.emoji as string, {
         nonNullable: true,
+        validators: [Validators.pattern(/^\p{Extended_Pictographic}+$/u)],
       }),
       duration: new FormControl<TuiTime>(INITIAL_ACTIVITY.duration as TuiTime, {
         nonNullable: true,
