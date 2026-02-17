@@ -55,15 +55,7 @@ export class TimetrackerSettingsWidgetComponent implements WidgetSettingsCompone
     const formGroup = new FormGroup({});
     const widgetData = this.widgetData().data;
 
-    console.log('widgetData in buildFormGroup', widgetData);
-
     keys.forEach((key) => {
-      console.log(
-        'building control for key',
-        key,
-        widgetData,
-        INITIAL_TIME_TRACKER_WIDGET_INPUT[key],
-      );
       const seconds = widgetData ? widgetData?.[key] : INITIAL_TIME_TRACKER_WIDGET_INPUT[key];
 
       formGroup.addControl(key, new FormControl<number | null>(seconds));
