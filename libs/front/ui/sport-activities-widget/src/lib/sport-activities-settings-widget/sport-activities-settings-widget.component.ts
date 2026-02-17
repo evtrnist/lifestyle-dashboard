@@ -74,14 +74,14 @@ export class SportActivitiesSettingsWidgetComponent implements WidgetSettingsCom
 
   private getEmptyActivityGroup(): ActivityGroup {
     return new FormGroup({
-      emoji: new FormControl<string>(INITIAL_ACTIVITY.emoji as string, {
+      emoji: new FormControl<string>(INITIAL_ACTIVITY.emoji, {
         nonNullable: true,
         validators: [Validators.pattern(/^\p{Extended_Pictographic}+$/u)],
       }),
-      duration: new FormControl<TuiTime>(INITIAL_ACTIVITY.duration as TuiTime, {
+      duration: new FormControl<TuiTime>(INITIAL_ACTIVITY.duration, {
         nonNullable: true,
       }),
-      comment: new FormControl<string>(INITIAL_ACTIVITY.comment as string, {
+      comment: new FormControl<string>(INITIAL_ACTIVITY.comment, {
         nonNullable: true,
       }),
     });
