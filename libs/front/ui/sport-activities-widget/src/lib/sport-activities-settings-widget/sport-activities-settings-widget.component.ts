@@ -23,7 +23,7 @@ type ActivityGroup = FormGroup<{
 }>;
 
 @Component({
-  selector: 'lifestyle-dashboard-sport-activities-widget',
+  selector: 'lifestyle-dashboard-sport-activities-settings-widget',
   imports: [ReactiveFormsModule, TuiButton, TuiIcon, TuiTextfield, TuiInputTime],
   templateUrl: './sport-activities-settings-widget.component.html',
   styleUrls: ['./sport-activities-settings-widget.component.less'],
