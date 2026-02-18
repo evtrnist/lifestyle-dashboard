@@ -1,0 +1,11 @@
+<div [formGroup]="form">
+  <tui-textfield>
+    <label for="eaten-calories" tuiLabel>Eaten Calories</label>
+
+    <input id="eaten-calories" tuiInputNumber formControlName="eaten" />
+  </tui-textfield>
+  <tui-textfield>
+    <label for="burned-calories" tuiLabel>Burned Calories</label>
+    <input id="burned-calories" tuiInputNumber formControlName="burned" />
+  </tui-textfield>
+</div>

@@ -1,0 +1,17 @@
+@let caloriesData = $caloriesData();
+
+@if (caloriesData) {
+  <div [class]="`calories ${$caloriesColor()}`" tuiHint tuiHintDirection="right">
+    {{ caloriesData.eaten - caloriesData.burned }}
+    <tui-hint *tuiHint class="hint" [@.disabled]="true">
+      <div class="hint">
+        <span class="hint-label">Eaten:</span>
+        <span class="hint-value">{{ caloriesData.eaten }}</span>
+      </div>
+      <div class="hint-item">
+        <span class="hint-label">Burned:</span>
+        <span class="hint-value">{{ caloriesData.burned }}</span>
+      </div>
+    </tui-hint>
+  </div>
+}

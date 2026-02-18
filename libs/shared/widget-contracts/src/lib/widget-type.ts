@@ -3,4 +3,5 @@ export enum WidgetType {
   WakeTime = 'waketime',
   ToDos = 'todos',
   SportActivities = 'sport-activities',
+  Calories = 'calories',
 }
