@@ -127,15 +127,9 @@ export class CalendarComponent implements OnInit {
   }
 
   private updateDateInfo(date: Date): void {
-    const [currentMonth, currentYear] = [new Date().getMonth(), new Date().getFullYear()];
     const start = new Date(date.getFullYear(), date.getMonth(), 1, 0, 0, 0);
+    const end = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
 
-    if (date.getMonth() === currentMonth && date.getFullYear() === currentYear) {
-      this.getCalendarData(TuiDay.fromLocalNativeDate(start), TuiDay.currentLocal());
-    } else {
-      const end = new Date(date.getFullYear(), date.getMonth() + 1, 0, 23, 59, 59);
-
-      this.getCalendarData(TuiDay.fromLocalNativeDate(start), TuiDay.fromLocalNativeDate(end));
-    }
+    this.getCalendarData(TuiDay.fromLocalNativeDate(start), TuiDay.fromLocalNativeDate(end));
   }
 }

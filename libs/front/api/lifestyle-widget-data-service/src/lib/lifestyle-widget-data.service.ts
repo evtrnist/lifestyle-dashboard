@@ -30,7 +30,11 @@ export class LifestyleWidgetDataService {
     });
   }
 
-  public saveDateData$(date: string, widgetType: WidgetType, widgetData: unknown): Observable<any> {
+  public saveDateData$(
+    date: string,
+    widgetType: WidgetType,
+    widgetData: unknown,
+  ): Observable<unknown> {
     console.log('Saving date data from service:', {
       date,
       widgetType,
