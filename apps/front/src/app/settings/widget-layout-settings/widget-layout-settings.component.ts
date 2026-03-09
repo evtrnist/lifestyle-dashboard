@@ -121,8 +121,6 @@ export class WidgetLayoutSettingsComponent {
   }
 
   public selectWidget(options: WidgetOptions | null, slot: Slot): void {
-    console.log('Selected widget', options, 'for slot', slot);
-
     this.$selectedWidget.set({ slot, options });
   }
 }
