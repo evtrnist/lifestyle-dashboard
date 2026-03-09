@@ -3,8 +3,8 @@
 @if (caloriesData) {
   <div [class]="`calories ${$caloriesColor()}`" tuiHint tuiHintDirection="right">
     {{ caloriesData.eaten - caloriesData.burned }}
-    <tui-hint *tuiHint class="hint" [@.disabled]="true">
-      <div class="hint">
+    <tui-hint *tuiHint [@.disabled]="true">
+      <div>
         <span class="hint-label">Eaten:</span>
         <span class="hint-value">{{ caloriesData.eaten }}</span>
       </div>

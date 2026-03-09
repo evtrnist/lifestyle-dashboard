@@ -1,4 +1,4 @@
-import { Component, computed, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { TuiHint } from '@taiga-ui/core';
 import { CaloriesWidgetInput } from './calories-widget-input';
 import { CALORIES_WIDGET_TOKEN } from './calories-widget.token';
@@ -9,7 +9,8 @@ const CALORIES_BASE = 1650;
   selector: 'lifestyle-dashboard-calories-widget',
   imports: [TuiHint],
   templateUrl: './calories-widget.component.html',
-  styleUrl: './calories-widget.component.less',
+  styleUrls: ['./calories-widget.component.less'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CaloriesWidgetComponent {
   public readonly widgetData = inject<Signal<CaloriesWidgetInput>>(CALORIES_WIDGET_TOKEN);
