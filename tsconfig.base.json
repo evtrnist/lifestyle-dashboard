@@ -28,6 +28,9 @@
       "@lifestyle-dashboard/lifestyle-widget-data-service": [
         "libs/front/api/lifestyle-widget-data-service/src/index.ts"
       ],
+      "@lifestyle-dashboard/sport-activities-widget": [
+        "libs/front/ui/sport-activities-widget/src/index.ts"
+      ],
       "@lifestyle-dashboard/state": ["libs/shared/state/src/index.ts"],
       "@lifestyle-dashboard/time-pipe": ["libs/front/utils/time-pipe/src/index.ts"],
       "@lifestyle-dashboard/timetracker": ["libs/shared/timetracker/src/index.ts"],
@@ -38,7 +41,7 @@
       "@lifestyle-dashboard/widget-contracts": ["libs/shared/widget-contracts/src/index.ts"],
       "@lifestyle-dashboard/widget-name-pipe": ["libs/front/ui/widget-name-pipe/src/index.ts"],
       "@lifestyle-dashboard/widget-registry": ["libs/shared/widget-registry/src/index.ts"],
-      "@lifestyle-dashboard/sport-activities-widget": ["libs/front/ui/sport-activities-widget/src/index.ts"]
+      "@lifestyle-dashboard/calories-widget": ["libs/front/ui/calories-widget/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

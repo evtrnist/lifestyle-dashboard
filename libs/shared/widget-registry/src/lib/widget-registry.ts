@@ -1,4 +1,9 @@
 import {
+  CALORIES_WIDGET_TOKEN,
+  CaloriesSettingsWidgetComponent,
+  CaloriesWidgetComponent,
+} from '@lifestyle-dashboard/calories-widget';
+import {
   SPORT_ACTIVITIES_WIDGET_TOKEN,
   SportActivitiesSettingsWidgetComponent,
   SportActivitiesWidgetComponent,
@@ -48,5 +53,12 @@ export const WidgetRegistry: Record<WidgetType, WidgetOptions> = {
     token: SPORT_ACTIVITIES_WIDGET_TOKEN,
     label: 'Sport Activities',
     key: WidgetType.SportActivities,
+  },
+  [WidgetType.Calories]: {
+    component: CaloriesWidgetComponent,
+    settingsComponent: CaloriesSettingsWidgetComponent,
+    token: CALORIES_WIDGET_TOKEN,
+    label: 'Calories',
+    key: WidgetType.Calories,
   },
 };

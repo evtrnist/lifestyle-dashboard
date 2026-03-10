@@ -5,4 +5,5 @@ export const WIDGET_NAME_REGISTRY: Record<WidgetType, { name: string; icon: stri
   [WidgetType.WakeTime]: { name: 'Wake Time', icon: '@tui.clock' },
   [WidgetType.ToDos]: { name: 'Todos List', icon: '@tui.list-todo' },
   [WidgetType.SportActivities]: { name: 'Sport Activities', icon: '@tui.dumbbell' },
+  [WidgetType.Calories]: { name: 'Calories', icon: '@tui.salad' },
 };
