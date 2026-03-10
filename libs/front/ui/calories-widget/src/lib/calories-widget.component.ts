@@ -21,6 +21,7 @@ export class CaloriesWidgetComponent {
 
   public readonly $caloriesColor = computed(() => {
     const caloriesData = this.$caloriesData();
+
     if (!caloriesData) {
       return '';
     }
