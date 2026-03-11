@@ -1,4 +1,7 @@
 name: lifestyle-dashboard
+region: ams
+features:
+  - buildpack-stack=ubuntu-22
 
 services:
   - name: api
@@ -12,6 +15,8 @@ services:
       repo: evtrnist/lifestyle-dashboard
       branch: main
       deploy_on_push: true
+    routes:
+      - path: /api
     envs:
       - key: DATABASE_URL
         scope: RUN_TIME
@@ -29,6 +34,8 @@ services:
       repo: evtrnist/lifestyle-dashboard
       branch: main
       deploy_on_push: true
+    routes:
+      - path: /
     envs:
       - key: API_URL
         scope: RUN_TIME
