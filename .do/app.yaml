@@ -8,12 +8,11 @@ services:
     instance_size_slug: basic-xxs
     envs:
       - key: DATABASE_URL
-        scope: RUN_AND_BUILD_TIME
-        value: ${db.DATABASE_URL}
+        scope: RUN_TIME
+        type: SECRET
       - key: JWT_SECRET
         scope: RUN_TIME
         type: SECRET
-        value: "REPLACE_ME"
 
   - name: front
     dockerfile_path: Dockerfile.front
@@ -26,9 +25,3 @@ services:
         value: "http://api:3000"
     routes:
       - path: /
-
-databases:
-  - name: db
-    engine: PG
-    version: "15"
-    production: true
