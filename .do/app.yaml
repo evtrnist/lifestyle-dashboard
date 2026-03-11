@@ -1,11 +1,14 @@
 name: lifestyle-dashboard
 
-services:
+workers:
   - name: api
     dockerfile_path: Dockerfile.api
-    http_port: 3000
     instance_count: 1
     instance_size_slug: basic-xxs
+    github:
+      repo: evtrnist/lifestyle-dashboard
+      branch: main
+      deploy_on_push: true
     envs:
       - key: DATABASE_URL
         scope: RUN_TIME
@@ -14,14 +17,17 @@ services:
         scope: RUN_TIME
         type: SECRET
 
+services:
   - name: front
     dockerfile_path: Dockerfile.front
     http_port: 80
     instance_count: 1
     instance_size_slug: basic-xxs
+    github:
+      repo: evtrnist/lifestyle-dashboard
+      branch: main
+      deploy_on_push: true
     envs:
       - key: API_URL
         scope: RUN_TIME
         value: "http://api:3000"
-    routes:
-      - path: /
