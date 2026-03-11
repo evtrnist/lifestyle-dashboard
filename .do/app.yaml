@@ -8,7 +8,8 @@ services:
     dockerfile_path: Dockerfile.api
     http_port: 3000
     health_check:
-      http_path: /api
+      http_path: /
+      initial_delay_seconds: 20
     instance_count: 1
     instance_size_slug: basic-xxs
     github:
