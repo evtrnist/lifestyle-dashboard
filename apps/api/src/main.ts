@@ -10,6 +10,8 @@ async function bootstrap(): Promise<void> {
   const port = process.env.PORT || 3000;
   const globalPrefix = process.env.API_PREFIX || '';
 
+  console.log('globalPrefix', globalPrefix);
+
   if (globalPrefix) {
     app.setGlobalPrefix(globalPrefix);
   }
