@@ -7,10 +7,12 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap(): Promise<void> {
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
   const port = process.env.PORT || 3000;
+  const globalPrefix = process.env.API_PREFIX || '';
 
-  app.setGlobalPrefix(globalPrefix);
+  if (globalPrefix) {
+    app.setGlobalPrefix(globalPrefix);
+  }
 
   app.useGlobalPipes(
     new ValidationPipe({
