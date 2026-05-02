@@ -1,12 +1,12 @@
 /**
  * Lifeel — Design Tokens (TypeScript)
  * ----------------------------------------------------------------------------
- * Auto-derived from tokens.css. Two layers:
+ * Auto-derived from tokens.less. Two layers:
  *   1. Primitives (raw values — don't use directly in app code)
  *   2. Semantics  (meaning-based — USE THESE in components)
  *
  * Usage in Angular:
- *   import { semanticTokens, cssVar } from '@/design/tokens';
+ *   import { semanticTokens, cssVar } from '@lifestyle-dashboard/ui-kit';
  *   const color = semanticTokens.color.accent.primary;  // '#8B6DF2'
  *   const cssReference = cssVar('color-accent-primary'); // 'var(--color-accent-primary)'
  *
@@ -65,7 +65,7 @@ export const primitives = {
   },
 } as const;
 
-// ─── SEMANTIC TOKENS (light — mirrors tokens.css :root) ──────────────────────
+// ─── SEMANTIC TOKENS (light — mirrors tokens.less :root) ──────────────────────
 export const semanticTokens = {
   color: {
     surface: {
