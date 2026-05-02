@@ -1,9 +1,14 @@
+// 1. Our tokens declare CSS variables on :root
+@import 'tokens';
+
+// 2. Taiga's own styles (will be overridden by the shim below)
 @import '@taiga-ui/core/styles/taiga-ui-local.less';
 
+// 3. The compat-shim from ui-kit (deleted in Phase 9)
+@import 'taiga-compat';
+
+// 4. App-specific custom variables remain
 :root {
-  --lifestyle-color: var(--tui-chart-categorical-15);
-  --lifestyle-color-hover: var(--tui-chart-categorical-16);
-  --tui-background-accent-1: var(--lifestyle-color);
-  --tui-background-accent-1-hover: var(--lifestyle-color-hover);
-  --tui-text-action: var(--lifestyle-color-hover);
+  --lifestyle-color: var(--color-accent-primary);
+  --lifestyle-color-hover: var(--color-accent-primary-hover);
 }
