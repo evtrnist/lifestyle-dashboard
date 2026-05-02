@@ -10,6 +10,9 @@ import { SPORT_ACTIVITIES_WIDGET_TOKEN } from '../sport-activities-widget.token'
 
 type ActivityField = 'emoji' | 'duration' | 'comment';
 
+const EMOJI_PATTERN =
+  /^(?:\p{Regional_Indicator}{2}|[#*0-9]\uFE0F?\u20E3|\p{Extended_Pictographic}(?:\uFE0F|\uFE0E)?(?:\p{Emoji_Modifier})?(?:\u200D\p{Extended_Pictographic}(?:\uFE0F|\uFE0E)?(?:\p{Emoji_Modifier})?)*)$/u;
+
 const INITIAL_ACTIVITY: Record<Exclude<ActivityField, 'duration'>, string> & { duration: TuiTime } =
   {
     emoji: '',
@@ -36,12 +39,15 @@ export class SportActivitiesSettingsWidgetComponent implements WidgetSettingsCom
 
   public readonly $activities = computed(() => this.widgetData()?.data);
 
-  public form!: FormArray<ActivityGroup>;
+  public form: FormArray<ActivityGroup>;
 
   protected readonly mode: MaskitoTimeMode = 'HH:MM';
 
-  public ngOnInit(): void {
+  constructor() {
     this.form = new FormArray<ActivityGroup>([]);
+  }
+
+  public ngOnInit(): void {
     const activities = this.$activities();
 
     if (activities && activities.length) {
@@ -49,7 +55,7 @@ export class SportActivitiesSettingsWidgetComponent implements WidgetSettingsCom
         const group = new FormGroup({
           emoji: new FormControl<string>(activity.emoji, {
             nonNullable: true,
-            validators: [Validators.pattern(/^\p{Extended_Pictographic}+$/u)],
+            validators: [Validators.pattern(EMOJI_PATTERN)],
           }),
           duration: new FormControl<TuiTime>(
             new TuiTime(activity.duration.hours, activity.duration.minutes),
@@ -76,7 +82,7 @@ export class SportActivitiesSettingsWidgetComponent implements WidgetSettingsCom
     return new FormGroup({
       emoji: new FormControl<string>(INITIAL_ACTIVITY.emoji, {
         nonNullable: true,
-        validators: [Validators.pattern(/^\p{Extended_Pictographic}+$/u)],
+        validators: [Validators.pattern(EMOJI_PATTERN)],
       }),
       duration: new FormControl<TuiTime>(INITIAL_ACTIVITY.duration, {
         nonNullable: true,
