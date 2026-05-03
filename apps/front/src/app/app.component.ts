@@ -1,6 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { TuiRoot } from '@taiga-ui/core';
+import { ThemeService } from '@lifestyle-dashboard/ui-kit';
 
 @Component({
   imports: [RouterOutlet, TuiRoot],
@@ -9,4 +10,7 @@ import { TuiRoot } from '@taiga-ui/core';
   templateUrl: './app.component.html',
   styleUrl: './app.component.less',
 })
-export class AppComponent {}
+export class AppComponent {
+  // to do delete
+  protected readonly themeService = inject(ThemeService);
+}
