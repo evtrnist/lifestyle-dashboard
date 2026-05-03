@@ -18,7 +18,7 @@ libs/front/ui-kit/src/lib/
 │   └── theme.service.ts     # light / dark switcher
 ├── components/              # atoms + molecules + dialog + tooltip
 ├── forms/                   # form utils (markAllControlsTouchedAndValidate)
-└── icons/                   # lf-icon over lucide-angular
+└── icons/                   # lifeel-icon over lucide-angular
 ```
 
 ## Quick start
@@ -61,15 +61,15 @@ No deep imports — only the public API at `src/index.ts`.
 ### Using a component
 
 ```html
-<button lfButton variant="primary" size="md" (click)="save()">Save</button>
+<button lifeelButton variant="primary" size="md" (click)="save()">Save</button>
 
-<lf-icon name="settings" />
+<lifeel-icon name="settings" />
 
-<lf-form-field>
+<lifeel-form-field>
   <span slot="label">Email</span>
-  <lf-textfield type="email" formControlName="email" />
+  <lifeel-textfield type="email" formControlName="email" />
   <span slot="error">Invalid email</span>
-</lf-form-field>
+</lifeel-form-field>
 ```
 
 ### Switching theme
@@ -123,7 +123,7 @@ Contract for any new primitive:
 1. **Standalone** — `standalone: true`. No `NgModule`.
 2. **OnPush** — `changeDetection: ChangeDetectionStrategy.OnPush`.
 3. **Signal-based API** — `input()`, `model()`, `output()` over `@Input()`/`@Output()`.
-4. **Selector convention** — element + attribute: `lf-button, button[lfButton], a[lfButton]`.
+4. **Selector convention** — element + attribute: `lifeelButton-button, button[lifeelButton], a[lifeelButton]`.
 5. **Token-only styles** — no hex colors, no rgb literals; sizes via `var(--space-*)`, radii via `var(--radius-*)`.
 6. **Public API only** — export from `src/index.ts`. No deep imports for consumers.
 7. **Story file required** — `<name>.component.stories.ts` next to the component. At minimum: one story per `variant`, plus an `AllStates` overview.
@@ -159,7 +159,7 @@ const meta: Meta<ButtonComponent> = {
   render: (args) => ({
     props: args,
     template: `
-      <button lfButton [variant]="variant" [size]="size" [loading]="loading">
+      <button lifeelButton [variant]="variant" [size]="size" [loading]="loading">
         Save
       </button>
     `,
@@ -177,9 +177,9 @@ export const AllSizes: Story = {
   render: () => ({
     template: `
       <div style="display:flex; gap:12px; align-items:center;">
-        <button lfButton size="sm">Small</button>
-        <button lfButton size="md">Medium</button>
-        <button lfButton size="lg">Large</button>
+        <button lifeelButton size="sm">Small</button>
+        <button lifeelButton size="md">Medium</button>
+        <button lifeelButton size="lg">Large</button>
       </div>
     `,
   }),
@@ -190,7 +190,7 @@ export const AllSizes: Story = {
 
 | Topic | Rule |
 |---|---|
-| Selectors | `lf-` prefix on elements (`lf-button`), `lfX` on attribute directives (`lfButton`, `lfTooltip`) |
+| Selectors | `lifeel-` prefix on elements (`lifeel-button`), `lifeelX` on attribute directives (`lifeelButton`, `lifeelTooltip`) |
 | Style language | Less, not SCSS — matches the rest of the app |
 | Colors in styles | Only `var(--color-*)`. No hex, no rgb literals. |
 | Spacing | `var(--space-1)` … `var(--space-20)`. No raw px outside tokens. |

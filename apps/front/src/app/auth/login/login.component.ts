@@ -10,9 +10,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
-import { TuiButton, TuiError, TuiHint, TuiLabel, TuiTextfield } from '@taiga-ui/core';
-import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
+import { TuiError, TuiHint, TuiLabel, TuiTextfield } from '@taiga-ui/core';
+import { TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { State } from '@lifestyle-dashboard/state';
+import { LifeelButton } from '@lifestyle-dashboard/ui-kit';
 import { AuthDto } from '../auth.dto';
 
 export const PASSWORD_MIN_LENGTH = 7;
@@ -34,9 +35,8 @@ enum LoginField {
     TuiTextfield,
     TuiFieldErrorPipe,
     TuiError,
-    TuiButton,
-    TuiButtonLoading,
     TuiLabel,
+    LifeelButton,
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

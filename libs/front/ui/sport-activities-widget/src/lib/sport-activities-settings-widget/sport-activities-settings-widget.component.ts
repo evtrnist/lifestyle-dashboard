@@ -2,8 +2,9 @@ import { type MaskitoTimeMode } from '@maskito/kit';
 import { Component, computed, inject, OnInit, Signal } from '@angular/core';
 import { FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TuiTime } from '@taiga-ui/cdk';
-import { TuiButton, TuiIcon, TuiTextfield } from '@taiga-ui/core';
+import { TuiIcon, TuiTextfield } from '@taiga-ui/core';
 import { TuiInputTime } from '@taiga-ui/kit';
+import { LifeelButton } from '@lifestyle-dashboard/ui-kit';
 import { WidgetSettingsComponent } from '@lifestyle-dashboard/widget-contracts';
 import { SportActivitiesWidgetInput } from '../sport-activities-widget-input';
 import { SPORT_ACTIVITIES_WIDGET_TOKEN } from '../sport-activities-widget.token';
@@ -28,7 +29,7 @@ type ActivityGroup = FormGroup<{
 
 @Component({
   selector: 'lifestyle-dashboard-sport-activities-settings-widget',
-  imports: [ReactiveFormsModule, TuiButton, TuiIcon, TuiTextfield, TuiInputTime],
+  imports: [ReactiveFormsModule, TuiIcon, TuiTextfield, TuiInputTime, LifeelButton],
   templateUrl: './sport-activities-settings-widget.component.html',
   styleUrls: ['./sport-activities-settings-widget.component.less'],
 })

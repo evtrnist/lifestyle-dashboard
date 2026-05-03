@@ -7,6 +7,14 @@
 // 3. The compat-shim from ui-kit (deleted in Phase 9)
 @import 'taiga-compat';
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 // 4. App-specific custom variables remain
 :root {
   --lifestyle-color: var(--color-accent-primary);
