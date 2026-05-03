@@ -10,6 +10,10 @@ export const LOCAL_STORAGE = new InjectionToken<Storage | null>('LOCAL_STORAGE',
       return null;
     }
 
-    return window.localStorage;
+    try {
+      return window.localStorage;
+    } catch {
+      return null;
+    }
   },
 });

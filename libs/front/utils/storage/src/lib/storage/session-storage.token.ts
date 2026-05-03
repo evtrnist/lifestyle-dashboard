@@ -10,6 +10,10 @@ export const SESSION_STORAGE = new InjectionToken<Storage | null>('SESSION_STORA
       return null;
     }
 
-    return window.sessionStorage;
+    try {
+      return window.localStorage;
+    } catch {
+      return null;
+    }
   },
 });

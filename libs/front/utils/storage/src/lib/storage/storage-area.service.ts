@@ -25,9 +25,7 @@ export class StorageAreaService {
       return;
     }
 
-    const serilizedValue = typeof value === 'string' ? value : JSON.stringify(value);
-
-    this.storage?.setItem(key, JSON.stringify(serilizedValue));
+    this.storage?.setItem(key, JSON.stringify(value));
   }
 
   public remove(key: string): void {

@@ -30,6 +30,9 @@ export class ThemeService {
   private getInitialTheme(): Theme {
     const storedTheme = this.storage?.getItem(STORAGE_KEY) as Theme | null;
 
-    return storedTheme ?? 'light';
+    if (storedTheme === 'dark' || storedTheme === 'light') {
+      return storedTheme;
+    }
+    return 'light';
   }
 }
