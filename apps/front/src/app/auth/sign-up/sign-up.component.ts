@@ -10,16 +10,10 @@ import {
   Validators,
 } from '@angular/forms';
 import { tuiMarkControlAsTouchedAndValidate } from '@taiga-ui/cdk';
-import {
-  TuiButton,
-  TuiError,
-  TuiHint,
-  TuiLabel,
-  TuiNotification,
-  TuiTextfield,
-} from '@taiga-ui/core';
-import { TuiButtonLoading, TuiFieldErrorPipe } from '@taiga-ui/kit';
+import { TuiError, TuiHint, TuiLabel, TuiNotification, TuiTextfield } from '@taiga-ui/core';
+import { TuiFieldErrorPipe } from '@taiga-ui/kit';
 import { State } from '@lifestyle-dashboard/state';
+import { LifeelButton } from '@lifestyle-dashboard/ui-kit';
 import { AuthDto } from '../auth.dto';
 import { PASSWORD_MIN_LENGTH } from '../login/login.component';
 
@@ -51,10 +45,9 @@ enum SignUpField {
     TuiTextfield,
     TuiFieldErrorPipe,
     TuiError,
-    TuiButton,
-    TuiButtonLoading,
     TuiLabel,
     TuiNotification,
+    LifeelButton,
   ],
 })
 export class SignUpComponent implements OnInit {

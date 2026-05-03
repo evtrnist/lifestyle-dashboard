@@ -239,6 +239,8 @@ export type CategoryKey = keyof typeof semanticTokens.color.category;
 export type SpaceKey = keyof typeof semanticTokens.space;
 export type RadiusKey = keyof typeof semanticTokens.radius;
 export type ShadowKey = keyof typeof semanticTokens.shadow;
+export type Variant = 'primary' | 'ghost' | 'secondary' | 'danger';
+export type Size = 'sm' | 'md' | 'lg';
 
 // ─── Convenience: the four Time Tracker categories in a stable order ─────────
 export const TIME_TRACKER_CATEGORIES: readonly {

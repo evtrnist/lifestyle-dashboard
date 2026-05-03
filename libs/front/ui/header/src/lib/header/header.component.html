@@ -10,7 +10,6 @@
   class="profile"
   tuiIconButton
   size="s"
-  [tuiAppearanceState]="openedDropdown ? 'active' : null"
   [tuiDropdown]="dropdown"
   [(tuiDropdownOpen)]="openedDropdown"
   tuiDropdownDirection="bottom"
@@ -33,7 +32,7 @@
       }
     </tui-opt-group>
     <tui-opt-group>
-      <button tuiButton type="button" (click)="logout()">Log out</button>
+      <button lifeelButton type="button" (click)="logout()">Log out</button>
     </tui-opt-group>
   </tui-data-list>
 </ng-template>

@@ -2,17 +2,17 @@ import { KeyValue, KeyValuePipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import {
-  TuiButton,
   TuiLabel,
   TuiTextfield,
   TuiTextfieldDirective,
   TuiTextfieldDropdownDirective,
   TuiTitle,
 } from '@taiga-ui/core';
-import { TuiButtonLoading, TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
+import { TuiChevron, TuiDataListWrapper, TuiSelect } from '@taiga-ui/kit';
 import { TuiHeader } from '@taiga-ui/layout';
 import { Layout } from '@lifestyle-dashboard/config';
 import { State } from '@lifestyle-dashboard/state';
+import { LifeelButton } from '@lifestyle-dashboard/ui-kit';
 import { Slot, WidgetOptions, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetRegistry } from '@lifestyle-dashboard/widget-registry';
 import { WidgetLayoutSettingsService } from './widget-layout-settings.service';
@@ -34,10 +34,9 @@ import { WIDGET_LAYOUT_SLOT_MAP } from './widget-layout-slots';
     TuiSelect,
     TuiTextfieldDirective,
     TuiTextfieldDropdownDirective,
-    TuiButton,
     TuiHeader,
     TuiTitle,
-    TuiButtonLoading,
+    LifeelButton,
   ],
 })
 export class WidgetLayoutSettingsComponent {

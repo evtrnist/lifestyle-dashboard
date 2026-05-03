@@ -8,11 +8,12 @@ import {
   Signal,
   signal,
 } from '@angular/core';
-import { TuiButton, TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
+import { TuiIconPipe, type TuiDialogContext } from '@taiga-ui/core';
 import { TuiTabs } from '@taiga-ui/kit';
 import { injectContext } from '@taiga-ui/polymorpheus';
 import { DynamicHostComponent } from '@lifestyle-dashboard/dynamic-host';
 import { DayWidgetData } from '@lifestyle-dashboard/lifestyle-widget-data-service';
+import { LifeelButton } from '@lifestyle-dashboard/ui-kit';
 import { WidgetSettingsComponent, WidgetType } from '@lifestyle-dashboard/widget-contracts';
 import { WidgetIconPipe, WidgetNamePipe } from '@lifestyle-dashboard/widget-name-pipe';
 import { DayCardDialogService } from './day-card-dialog.service';
@@ -29,7 +30,14 @@ export interface DayCardDialogContext {
 @Component({
   selector: 'lifestyle-day-card-dialog',
   standalone: true,
-  imports: [TuiTabs, TuiIconPipe, TuiButton, WidgetNamePipe, WidgetIconPipe, DynamicHostComponent],
+  imports: [
+    TuiTabs,
+    TuiIconPipe,
+    LifeelButton,
+    WidgetNamePipe,
+    WidgetIconPipe,
+    DynamicHostComponent,
+  ],
   templateUrl: './day-card-dialog.component.html',
   styleUrl: './day-card-dialog.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
