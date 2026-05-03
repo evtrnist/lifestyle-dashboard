@@ -9,7 +9,7 @@ const meta: Meta<LifeelButton> = {
     variant: {
       control: 'select',
 
-      options: ['primary', 'ghost', 'secondary', 'danger'],
+      options: ['primary', 'secondary', 'ghost', 'secondary', 'danger'],
     },
 
     size: {
@@ -67,6 +67,40 @@ export const Primary: Story = {
       >
 
         Primary button
+
+      </button>
+
+    `,
+  }),
+};
+
+export const Secondary: Story = {
+  args: {
+    variant: 'secondary',
+
+    loading: true,
+  },
+
+  render: (args) => ({
+    props: args,
+
+    template: `
+
+      <button
+
+        lifeelbutton
+
+        [variant]="variant"
+
+        [size]="size"
+
+        [loading]="loading"
+
+        [disabled]="disabled"
+
+      >
+
+        Saving
 
       </button>
 
