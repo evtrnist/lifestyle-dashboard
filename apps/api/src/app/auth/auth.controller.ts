@@ -7,6 +7,7 @@ import { AuthService } from './auth.service';
 import { CsrfAuthGuard } from './csrf-auth.guard';
 import { AuthDto } from './dto/auth';
 import { JwtAuthGuard } from './jwt-auth.guard';
+import { SameOriginGuard } from './same-origin.guard';
 
 const ACCESS_TOKEN = 'access_token';
 const XSRF_TOKEN = 'XSRF-TOKEN';
@@ -24,6 +25,7 @@ export interface RequestWithUser extends Request {
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
+  @UseGuards(SameOriginGuard)
   @Post('register')
   public async register(
     @Body() dto: AuthDto,
@@ -37,6 +39,7 @@ export class AuthController {
   }
 
   @HttpCode(200)
+  @UseGuards(SameOriginGuard)
   @Post('login')
   public async login(
     @Body() dto: AuthDto,

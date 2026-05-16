@@ -12,6 +12,9 @@ import { RequestWithUser } from './auth.controller';
 
 @Injectable()
 export class AuthService {
+  private static readonly DUMMY_PASSWORD_HASH =
+    '$2b$10$8r6R5Wqv7fzg6x0H0bJHve2ktYt0giN5N4dAJE1lghYzBL2cJlg6a';
+
   constructor(
     private readonly prismaService: PrismaService,
     private readonly jwtService: JwtService,
@@ -23,8 +26,6 @@ export class AuthService {
   ): Promise<{
     access_token: string;
   }> {
-    const hashed = await bcrypt.hash(password, 10);
-
     const isExistingUser = await this.prismaService.user.findUnique({
       where: { email },
     });
@@ -32,6 +33,8 @@ export class AuthService {
     if (isExistingUser) {
       throw new ConflictException('User already exists');
     }
+
+    const hashed = await bcrypt.hash(password, 10);
 
     const user = await this.prismaService.user.create({
       data: { email, password: hashed },
@@ -47,14 +50,10 @@ export class AuthService {
     access_token: string;
   }> {
     const user = await this.prismaService.user.findUnique({ where: { email } });
+    const passwordHash = user?.password ?? AuthService.DUMMY_PASSWORD_HASH;
+    const isPasswordCorrect = await bcrypt.compare(password, passwordHash);
 
-    if (!user) {
-      throw new UnauthorizedException('Invalid credentials');
-    }
-
-    const isPasswordCorrect = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordCorrect) {
+    if (!user || !isPasswordCorrect) {
       throw new UnauthorizedException('Invalid credentials');
     }
 
