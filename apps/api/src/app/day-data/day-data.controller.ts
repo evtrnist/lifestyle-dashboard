@@ -42,6 +42,10 @@ export class DayDataController {
       throw new BadRequestException('startDate and endDate are required');
     }
 
+    if (!this.isValidDateString(query.startDate) || !this.isValidDateString(query.endDate)) {
+      throw new BadRequestException('startDate and endDate must be valid dates');
+    }
+
     // widgetTypes может прийти как ['a','b'] или как 'a,b'
     const widgetTypes: string[] = Array.isArray(query.widgetTypes)
       ? query.widgetTypes
@@ -99,5 +103,11 @@ export class DayDataController {
       date,
       widgetData as InputJsonValue,
     );
+  }
+
+  private isValidDateString(value: string): boolean {
+    const date = new Date(value);
+
+    return !Number.isNaN(date.getTime());
   }
 }
