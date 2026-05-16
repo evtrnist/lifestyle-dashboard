@@ -5,6 +5,7 @@ import { Request, Response } from 'express';
 import { UserProfile } from '@lifestyle-dashboard/user';
 import { AuthService } from './auth.service';
 import { CsrfAuthGuard } from './csrf-auth.guard';
+import { AuthDto } from './dto/auth';
 import { JwtAuthGuard } from './jwt-auth.guard';
 
 const ACCESS_TOKEN = 'access_token';
@@ -25,11 +26,10 @@ export class AuthController {
 
   @Post('register')
   public async register(
-    @Body('email') email: string,
-    @Body('password') password: string,
+    @Body() dto: AuthDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<{ ok: true }> {
-    const { access_token } = await this.authService.register(email, password);
+    const { access_token } = await this.authService.register(dto.email, dto.password);
 
     this.setAuthCookies(res, access_token);
 
@@ -39,11 +39,10 @@ export class AuthController {
   @HttpCode(200)
   @Post('login')
   public async login(
-    @Body('email') email: string,
-    @Body('password') password: string,
+    @Body() dto: AuthDto,
     @Res({ passthrough: true }) res: Response,
   ): Promise<{ ok: true }> {
-    const { access_token } = await this.authService.login(email, password);
+    const { access_token } = await this.authService.login(dto.email, dto.password);
     this.setAuthCookies(res, access_token);
     return { ok: true };
   }
@@ -56,6 +55,7 @@ export class AuthController {
     return this.authService.getUserProfile(req);
   }
 
+  @UseGuards(CsrfAuthGuard)
   @Post('logout')
   public logout(@Res({ passthrough: true }) res: Response): { ok: true } {
     res.clearCookie(ACCESS_TOKEN, {
