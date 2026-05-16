@@ -12,6 +12,7 @@ import {
 import { InputJsonValue, JsonValue } from '@prisma/client/runtime/library';
 import { CreateOrUpdateDayDataDto } from '@lifestyle-dashboard/day-data';
 import { RequestWithUser } from '../auth/auth.controller';
+import { CsrfAuthGuard } from '../auth/csrf-auth.guard';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { DayDataService, DaysByDate } from './day-data.service';
 
@@ -35,6 +36,10 @@ export class DayDataController {
     const userId = req.user?.id;
     if (!userId) {
       throw new UnauthorizedException(`No user with id ${userId} found`);
+    }
+
+    if (!query.startDate || !query.endDate) {
+      throw new BadRequestException('startDate and endDate are required');
     }
 
     // widgetTypes может прийти как ['a','b'] или как 'a,b'
@@ -65,7 +70,7 @@ export class DayDataController {
     return { days: daysMap };
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, CsrfAuthGuard)
   @Post()
   public async createOrUpdate(
     @Req() req: RequestWithUser,
