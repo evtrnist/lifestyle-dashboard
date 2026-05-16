@@ -9,9 +9,19 @@ export class CsrfAuthGuard implements CanActivate {
   public canActivate(context: ExecutionContext): boolean {
     const req = context.switchToHttp().getRequest<Request>();
 
-    const tokenFromHeader = req.headers[CSRF_HEADER_NAME];
+    const tokenFromHeader = this.getHeaderValue(req.headers[CSRF_HEADER_NAME]);
     const tokenFromCookie = req.cookies[CSRF_COOKIE_NAME];
 
-    return tokenFromCookie === tokenFromHeader;
+    return (
+      typeof tokenFromCookie === 'string' &&
+      tokenFromCookie.length > 0 &&
+      typeof tokenFromHeader === 'string' &&
+      tokenFromHeader.length > 0 &&
+      tokenFromCookie === tokenFromHeader
+    );
+  }
+
+  private getHeaderValue(header: string | string[] | undefined): string | undefined {
+    return Array.isArray(header) ? undefined : header;
   }
 }
