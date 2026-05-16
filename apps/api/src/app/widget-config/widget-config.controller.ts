@@ -2,6 +2,7 @@ import { Body, Controller, Delete, Get, Post, Put, Req, UseGuards } from '@nestj
 import { WidgetConfig } from '@prisma/client';
 import { InputJsonValue, JsonValue } from '@prisma/client/runtime/library';
 import { RequestWithUser } from '../auth/auth.controller';
+import { CsrfAuthGuard } from '../auth/csrf-auth.guard';
 import { JwtAuthGuard } from '../auth/jwt-auth.guard';
 import { WidgetConfigService } from './widget-config.service';
 
@@ -18,6 +19,7 @@ export class WidgetConfigController {
     return this.widgetConfigService.getByUser(userId);
   }
 
+  @UseGuards(CsrfAuthGuard)
   @Post()
   public async create(
     @Req() req: RequestWithUser,
@@ -34,6 +36,7 @@ export class WidgetConfigController {
     return this.widgetConfigService.create(userId, config);
   }
 
+  @UseGuards(CsrfAuthGuard)
   @Put(':id')
   public async update(
     @Req() req: RequestWithUser,
@@ -50,6 +53,7 @@ export class WidgetConfigController {
     return this.widgetConfigService.updateByUser(userId, config);
   }
 
+  @UseGuards(CsrfAuthGuard)
   @Delete(':id')
   public async delete(@Req() req: RequestWithUser): Promise<{
     id: string;
