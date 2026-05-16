@@ -49,7 +49,7 @@ export class AuthService {
     const user = await this.prismaService.user.findUnique({ where: { email } });
 
     if (!user) {
-      throw new NotFoundException('User not found');
+      throw new UnauthorizedException('Invalid credentials');
     }
 
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
