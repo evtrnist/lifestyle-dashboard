@@ -6,7 +6,7 @@
   <span class="count"> {{ totalCount }} / {{ plannedCount }} </span>
   <div class="dots">
     @for (additional of additionalRange; track $index) {
-      <tui-icon class="icon" icon="@tui.dot" [style.color]="$color()" />
+      <lifeel-icon class="icon" name="dot" [color]="$color()" />
     }
   </div>
 </div>

@@ -8,7 +8,7 @@ import { LifeelButton } from './button.component';
   imports: [LifeelButton],
   template: `
     <button
-      lifeelbutton
+      lifeelButton
       [variant]="variant"
       [size]="size"
       [loading]="loading"
@@ -20,7 +20,7 @@ import { LifeelButton } from './button.component';
 })
 class HostComponent {
   public variant: 'primary' | 'secondary' | 'ghost' | 'danger' = 'primary';
-  public size: 'sm' | 'md' | 'lg' = 'md';
+  public size: 's' | 'm' | 'l' = 'm';
   public disabled = false;
   public loading = false;
   public label = 'Save';
@@ -31,7 +31,7 @@ describe('LifeelButton', () => {
   let hostComponent: HostComponent;
 
   const getButton = (): HTMLButtonElement =>
-    fixture.debugElement.query(By.css('button[lifeelbutton]')).nativeElement as HTMLButtonElement;
+    fixture.debugElement.query(By.css('button[lifeelButton]')).nativeElement as HTMLButtonElement;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
@@ -48,20 +48,20 @@ describe('LifeelButton', () => {
 
     expect(button.classList.contains('lifeel-button')).toBe(true);
     expect(button.classList.contains('lifeel-button--primary')).toBe(true);
-    expect(button.classList.contains('lifeel-button--md')).toBe(true);
+    expect(button.classList.contains('lifeel-button--m')).toBe(true);
   });
 
   it('updates variant and size classes from inputs', () => {
     hostComponent.variant = 'danger';
-    hostComponent.size = 'lg';
+    hostComponent.size = 'l';
     fixture.detectChanges();
 
     const button = getButton();
 
     expect(button.classList.contains('lifeel-button--danger')).toBe(true);
-    expect(button.classList.contains('lifeel-button--lg')).toBe(true);
+    expect(button.classList.contains('lifeel-button--l')).toBe(true);
     expect(button.classList.contains('lifeel-button--primary')).toBe(false);
-    expect(button.classList.contains('lifeel-button--md')).toBe(false);
+    expect(button.classList.contains('lifeel-button--m')).toBe(false);
   });
 
   it('sets disabled state on host attributes and classes', () => {

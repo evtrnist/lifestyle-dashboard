@@ -1,7 +1,7 @@
 @let waketime = $waketime();
 
 <div [class]="`container ${$size()}`">
-  <tui-icon class="icon" icon="@tui.sunrise" [style.color]="$color()" />
+  <lifeel-icon name="sunrise" [color]="$color()" class="icon" />
 
   @if (waketime) {
     <time class="time" [attr.datetime]="waketime">

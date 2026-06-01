@@ -1,5 +1,11 @@
-<button variant="secondary" size="md" lifeelButton type="button" (click)="addActivity()">
-  <tui-icon icon="@tui.circle-plus" [style.height.rem]="1" />
+<button
+  variant="secondary"
+  size="m"
+  lifeelButton
+  type="button"
+  (click)="addActivity()"
+  iconStart="circle-plus"
+>
   Add activity
 </button>
 
@@ -26,12 +32,11 @@
       </tui-textfield>
     </div>
     <button
-      appearance="secondary-destructive"
-      iconStart="@tui.trash"
+      variant="dotted-secondary"
+      iconStart="trash"
       size="xs"
-      tuiIconButton
+      lifeelButton
       type="button"
-      [style.border-radius.%]="100"
       (click)="removeActivity($index)"
     >
       Delete

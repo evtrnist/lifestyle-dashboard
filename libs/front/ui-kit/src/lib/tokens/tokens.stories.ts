@@ -30,7 +30,7 @@ export const Overview: Story = {
             var(--color-surface-raised),
             var(--color-surface-accent-soft)
           );
-          box-shadow: var(--shadow-lg);
+          box-shadow: var(--shadow-l);
           color: var(--color-text-primary);
           font-family: var(--font-family-sans);
         "
@@ -39,7 +39,7 @@ export const Overview: Story = {
           style="
             margin: 0 0 var(--space-3);
             color: var(--color-text-accent);
-            font-size: var(--font-size-sm);
+            font-size: var(--font-size-s);
             font-weight: var(--font-weight-semibold);
             letter-spacing: var(--letter-spacing-wide);
             text-transform: uppercase;
@@ -79,7 +79,7 @@ export const Overview: Story = {
               padding: var(--space-2) var(--space-4);
               border-radius: var(--radius-full);
               color: var(--color-text-on-accent);
-              font-size: var(--font-size-sm);
+              font-size: var(--font-size-s);
               font-weight: var(--font-weight-semibold);
             "
           >
@@ -97,7 +97,7 @@ export const Overview: Story = {
             color: var(--color-text-on-accent);
             font: inherit;
             font-weight: var(--font-weight-semibold);
-            box-shadow: var(--shadow-md);
+            box-shadow: var(--shadow-m);
             cursor: pointer;
           "
         >
