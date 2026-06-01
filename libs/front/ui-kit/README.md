@@ -63,7 +63,7 @@ No deep imports — only the public API at `src/index.ts`.
 ```html
 <button lifeelButton variant="primary" size="m" (click)="save()">Save</button>
 
-<lifeel-icon name="settings" />
+<lifeel-icon name="cat" />
 
 <lifeel-form-field>
   <span slot="label">Email</span>
@@ -224,7 +224,7 @@ When you see a `@taiga-ui/...` import in a feature lib, it's a known migration d
 
 ## Related docs
 
-- `MIGRATION_PLAN.m` (in `design/` workspace) — full phase-by-phase migration plan.
+- `MIGRATION_PLAN.md` (in `design/` workspace) — full phase-by-phase migration plan.
 - `design/components.html` — legacy HTML showcase, being replaced by Storybook in Phase 9.5.
 - `design/insights.html`, `design/auth.html`, `design/settings-layout.html` — design references for the screens.
 
