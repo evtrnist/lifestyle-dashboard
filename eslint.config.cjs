@@ -28,11 +28,11 @@ module.exports = [
       '@angular-eslint/no-input-rename': 'off',
     },
   },
-  // ✨ Явные типы возврата и модификаторы доступа
+  // Explicit return types and access modifiers
   {
     files: ['**/*.ts', '**/*.tsx'],
     rules: {
-      // Требовать явный тип возврата у функций
+      // Require explicit return types for functions
       '@typescript-eslint/explicit-function-return-type': [
         'warn',
         {
@@ -42,15 +42,15 @@ module.exports = [
           allowDirectConstAssertionInArrowFunctions: true,
         },
       ],
-      // Требовать типы у экспортируемых функций/методов (границы модулей)
+      // Require types for exported functions/methods (module boundaries)
       '@typescript-eslint/explicit-module-boundary-types': 'error',
-      // Требовать модификаторы доступа у членов класса
+      // Require access modifiers for class members
       '@typescript-eslint/explicit-member-accessibility': [
         'warn',
         {
-          accessibility: 'explicit', // public/protected/private обязателен
+          accessibility: 'explicit', // public/protected/private are required
           overrides: {
-            constructors: 'no-public', // не требовать public у конструкторов
+            constructors: 'no-public', // do not require public on constructors
           },
         },
       ],
@@ -72,7 +72,7 @@ module.exports = [
     files: ['**/*.ts', '**/*.tsx', '**/*.js', '**/*.jsx', '**/*.cjs', '**/*.mjs'],
     // Override or add rules here
     rules: {
-      'no-input-rename': 'off',
+      '@angular-eslint/no-input-rename': 'off',
     },
   },
 ];
