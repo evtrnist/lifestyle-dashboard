@@ -54,6 +54,10 @@
   background: var(--color-surface-accent-mid);
 }
 
+ :host(.lifeel-button--dotted-secondary.is-loading)::after {
+   color: var(--color-text-accent);
+ }
+
 :host(.lifeel-button--ghost) {
   color: var(--color-text-secondary);
 }
@@ -79,6 +83,12 @@
   pointer-events: none;
 }
 
+:host(.lifeel-button--xs) {
+  padding: 4px var(--space-2);
+  font-size: var(--font-size-2xs);
+  border-radius: var(--radius-s);
+}
+
 :host(.lifeel-button--s) {
   padding: 8px var(--space-3);
   font-size: var(--font-size-xs);
@@ -88,6 +98,11 @@
 :host(.lifeel-button--l) {
   padding: 16px var(--space-5);
   font-size: var(--font-size-base);
+}
+
+:host(.lifeel-button--xl) {
+  padding: 20px var(--space-6);
+  font-size: var(--font-size-l);
 }
 
 :host(.is-loading) {
