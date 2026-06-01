@@ -1,5 +1,5 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { TuiIcon } from '@taiga-ui/core';
+import { LifeelIcon } from '@lifestyle-dashboard/ui-kit';
 import { TodosWidgetInput } from './todos-widget-input';
 import { TODOS_WIDGET_TOKEN } from './todos-widget.token';
 
@@ -8,7 +8,7 @@ const ACTIVE_COLOR = 'var(--tui-chart-categorical-10)';
 
 @Component({
   selector: 'lifestyle-dashboard-todos-widget',
-  imports: [TuiIcon],
+  imports: [LifeelIcon],
   templateUrl: './todos-widget.component.html',
   styleUrl: './todos-widget.component.less',
 })

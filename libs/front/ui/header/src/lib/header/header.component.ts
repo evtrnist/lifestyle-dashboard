@@ -1,12 +1,12 @@
 import { ChangeDetectionStrategy, Component, output } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
-import { TuiDataList, TuiDropdown, TuiIcon } from '@taiga-ui/core';
-import { LifeelButton } from '@lifestyle-dashboard/ui-kit';
+import { TuiDataList, TuiDropdown } from '@taiga-ui/core';
+import { LifeelButton, LifeelIcon } from '@lifestyle-dashboard/ui-kit';
 import { HEADER_LINKS } from './header-links';
 
 @Component({
   selector: 'lifestyle-dashboard-header',
-  imports: [RouterLink, RouterLinkActive, TuiIcon, LifeelButton, TuiDataList, TuiDropdown],
+  imports: [RouterLink, RouterLinkActive, LifeelIcon, LifeelButton, TuiDataList, TuiDropdown],
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.less'],
   changeDetection: ChangeDetectionStrategy.OnPush,

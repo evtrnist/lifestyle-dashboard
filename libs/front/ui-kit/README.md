@@ -48,9 +48,9 @@ No deep imports — only the public API at `src/index.ts`.
 .my-card {
   background: var(--color-surface-raised);
   border: 1px solid var(--color-border-subtle);
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-l);
   padding: var(--space-4);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-m);
   color: var(--color-text-primary);
 }
 ```
@@ -61,7 +61,7 @@ No deep imports — only the public API at `src/index.ts`.
 ### Using a component
 
 ```html
-<button lifeelButton variant="primary" size="md" (click)="save()">Save</button>
+<button lifeelButton variant="primary" size="m" (click)="save()">Save</button>
 
 <lifeel-icon name="settings" />
 
@@ -152,10 +152,10 @@ const meta: Meta<ButtonComponent> = {
   tags: ['autodocs'],
   argTypes: {
     variant: { control: 'inline-radio', options: ['primary', 'ghost', 'secondary', 'danger'] },
-    size:    { control: 'inline-radio', options: ['sm', 'md', 'lg'] },
+    size:    { control: 'inline-radio', options: ['s', 'm', 'l'] },
     loading: { control: 'boolean' },
   },
-  args: { variant: 'primary', size: 'md' },
+  args: { variant: 'primary', size: 'm' },
   render: (args) => ({
     props: args,
     template: `
@@ -177,9 +177,9 @@ export const AllSizes: Story = {
   render: () => ({
     template: `
       <div style="display:flex; gap:12px; align-items:center;">
-        <button lifeelButton size="sm">Small</button>
-        <button lifeelButton size="md">Medium</button>
-        <button lifeelButton size="lg">Large</button>
+        <button lifeelButton size="s">Small</button>
+        <button lifeelButton size="m">Medium</button>
+        <button lifeelButton size="l">Large</button>
       </div>
     `,
   }),
@@ -194,7 +194,7 @@ export const AllSizes: Story = {
 | Style language | Less, not SCSS — matches the rest of the app |
 | Colors in styles | Only `var(--color-*)`. No hex, no rgb literals. |
 | Spacing | `var(--space-1)` … `var(--space-20)`. No raw px outside tokens. |
-| Radius | `var(--radius-sm)` … `var(--radius-2xl)`. |
+| Radius | `var(--radius-s)` … `var(--radius-2xl)`. |
 | Dark mode | `[data-theme="dark"]` on `<html>`, **not** `prefers-color-scheme` media query — controlled by `ThemeService`. |
 | Imports | From `@lifestyle-dashboard/ui-kit` only. No `@lifestyle-dashboard/ui-kit/lib/...`. |
 | Change detection | `OnPush` everywhere. |
@@ -224,7 +224,7 @@ When you see a `@taiga-ui/...` import in a feature lib, it's a known migration d
 
 ## Related docs
 
-- `MIGRATION_PLAN.md` (in `design/` workspace) — full phase-by-phase migration plan.
+- `MIGRATION_PLAN.m` (in `design/` workspace) — full phase-by-phase migration plan.
 - `design/components.html` — legacy HTML showcase, being replaced by Storybook in Phase 9.5.
 - `design/insights.html`, `design/auth.html`, `design/settings-layout.html` — design references for the screens.
 

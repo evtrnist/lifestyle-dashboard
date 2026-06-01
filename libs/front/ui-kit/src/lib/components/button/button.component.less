@@ -6,8 +6,8 @@
   justify-content: center;
   gap: var(--space-2);
   padding: 12px var(--space-4);
-  border-radius: var(--radius-md);
-  font-size: var(--font-size-sm);
+  border-radius: var(--radius-m);
+  font-size: var(--font-size-s);
   font-weight: var(--font-weight-medium);
   transition: all var(--duration-fast) var(--ease-out);
   white-space: nowrap;
@@ -22,12 +22,12 @@
 :host(.lifeel-button--primary) {
   background: var(--color-accent-primary);
   color: var(--color-text-on-accent);
-  box-shadow: var(--shadow-sm);
+  box-shadow: var(--shadow-s);
 }
 
 :host(.lifeel-button--primary:hover) {
   background: var(--color-accent-primary-hover);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-m);
 }
 
 :host(.lifeel-button--primary:active) {
@@ -69,13 +69,13 @@
   pointer-events: none;
 }
 
-:host(.lifeel-button--sm) {
+:host(.lifeel-button--s) {
   padding: 8px var(--space-3);
   font-size: var(--font-size-xs);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-s);
 }
 
-:host(.lifeel-button--lg) {
+:host(.lifeel-button--l) {
   padding: 16px var(--space-5);
   font-size: var(--font-size-base);
 }
@@ -104,6 +104,14 @@
 
 :host(.lifeel-button--ghost.is-loading)::after {
   color: var(--color-text-primary);
+}
+
+.lifeel-button {
+  &__content {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
 }
 
 @keyframes spin {

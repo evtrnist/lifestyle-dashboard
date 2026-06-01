@@ -1,5 +1,6 @@
 import { Meta, StoryObj } from '@storybook/angular';
 import { LifeelIcon } from './icon.component';
+import { LIFEEL_ICON_NAMES } from './icon.registry';
 
 const meta: Meta<LifeelIcon> = {
   title: 'UI Kit/Icon',
@@ -7,7 +8,8 @@ const meta: Meta<LifeelIcon> = {
   tags: ['autodocs'],
   argTypes: {
     name: {
-      control: 'text',
+      control: 'select',
+      options: LIFEEL_ICON_NAMES,
     },
 
     size: {
@@ -16,6 +18,9 @@ const meta: Meta<LifeelIcon> = {
 
     strokeWidth: {
       control: 'number',
+    },
+    color: {
+      control: 'color',
     },
   },
 };
@@ -38,6 +43,7 @@ export const Primary: Story = {
         [name]="name"
         [size]="size"
         [strokeWidth]="strokeWidth"
+        [color]="color"
       />
     `,
   }),

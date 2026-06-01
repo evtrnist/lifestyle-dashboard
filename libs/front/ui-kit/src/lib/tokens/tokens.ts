@@ -116,9 +116,9 @@ export const semanticTokens = {
     },
     size: {
       xs: '12px',
-      sm: '14px',
+      s: '14px',
       base: '16px',
-      lg: '18px',
+      l: '18px',
       xl: '20px',
       '2xl': '24px',
       '3xl': '30px',
@@ -159,9 +159,9 @@ export const semanticTokens = {
   },
 
   radius: {
-    sm: '6px',
-    md: '10px',
-    lg: '14px',
+    s: '6px',
+    m: '10px',
+    l: '14px',
     xl: '20px',
     '2xl': '28px',
     full: '9999px',
@@ -169,9 +169,9 @@ export const semanticTokens = {
 
   shadow: {
     xs: '0 1px 2px rgba(30, 20, 80, 0.04)',
-    sm: '0 2px 4px rgba(30, 20, 80, 0.05)',
-    md: '0 4px 12px rgba(30, 20, 80, 0.06), 0 1px 3px rgba(30, 20, 80, 0.03)',
-    lg: '0 12px 32px rgba(30, 20, 80, 0.10), 0 2px 6px rgba(30, 20, 80, 0.04)',
+    s: '0 2px 4px rgba(30, 20, 80, 0.05)',
+    m: '0 4px 12px rgba(30, 20, 80, 0.06), 0 1px 3px rgba(30, 20, 80, 0.03)',
+    l: '0 12px 32px rgba(30, 20, 80, 0.10), 0 2px 6px rgba(30, 20, 80, 0.04)',
     xl: '0 24px 48px rgba(30, 20, 80, 0.16), 0 4px 12px rgba(30, 20, 80, 0.06)',
     focusRing: '0 0 0 3px rgba(139, 109, 242, 0.24)',
   },
@@ -225,9 +225,9 @@ export const darkSemanticOverrides = {
   },
   shadow: {
     xs: '0 1px 2px rgba(0, 0, 0, 0.32)',
-    sm: '0 2px 4px rgba(0, 0, 0, 0.36)',
-    md: '0 4px 12px rgba(0, 0, 0, 0.42)',
-    lg: '0 12px 32px rgba(0, 0, 0, 0.52)',
+    s: '0 2px 4px rgba(0, 0, 0, 0.36)',
+    m: '0 4px 12px rgba(0, 0, 0, 0.42)',
+    l: '0 12px 32px rgba(0, 0, 0, 0.52)',
     xl: '0 24px 48px rgba(0, 0, 0, 0.64)',
     focusRing: '0 0 0 3px rgba(167, 139, 250, 0.32)',
   },
@@ -240,7 +240,7 @@ export type SpaceKey = keyof typeof semanticTokens.space;
 export type RadiusKey = keyof typeof semanticTokens.radius;
 export type ShadowKey = keyof typeof semanticTokens.shadow;
 export type Variant = 'primary' | 'ghost' | 'secondary' | 'danger';
-export type Size = 'sm' | 'md' | 'lg';
+export type Size = 'xs' | 's' | 'm' | 'l' | 'xl';
 
 // ─── Convenience: the four Time Tracker categories in a stable order ─────────
 export const TIME_TRACKER_CATEGORIES: readonly {

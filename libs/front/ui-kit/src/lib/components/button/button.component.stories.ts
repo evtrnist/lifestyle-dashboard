@@ -15,7 +15,7 @@ const meta: Meta<LifeelButton> = {
     size: {
       control: 'select',
 
-      options: ['sm', 'md', 'lg'],
+      options: ['s', 'm', 'l'],
     },
 
     loading: {
@@ -30,7 +30,7 @@ const meta: Meta<LifeelButton> = {
   args: {
     variant: 'primary',
 
-    size: 'md',
+    size: 'm',
 
     loading: false,
 
@@ -54,7 +54,7 @@ export const Primary: Story = {
 
       <button
 
-        lifeelbutton
+        lifeelButton
 
         [variant]="variant"
 
@@ -88,7 +88,7 @@ export const Secondary: Story = {
 
       <button
 
-        lifeelbutton
+        lifeelButton
 
         [variant]="variant"
 
@@ -120,7 +120,7 @@ export const Ghost: Story = {
 
       <button
 
-        lifeelbutton
+        lifeelButton
 
         [variant]="variant"
 
@@ -152,7 +152,7 @@ export const Danger: Story = {
 
       <button
 
-        lifeelbutton
+        lifeelButton
 
         [variant]="variant"
 
@@ -186,7 +186,7 @@ export const Loading: Story = {
 
       <button
 
-        lifeelbutton
+        lifeelButton
 
         [variant]="variant"
 
@@ -220,7 +220,7 @@ export const Disabled: Story = {
 
       <button
 
-        lifeelbutton
+        lifeelButton
 
         [variant]="variant"
 
@@ -246,11 +246,11 @@ export const AllSizes: Story = {
 
       <div style="display: flex; align-items: center; gap: 16px;">
 
-        <button lifeelbutton size="sm">Small</button>
+        <button lifeelButton size="s">Small</button>
 
-        <button lifeelbutton size="md">Medium</button>
+        <button lifeelButton size="m">Medium</button>
 
-        <button lifeelbutton size="lg">Large</button>
+        <button lifeelButton size="l">Large</button>
 
       </div>
 

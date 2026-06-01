@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, computed, inject, Signal } from '@angular/core';
 import { TuiTime } from '@taiga-ui/cdk';
-import { TuiIcon } from '@taiga-ui/core';
 import { TimePipe } from '@lifestyle-dashboard/time-pipe';
+import { LifeelIcon } from '@lifestyle-dashboard/ui-kit';
 import { WaketimeWidgetInput } from './waketime-widget-input';
 import { WAKETIME_WIDGET_TOKEN } from './waketime-widget.token';
 
@@ -10,7 +10,7 @@ const ACTIVE_COLOR = 'var(--tui-chart-categorical-08)';
 
 @Component({
   selector: 'lib-waketime-widget',
-  imports: [TuiIcon, TimePipe],
+  imports: [LifeelIcon, TimePipe],
   templateUrl: './waketime-widget.component.html',
   styleUrl: './waketime-widget.component.less',
   changeDetection: ChangeDetectionStrategy.OnPush,
