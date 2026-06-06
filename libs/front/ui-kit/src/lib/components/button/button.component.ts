@@ -12,33 +12,33 @@ import { LifeelIconName } from '../icon/icon.registry';
   host: {
     '[class]': 'hostClasses()',
 
-    '[attr.aria-disabled]': '$disabled() || $loading() ? "true" : null',
+    '[attr.aria-disabled]': 'disabled() || loading() ? "true" : null',
 
     '[attr.disabled]': 'isNativeButtonDisabled() ? "" : null',
   },
   imports: [LifeelIcon],
 })
 export class LifeelButton {
-  public readonly $variant = input<Variant>('primary', { alias: 'variant' });
-  public readonly $size = input<Size>('m', { alias: 'size' });
+  public readonly variant = input<Variant>('primary');
+  public readonly size = input<Size>('m');
 
-  public readonly $disabled = input<boolean>(false, { alias: 'disabled' });
-  public readonly $loading = input<boolean>(false, { alias: 'loading' });
+  public readonly disabled = input<boolean>(false);
+  public readonly loading = input<boolean>(false);
 
-  public readonly $iconStart = input<LifeelIconName | null>(null, { alias: 'iconStart' });
-  public readonly $iconEnd = input<LifeelIconName | null>(null, { alias: 'iconEnd' });
+  public readonly iconStart = input<LifeelIconName | null>(null);
+  public readonly iconEnd = input<LifeelIconName | null>(null);
 
   protected readonly hostClasses = computed(() => {
     return [
       'lifeel-button',
-      `lifeel-button--${this.$variant()}`,
-      `lifeel-button--${this.$size()}`,
-      this.$disabled() ? 'is-disabled' : '',
-      this.$loading() ? 'is-loading' : '',
+      `lifeel-button--${this.variant()}`,
+      `lifeel-button--${this.size()}`,
+      this.disabled() ? 'is-disabled' : '',
+      this.loading() ? 'is-loading' : '',
     ]
       .filter(Boolean)
       .join(' ');
   });
 
-  protected readonly isNativeButtonDisabled = computed(() => this.$disabled() || this.$loading());
+  protected readonly isNativeButtonDisabled = computed(() => this.disabled() || this.loading());
 }

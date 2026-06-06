@@ -1,7 +1,12 @@
 export * from './lib/tokens/tokens';
 export * from './lib/theme/theme.service';
 
-// Components
+// Button
 export * from './lib/components/button/button.component';
+
+// Icon
 export * from './lib/components/icon/icon.component';
 export * from './lib/components/icon/icon.registry';
+
+// Chip
+export * from './lib/components/chip/chip.component';
