@@ -96,9 +96,9 @@ export const semanticTokens = {
       secondary: primitives.color.mint[500],
     },
     category: {
-      health: primitives.color.coral[500],
-      leisure: primitives.color.violet[500],
-      routine: primitives.color.emerald[500],
+      health: primitives.color.emerald[500],
+      leisure: primitives.color.coral[500],
+      routine: primitives.color.violet[500],
       selfdev: primitives.color.amber[500],
     },
     feedback: {

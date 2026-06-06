@@ -1,21 +1,21 @@
-@if ($loading()) {
+@if (loading()) {
   <span class="lifeel-button__loader" aria-hidden="true"></span>
 }
 
 <span class="lifeel-button__content">
-  @let iconStart = $iconStart();
-  @let iconEnd = $iconEnd();
-  @if (iconStart) {
+  @let currentIconStart = iconStart();
+  @let currentIconEnd = iconEnd();
+  @if (currentIconStart) {
     <lifeel-icon
       class="lifeel-button__icon lifeel-button__icon--start"
-      [name]="iconStart"
+      [name]="currentIconStart"
     ></lifeel-icon>
   }
   <ng-content></ng-content>
-  @if (iconEnd) {
+  @if (currentIconEnd) {
     <lifeel-icon
       class="lifeel-button__icon lifeel-button__icon--end"
-      [name]="iconEnd"
+      [name]="currentIconEnd"
     ></lifeel-icon>
   }
 </span>

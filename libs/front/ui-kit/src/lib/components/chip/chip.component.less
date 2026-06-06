@@ -1,0 +1,63 @@
+@import '../../styles/tokens.less';
+
+:host {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: var(--space-1) var(--space-3);
+  height: fit-content;
+
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+
+  background: var(--color-surface-sunken);
+  border-radius: var(--radius-full);
+
+  cursor: default;
+}
+
+:host(.lifeel-chip--health) {
+  background: color-mix(in oklab, var(--color-category-health) 18%, transparent);
+  color: color-mix(in oklab, var(--color-category-health) 80%, var(--color-text-primary));
+  filter: saturate(0.9);
+}
+
+:host(.lifeel-chip--leisure) {
+  background: color-mix(in oklab, var(--color-category-leisure) 18%, transparent);
+  color: color-mix(in oklab, var(--color-category-leisure) 80%, var(--color-text-primary));
+}
+
+:host(.lifeel-chip--selfdev) {
+  background: color-mix(in oklab, var(--color-category-selfdev) 18%, transparent);
+  color: color-mix(in oklab, var(--color-category-selfdev) 80%, var(--color-text-primary));
+}
+
+:host(.lifeel-chip--routine) {
+  background: color-mix(in oklab, var(--color-category-routine) 18%, transparent);
+  color: color-mix(in oklab, var(--color-category-routine) 80%, var(--color-text-primary));
+}
+
+:host(.lifeel-chip--primary) {
+  background: var(--color-surface-accent-soft);
+  color: var(--color-text-accent);
+}
+
+.close-button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 1rem;
+  height: 1rem;
+
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-full);
+
+  color: inherit;
+  cursor: pointer;
+
+  &:hover {
+    background: rgba(0, 0, 0, 0.08);
+  }
+}
