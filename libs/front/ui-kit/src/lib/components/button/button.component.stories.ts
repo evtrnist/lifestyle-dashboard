@@ -9,13 +9,13 @@ const meta: Meta<LifeelButton> = {
     variant: {
       control: 'select',
 
-      options: ['primary', 'secondary', 'ghost', 'secondary', 'danger', 'dotted-secondary'],
+      options: ['primary', 'secondary', 'ghost', 'danger', 'dotted-secondary'],
     },
 
     size: {
       control: 'select',
 
-      options: ['xs', 's', 'm', 'l', 'xs'],
+      options: ['xs', 's', 'm', 'l', 'xl'],
     },
 
     loading: {

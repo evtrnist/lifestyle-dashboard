@@ -11,6 +11,5 @@ export * from './lib/components/icon/icon.registry';
 // Chip
 export * from './lib/components/chip/chip.component';
 
-
 // Badge
 export * from './lib/components/badge/badge.component';

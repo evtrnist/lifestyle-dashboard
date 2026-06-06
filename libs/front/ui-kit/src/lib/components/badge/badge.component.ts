@@ -4,6 +4,7 @@ export type BadgeType = 'accent' | 'success' | 'danger';
 
 @Component({
   selector: 'lifeel-badge',
+  standalone: true,
   template: `<ng-content></ng-content>`,
   styleUrls: [`./badge.component.less`],
   host: {

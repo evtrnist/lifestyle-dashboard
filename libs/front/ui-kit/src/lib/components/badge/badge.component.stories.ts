@@ -18,9 +18,6 @@ export default meta;
 type Story = StoryObj<LifeelBadge>;
 
 export const Types: Story = {
-  args: {
-    type: 'accent',
-  },
   render: (args) => ({
     props: args,
     template: `

@@ -31,6 +31,7 @@ import { CategoryKey, Size, Variant } from '../../tokens/tokens';
   host: {
     '[class]': 'hostClasses()',
   },
+  standalone: true,
 })
 export class LifeelChip {
   public readonly variant = input<CategoryKey | Variant>('primary');

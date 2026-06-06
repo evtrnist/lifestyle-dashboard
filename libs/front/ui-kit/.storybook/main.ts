@@ -10,7 +10,7 @@ const config: StorybookConfig = {
   webpackFinal: async (config) => ({
     ...config,
     optimization: {
-      ...config.optimization,
+      ...(config.optimization ?? {}),
       minimize: false,
       sideEffects: false,
     },
