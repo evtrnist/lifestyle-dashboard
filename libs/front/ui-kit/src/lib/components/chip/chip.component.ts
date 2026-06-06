@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, input, output } from '@angular/core';
 import { CategoryKey, Size, Variant } from '../../tokens/tokens';
 
 @Component({
@@ -16,7 +16,14 @@ import { CategoryKey, Size, Variant } from '../../tokens/tokens';
     </span>
 
     @if (isFilter) {
-      <button type="button" class="close-button" aria-label="Remove filter">×</button>
+      <button
+        type="button"
+        class="close-button"
+        aria-label="Remove filter"
+        (click)="removeFilter()"
+      >
+        ×
+      </button>
     }
   `,
   styleUrls: [`./chip.component.less`],
@@ -31,6 +38,8 @@ export class LifeelChip {
 
   public readonly size = input<Size>('m');
 
+  public readonly removedFilter = output<void>();
+
   protected readonly hostClasses = computed(() => {
     return [
       'lifeel-chip',
@@ -41,4 +50,8 @@ export class LifeelChip {
       .filter(Boolean)
       .join(' ');
   });
+
+  protected removeFilter(): void {
+    this.removedFilter.emit();
+  }
 }
