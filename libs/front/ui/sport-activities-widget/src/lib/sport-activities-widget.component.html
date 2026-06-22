@@ -3,9 +3,9 @@
 @for (activity of $activities(); track $index) {
   @if (activity) {
     <div [class]="`activity ${size}`">
-      <tui-avatar class="icon" [size]="size" [tuiHint]="activity.comment">
+      <lifeel-avatar class="icon" [size]="size" [tuiHint]="activity.comment">
         {{ activity.emoji }}
-      </tui-avatar>
+      </lifeel-avatar>
       <span>{{ activity.duration | time }}</span>
     </div>
   }

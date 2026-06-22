@@ -1,13 +1,13 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { TuiHint } from '@taiga-ui/core';
-import { TuiAvatar } from '@taiga-ui/kit';
 import { TimePipe } from '@lifestyle-dashboard/time-pipe';
+import { LifeelAvatar, Size } from '@lifestyle-dashboard/ui-kit';
 import { SportActivitiesWidgetInput } from './sport-activities-widget-input';
 import { SPORT_ACTIVITIES_WIDGET_TOKEN } from './sport-activities-widget.token';
 
 @Component({
   selector: 'lifestyle-dashboard-sport-activities-widget',
-  imports: [TimePipe, TuiAvatar, TuiHint],
+  imports: [TimePipe, TuiHint, LifeelAvatar],
   templateUrl: './sport-activities-widget.component.html',
   styleUrls: ['./sport-activities-widget.component.less'],
 })
@@ -16,7 +16,7 @@ export class SportActivitiesWidgetComponent {
     SPORT_ACTIVITIES_WIDGET_TOKEN,
   );
 
-  public readonly $size = computed(() => this.widgetData()?.size as TuiAvatar['size']);
+  public readonly $size = computed(() => this.widgetData()?.size as Size);
 
   public readonly $activities = computed(() => this.widgetData()?.data ?? []);
 }
