@@ -1,0 +1,7 @@
+@let imageSrc = src();
+
+@if (imageSrc) {
+  <img [src]="imageSrc" alt="User avatar" class="image" />
+} @else {
+  {{ initials() }}
+}

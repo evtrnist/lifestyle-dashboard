@@ -13,3 +13,6 @@ export * from './lib/components/chip/chip.component';
 
 // Badge
 export * from './lib/components/badge/badge.component';
+
+// Avatar
+export * from './lib/components/avatar/avatar.component';
