@@ -1,0 +1,46 @@
+@import '../../styles/tokens.less';
+
+:host {
+  display: grid;
+  place-items: center;
+
+  border-radius: var(--radius-full);
+  background: linear-gradient(
+    135deg,
+    var(--color-avatar-gradient-start),
+    var(--color-avatar-gradient-end)
+  );
+  color: var(--color-text-on-accent);
+
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-s);
+  font-weight: var(--font-weight-semibold);
+}
+
+:host(.is-square) {
+  border-radius: var(--radius-m);
+}
+
+:host(.lifeel-avatar--s) {
+  width: 1.75rem;
+  height: 1.75rem;
+  font-size: var(--font-size-xs);
+}
+
+:host(.lifeel-avatar--m) {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+:host(.lifeel-avatar--l) {
+  width: 3.5rem;
+  height: 3.5rem;
+  font-size: var(--font-size-l);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: inherit;
+}
