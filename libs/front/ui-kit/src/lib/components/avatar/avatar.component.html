@@ -2,6 +2,8 @@
 
 @if (imageSrc) {
   <img [src]="imageSrc" alt="User avatar" class="image" />
-} @else {
+} @else if (initials()) {
   {{ initials() }}
+} @else {
+  <ng-content />
 }
